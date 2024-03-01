@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		652D84312B9200B100AE8CCD /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84302B9200B100AE8CCD /* RouteMapView.swift */; };
 		652D84332B92019B00AE8CCD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84322B92019B00AE8CCD /* Route.swift */; };
+		652D84362B92524F00AE8CCD /* Wind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84352B92524F00AE8CCD /* Wind.swift */; };
 		653CDEE62B909823000D4E8B /* windrider_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653CDEE52B909823000D4E8B /* windrider_iosApp.swift */; };
 		653CDEEC2B909825000D4E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653CDEEB2B909825000D4E8B /* Assets.xcassets */; };
 		653CDEEF2B909825000D4E8B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653CDEEE2B909825000D4E8B /* Preview Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		652D84302B9200B100AE8CCD /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
 		652D84322B92019B00AE8CCD /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		652D84352B92524F00AE8CCD /* Wind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wind.swift; sourceTree = "<group>"; };
 		653CDEE22B909823000D4E8B /* windrider-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "windrider-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		653CDEE52B909823000D4E8B /* windrider_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windrider_iosApp.swift; sourceTree = "<group>"; };
 		653CDEEB2B909825000D4E8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,6 +83,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		652D84342B9251AD00AE8CCD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				652D84322B92019B00AE8CCD /* Route.swift */,
+				652D84352B92524F00AE8CCD /* Wind.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		653CDED92B909823000D4E8B = {
 			isa = PBXGroup;
 			children = (
@@ -104,13 +115,13 @@
 		653CDEE42B909823000D4E8B /* windrider-ios */ = {
 			isa = PBXGroup;
 			children = (
+				652D84342B9251AD00AE8CCD /* Models */,
 				653CDEE52B909823000D4E8B /* windrider_iosApp.swift */,
 				655D4EAC2B90BAC5008B6B2B /* MapView.swift */,
 				655D4EAE2B90C072008B6B2B /* ConditionPreviewView.swift */,
 				655D4EB02B90C250008B6B2B /* WindCondition.swift */,
 				655D4EB22B90C4BD008B6B2B /* ContentView.swift */,
 				652D84302B9200B100AE8CCD /* RouteMapView.swift */,
-				652D84322B92019B00AE8CCD /* Route.swift */,
 				653CDEEB2B909825000D4E8B /* Assets.xcassets */,
 				653CDEED2B909825000D4E8B /* Preview Content */,
 			);
@@ -279,6 +290,7 @@
 				652D84312B9200B100AE8CCD /* RouteMapView.swift in Sources */,
 				655D4EAF2B90C072008B6B2B /* ConditionPreviewView.swift in Sources */,
 				655D4EB12B90C250008B6B2B /* WindCondition.swift in Sources */,
+				652D84362B92524F00AE8CCD /* Wind.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
