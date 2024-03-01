@@ -105,14 +105,14 @@
 			isa = PBXGroup;
 			children = (
 				653CDEE52B909823000D4E8B /* windrider_iosApp.swift */,
-				653CDEEB2B909825000D4E8B /* Assets.xcassets */,
-				653CDEED2B909825000D4E8B /* Preview Content */,
 				655D4EAC2B90BAC5008B6B2B /* MapView.swift */,
 				655D4EAE2B90C072008B6B2B /* ConditionPreviewView.swift */,
 				655D4EB02B90C250008B6B2B /* WindCondition.swift */,
 				655D4EB22B90C4BD008B6B2B /* ContentView.swift */,
 				652D84302B9200B100AE8CCD /* RouteMapView.swift */,
 				652D84322B92019B00AE8CCD /* Route.swift */,
+				653CDEEB2B909825000D4E8B /* Assets.xcassets */,
+				653CDEED2B909825000D4E8B /* Preview Content */,
 			);
 			path = "windrider-ios";
 			sourceTree = "<group>";

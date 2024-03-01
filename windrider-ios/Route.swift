@@ -6,56 +6,80 @@
 //
 
 import Foundation
+import CoreLocation
+import MapKit
+import SwiftUI
 
 struct Route: Codable {
     let routeId: String?
-    let points: [RoutePoint]
+    let points: [CLLocationCoordinate2D]
     
-    init(points: [RoutePoint]) {
-        self.routeId = nil
+    
+    init(routeId: String? = nil, points: [CLLocationCoordinate2D]) {
+        self.routeId = routeId
         self.points = points
     }
     
-    // finds the bounding box of the route
-    // returns the two points that define the bounding box
-    public func caluateBoundingBox(route: Route) -> [RoutePoint]{
-        var minLat: Double = 90
-        var maxLat: Double = -90
-        var minLon: Double = 180
-        var maxLon: Double = -180
-        for point in route.points {
-            if point.latitude < minLat {
-                minLat = point.latitude
-            }
-            if point.latitude > maxLat {
-                maxLat = point.latitude
-            }
-            if point.longitude < minLon {
-                minLon = point.longitude
-            }
-            if point.longitude > maxLon {
-                maxLon = point.longitude
-            }
+    func calcuateCenterCoordinate() -> CLLocationCoordinate2D {
+        var maxLat: CLLocationDegrees = -90
+        var maxLon: CLLocationDegrees = -180
+        var minLat: CLLocationDegrees = 90
+        var minLon: CLLocationDegrees = 180
+        
+        for coordinate in points {
+            let lat = Double(coordinate.latitude)
+            let long = Double(coordinate.longitude)
+            
+            maxLat = max(maxLat, lat)
+            maxLon = max(maxLon, long)
+            minLat = min(minLat, lat)
+            minLon = min(minLon, long)
         }
-        return [RoutePoint(latitude: minLat, longitude: minLon, direction: 0, timestamp: Date()), RoutePoint(latitude: maxLat, longitude: maxLon, direction: 0, timestamp: Date())]
+        
+        let center = CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2)
+        return center
     }
     
     
-}
+    // CodingKeys enum to map the properties to the JSON keys
+    // everything below is for Codable conformance
 
+    enum CodingKeys: String, CodingKey {
+        case routeId
+        case points
+    }
 
+    // Custom initializer from Decoder
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        routeId = try container.decodeIfPresent(String.self, forKey: .routeId)
+        
+        var pointsArrayForInit = [CLLocationCoordinate2D]()
+        var pointsContainer = try container.nestedUnkeyedContainer(forKey: .points)
+        while !pointsContainer.isAtEnd {
+            let point = try pointsContainer.decode(Point.self)
+            let coordinate = CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude)
+            pointsArrayForInit.append(coordinate)
+        }
+        points = pointsArrayForInit
+    }
 
-struct RoutePoint: Codable {
-    let latitude: Double
-    let longitude: Double
-    let direction: Double
-    let timestamp: Date
-
-    init(latitude: Double, longitude: Double, direction: Double, timestamp: Date) {
-        self.latitude = latitude
-        self.longitude = longitude
-        self.direction = direction
-        self.timestamp = timestamp
+    // Custom encoder
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(routeId, forKey: .routeId)
+        
+        var pointsContainer = container.nestedUnkeyedContainer(forKey: .points)
+        for point in points {
+            let pointToEncode = Point(latitude: point.latitude, longitude: point.longitude)
+            try pointsContainer.encode(pointToEncode)
+        }
+        
+    }
+    
+    // Helper struct to decode/encode CLLocationCoordinate2D since it's not directly Codable
+    private struct Point: Codable {
+        let latitude: CLLocationDegrees
+        let longitude: CLLocationDegrees
     }
 }
-

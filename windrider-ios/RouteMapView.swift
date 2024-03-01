@@ -6,37 +6,17 @@
 //
 
 import SwiftUI
+import CoreLocation
 import MapKit
-
-func calculateRegion(boundingBox: [RoutePoint]) -> MKCoordinateRegion {
-    let minLat = boundingBox[0].latitude
-    let maxLat = boundingBox[1].latitude
-    let minLon = boundingBox[0].longitude
-    let maxLon = boundingBox[1].longitude
-    
-    let center = CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2)
-    let span = MKCoordinateSpan(latitudeDelta: (maxLat - minLat) * 1.1, longitudeDelta: (maxLon - minLon) * 1.1)
-    
-    return MKCoordinateRegion(center: center, span: span)
-}
-
-
 
 
 struct RouteMapView: View {
     var route: Route
-    @State private var region: MKCoordinateRegion
-
-    init(route: Route) {
-        self.route = route
-        let boundingBox = route.caluateBoundingBox(route: route) // Assuming this is a correct method call
-        self._region = State(initialValue: calculateRegion(boundingBox: boundingBox))
-    }
-
+    
     var body: some View {
         ZStack{
-            Map(){
-                
+            Map{
+                MapPolyline(coordinates: route.points, contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.purple)
             }
             .ignoresSafeArea()
        
@@ -44,20 +24,15 @@ struct RouteMapView: View {
     }
 }
 
-
+let randomRoute = Route(points: [CLLocationCoordinate2D(latitude: 53.22207, longitude: 6.53912),
+                                 CLLocationCoordinate2D(latitude: 53.22139, longitude: 6.53978),
+                                 CLLocationCoordinate2D(latitude: 53.22170, longitude: 6.54061),
+                                 CLLocationCoordinate2D(latitude: 53.22137, longitude: 6.54112),
+                                 CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54163),
+                                 CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54117)
+                                ])
 struct RouteMapView_Previews: PreviewProvider {
-    static func createRandomRoute() -> Route {
-        var points = [RoutePoint]()
-        for _ in 0...100 {
-            points.append(RoutePoint(latitude: Double.random(in: 53.0...54.0), longitude: Double.random(in: 6.0...7.0), direction: Double.random(in: 0...360), timestamp: Date()))
-        }
-        return Route(points: points)
-    }
-    
     static var previews: some View {
-        // Now this call is valid because createRandomRoute is a static method
-        let randomRoute = createRandomRoute()
-        
         RouteMapView(route: randomRoute)
     }
 }

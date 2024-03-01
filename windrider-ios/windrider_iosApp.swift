@@ -10,10 +10,9 @@ import SwiftData
 
 @main
 struct WindRider_App: App {
-    let exampleCondition = WindCondition(direction: "NW", speed: 10, headwindPercentage: 12)
     var body: some Scene {
         WindowGroup {
-            ContentView(condition:exampleCondition)
+            ContentView()
         }
     }
 }
