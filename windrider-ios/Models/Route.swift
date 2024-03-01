@@ -12,12 +12,19 @@ import SwiftUI
 
 struct Route {
     let routeId: UUID?
+    var name: String?
     let points: [CLLocationCoordinate2D]
     var wind: Wind?
     
     init(routeId: String? = nil, points: [CLLocationCoordinate2D]) {
         self.routeId = UUID()
         self.points = points
+    }
+    
+    init (name: String? = nil, points: [CLLocationCoordinate2D]) {
+        self.name = name
+        self.points = points
+        self.routeId = UUID()
     }
     
     func calcuateCenterCoordinate() -> CLLocationCoordinate2D {
