@@ -21,3 +21,12 @@ struct MapView: View {
         }
     }
 }
+
+// PreviewProvider to see the design in Xcode's Canvas
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapView()
+    }
+    
+    
+}

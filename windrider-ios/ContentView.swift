@@ -10,17 +10,10 @@ import SwiftUI
 
 struct ContentView: View {
     var condition: WindCondition
-    
+    let randomRoute = Route(points: [RoutePoint(latitude: 53.22240, longitude: 6.53929, direction: 0, timestamp: Date()), RoutePoint(latitude: 53.22240, longitude: 6.53929, direction: 0, timestamp: Date())])
     var body: some View {
         ZStack{
-            MapView()
-            VStack{
-                Spacer()
-                ConditionPreviewView(condition: condition)
-                    .background()
-                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
-                  
-            }
+            RouteMapView(route: randomRoute)
         }
     }
 }
