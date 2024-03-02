@@ -16,6 +16,7 @@ struct RouteMapView: View {
     var body: some View {
         ZStack{
             Map{
+                
                 MapPolyline(coordinates: route.points, contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.purple)
             }
             .ignoresSafeArea()
