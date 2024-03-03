@@ -64,13 +64,14 @@ struct ConditionPreviewView: View {
 struct ConditionPreviewView_Previews: PreviewProvider {
     static var previews: some View {
         // Creating an example condition to use in our preview
-        let randomRoute = Route(name: "To University Route", points: [CLLocationCoordinate2D(latitude: 53.22207, longitude: 6.53912),
-                                         CLLocationCoordinate2D(latitude: 53.22139, longitude: 6.53978),
-                                         CLLocationCoordinate2D(latitude: 53.22170, longitude: 6.54061),
-                                         CLLocationCoordinate2D(latitude: 53.22137, longitude: 6.54112),
-                                         CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54163),
-                                         CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54117)
-                                        ])
+        let randomRouteCoordinates = [CLLocationCoordinate2D(latitude: 53.22207, longitude: 6.53912),
+                                      CLLocationCoordinate2D(latitude: 53.22139, longitude: 6.53978),
+                                      CLLocationCoordinate2D(latitude: 53.22170, longitude: 6.54061),
+                                      CLLocationCoordinate2D(latitude: 53.22137, longitude: 6.54112),
+                                      CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54163),
+                                      CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54117)]
+
+        let randomRoute = Route(name: "Route To University", coordinates: randomRouteCoordinates)
         // Returning the view configured with the example condition
         ConditionPreviewView(route: randomRoute)
     }

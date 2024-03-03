@@ -8,12 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6508973C2B937CF60035972B /* OpenWeatherMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508973B2B937CF60035972B /* OpenWeatherMap.swift */; };
-		650897402B9386B50035972B /* RouteWeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508973F2B9386B50035972B /* RouteWeatherCondition.swift */; };
-		650897422B939F570035972B /* RouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650897412B939F570035972B /* RouteView.swift */; };
-		650897442B93A0400035972B /* RouteInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650897432B93A0400035972B /* RouteInfoView.swift */; };
 		652D84312B9200B100AE8CCD /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84302B9200B100AE8CCD /* RouteMapView.swift */; };
 		652D84332B92019B00AE8CCD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84322B92019B00AE8CCD /* Route.swift */; };
-		652D84362B92524F00AE8CCD /* Wind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84352B92524F00AE8CCD /* Wind.swift */; };
 		653CDEE62B909823000D4E8B /* windrider_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653CDEE52B909823000D4E8B /* windrider_iosApp.swift */; };
 		653CDEEC2B909825000D4E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653CDEEB2B909825000D4E8B /* Assets.xcassets */; };
 		653CDEEF2B909825000D4E8B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653CDEEE2B909825000D4E8B /* Preview Assets.xcassets */; };
@@ -46,12 +42,8 @@
 
 /* Begin PBXFileReference section */
 		6508973B2B937CF60035972B /* OpenWeatherMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMap.swift; sourceTree = "<group>"; };
-		6508973F2B9386B50035972B /* RouteWeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWeatherCondition.swift; sourceTree = "<group>"; };
-		650897412B939F570035972B /* RouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteView.swift; sourceTree = "<group>"; };
-		650897432B93A0400035972B /* RouteInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfoView.swift; sourceTree = "<group>"; };
 		652D84302B9200B100AE8CCD /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
 		652D84322B92019B00AE8CCD /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
-		652D84352B92524F00AE8CCD /* Wind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wind.swift; sourceTree = "<group>"; };
 		653CDEE22B909823000D4E8B /* windrider-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "windrider-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		653CDEE52B909823000D4E8B /* windrider_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windrider_iosApp.swift; sourceTree = "<group>"; };
 		653CDEEB2B909825000D4E8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				652D84322B92019B00AE8CCD /* Route.swift */,
-				652D84352B92524F00AE8CCD /* Wind.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -127,7 +118,6 @@
 			children = (
 				653CDEE52B909823000D4E8B /* windrider_iosApp.swift */,
 				6508973B2B937CF60035972B /* OpenWeatherMap.swift */,
-				6508973F2B9386B50035972B /* RouteWeatherCondition.swift */,
 				658E64482B93617C0042DF24 /* Views */,
 				652D84342B9251AD00AE8CCD /* Models */,
 				653CDEEB2B909825000D4E8B /* Assets.xcassets */,
@@ -170,8 +160,6 @@
 				655D4EB22B90C4BD008B6B2B /* ContentView.swift */,
 				658E644B2B9368A60042DF24 /* SettingsView.swift */,
 				658E64502B936D120042DF24 /* WeatherAPIDebugView.swift */,
-				650897412B939F570035972B /* RouteView.swift */,
-				650897432B93A0400035972B /* RouteInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,15 +298,11 @@
 				658E644C2B9368A60042DF24 /* SettingsView.swift in Sources */,
 				653CDEE62B909823000D4E8B /* windrider_iosApp.swift in Sources */,
 				658E64512B936D120042DF24 /* WeatherAPIDebugView.swift in Sources */,
-				650897442B93A0400035972B /* RouteInfoView.swift in Sources */,
-				650897422B939F570035972B /* RouteView.swift in Sources */,
-				650897402B9386B50035972B /* RouteWeatherCondition.swift in Sources */,
 				652D84332B92019B00AE8CCD /* Route.swift in Sources */,
 				6508973C2B937CF60035972B /* OpenWeatherMap.swift in Sources */,
 				652D84312B9200B100AE8CCD /* RouteMapView.swift in Sources */,
 				655D4EAF2B90C072008B6B2B /* ConditionPreviewView.swift in Sources */,
 				655D4EB12B90C250008B6B2B /* WindCondition.swift in Sources */,
-				652D84362B92524F00AE8CCD /* Wind.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

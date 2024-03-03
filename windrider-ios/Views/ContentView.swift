@@ -54,13 +54,19 @@ struct ContentView: View {
     }
 }
 
-let randomRoute = Route(name: "Route To University", points: [CLLocationCoordinate2D(latitude: 53.22207, longitude: 6.53912),
-                                 CLLocationCoordinate2D(latitude: 53.22139, longitude: 6.53978),
-                                 CLLocationCoordinate2D(latitude: 53.22170, longitude: 6.54061),
-                                 CLLocationCoordinate2D(latitude: 53.22137, longitude: 6.54112),
-                                 CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54163),
-                                 CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54117)
-                                ])
+
+// Assuming CoreLocation and Foundation have been imported to use CLLocationCoordinate2D and UUID
+
+let randomRouteCoordinates = [CLLocationCoordinate2D(latitude: 53.22207, longitude: 6.53912),
+                              CLLocationCoordinate2D(latitude: 53.22139, longitude: 6.53978),
+                              CLLocationCoordinate2D(latitude: 53.22170, longitude: 6.54061),
+                              CLLocationCoordinate2D(latitude: 53.22137, longitude: 6.54112),
+                              CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54163),
+                              CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54117)]
+
+var randomRoute = Route(name: "Route To University", coordinates: randomRouteCoordinates)
+
+// Calculate and assign coordinate angles after the Route has been initialized
 
 // PreviewProvider to see the design in Xcode's Canvas
 struct ContentView_Previews: PreviewProvider {

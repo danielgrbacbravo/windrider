@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 // Define your weatherCondition struct
-struct WeatherCondition: Decodable {
+struct windCondition: Decodable {
     var windSpeed: Double
     var windDirection: Double
 
@@ -30,16 +30,22 @@ struct WeatherCondition: Decodable {
     }
 }
 
-func getWeatherCondition(coordinates: CLLocationCoordinate2D, apiKey: String)async throws -> WeatherCondition{
-    let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(coordinates.latitude)&lon=\(coordinates.latitude)&appid=\(apiKey)"
-    guard let url = URL(string: endpoint) else { throw Error.invalidURL }
-    let (data, responce) = try await URLSession.shared.data(from: url)
-    
-    guard let response = responce as? HTTPURLResponse, response.statusCode == 200 else { throw Error.invalidData }
-    let decoder = JSONDecoder()
-    let weatherCondition = try decoder.decode(WeatherCondition.self, from: data)
-    return weatherCondition
-}
+
+
+
+     func fetchWindConditionAtCoordinate(coordinate: CLLocationCoordinate2D, apiKey: String)async throws -> windCondition{
+        let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(coordinate.latitude)&lon=\(coordinate.latitude)&appid=\(apiKey)"
+        guard let url = URL(string: endpoint) else { throw Error.invalidURL }
+        let (data, responce) = try await URLSession.shared.data(from: url)
+        
+        guard let response = responce as? HTTPURLResponse, response.statusCode == 200 else { throw Error.invalidData }
+        let decoder = JSONDecoder()
+        let weatherCondition = try decoder.decode(windCondition.self, from: data)
+        return weatherCondition
+    }
+
+
+
 
 enum Error: Swift.Error {
     case invalidURL

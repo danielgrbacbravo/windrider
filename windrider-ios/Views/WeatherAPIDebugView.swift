@@ -11,7 +11,7 @@ struct WeatherAPIDebugView: View {
     @Binding var weatherAPIKey: String
     @State var longitude = ""
     @State var latitude = ""
-    @State var currentWeatherConditions: WeatherCondition?
+    @State var currentWeatherConditions: windCondition?
     var body: some View {
         NavigationStack{
             Form {
@@ -22,10 +22,10 @@ struct WeatherAPIDebugView: View {
                     TextField("Latitude", text: $latitude)
                     TextField("Longitude", text: $longitude)
                     Button("Get Wind Conditions") {
-                        let coordinates = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
+                        let coordinate = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
                         Task {
                             do{
-                                currentWeatherConditions = try await getWeatherCondition(coordinates: coordinates, apiKey: weatherAPIKey)
+                                currentWeatherConditions = try await fetchWindConditionAtCoordinate(coordinate: coordinate, apiKey: weatherAPIKey)
                             } catch {
                                 print("Error: \(error)")
                             }
