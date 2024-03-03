@@ -22,7 +22,7 @@ extension CLLocationDegrees {
     }
 }
 
-struct Route {
+class Route: ObservableObject{
     let routeId: UUID?
     var name: String?
     var averageCoordinate: CLLocationCoordinate2D
@@ -45,7 +45,7 @@ struct Route {
     }
     
     
-    mutating public func setWindData(windData: [CoordinateWindData]){
+     public func setWindData(windData: [CoordinateWindData]){
         self.coordinateWindData = windData
     }
     

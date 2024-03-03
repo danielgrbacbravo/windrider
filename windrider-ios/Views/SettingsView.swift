@@ -11,12 +11,12 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding var weatherAPIKey: String
+    @EnvironmentObject var openWeatherMapAPI: OpenWeatherMapAPI
     var body: some View {
         NavigationStack{
             Form {
                 Section(header: Text("Weather API Settings")) {
-                    TextField("WeatherAPIKey", text: $weatherAPIKey)
+                    TextField("WeatherAPIKey", text: $openWeatherMapAPI.openWeatherMapAPIKey)
                 }.navigationTitle("Settings")
             }
         }
@@ -29,7 +29,7 @@ struct SettingsView_Previews: PreviewProvider {
         @State var weatherAPIKey = "22ab22ed87d7cc4edae06caa75c7f449"
 
         var body: some View {
-            SettingsView(weatherAPIKey: $weatherAPIKey)
+            SettingsView().environmentObject(OpenWeatherMapAPI(openWeatherMapAPIKey: weatherAPIKey))
         }
     }
     

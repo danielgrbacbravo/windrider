@@ -10,12 +10,17 @@ import SwiftUI
 import CoreLocation
 
 struct ContentView: View {
-    var route: Route
+    @EnvironmentObject var openWeatherMapAPI: OpenWeatherMapAPI
+    @EnvironmentObject var route: Route
+    
     @State private var showingSettings = false
     @State private var showingDebugMenu = false
-    @State  private var weatherAPIKey: String = ""
+    @State private var showingRouteSettings = false
+    
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
+            
             RouteMapView(route: route)
                 .edgesIgnoringSafeArea(.all) // Make the map view fill the entire screen
 
@@ -31,12 +36,12 @@ struct ContentView: View {
                         .padding([.top, .trailing]) // Add padding to top and trailing to position the button
                 }
                 .sheet(isPresented: $showingSettings) {
-                    SettingsView(weatherAPIKey: $weatherAPIKey)
+                    SettingsView().environmentObject(openWeatherMapAPI)
                 }
                 Button(action: {
                     self.showingDebugMenu.toggle()
                 }) {
-                    Image(systemName: "exclamationmark.shield.fill")
+                    Image(systemName: "exclamationmark.triangle.fill")
                         .padding()
                         .foregroundColor(.red)
                         .background(.ultraThickMaterial)
@@ -44,8 +49,23 @@ struct ContentView: View {
                         .padding([.top, .trailing]) // Add padding to top and leading to position the button
                 }
                 .sheet(isPresented: $showingDebugMenu) {
-                    WeatherAPIDebugView(weatherAPIKey: $weatherAPIKey)
+                    OpenWeatherMapDebugView().environmentObject(openWeatherMapAPI)
                 }
+                Button(action: {
+                    self.showingRouteSettings.toggle()
+                }) {
+                    Image(systemName: "point.topleft.down.to.point.bottomright.curvepath.fill")
+                        .padding()
+                        .foregroundColor(.secondary)
+                        .background(.ultraThickMaterial)
+                        .clipShape(Circle())
+                        .padding([.top, .trailing]) // Add padding to top and trailing to position the button
+                }.sheet(isPresented: $showingRouteSettings) {
+                    RouteDebugView().environmentObject(route)
+                }
+                
+                
+                
             }
             
            
@@ -71,6 +91,7 @@ var randomRoute = Route(name: "Route To University", coordinates: randomRouteCoo
 // PreviewProvider to see the design in Xcode's Canvas
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(route: randomRoute)
+        ContentView()
+            .environmentObject(randomRoute)
     }
 }

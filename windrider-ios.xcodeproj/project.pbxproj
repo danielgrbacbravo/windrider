@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6508973C2B937CF60035972B /* OpenWeatherMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508973B2B937CF60035972B /* OpenWeatherMap.swift */; };
 		652D84312B9200B100AE8CCD /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84302B9200B100AE8CCD /* RouteMapView.swift */; };
 		652D84332B92019B00AE8CCD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84322B92019B00AE8CCD /* Route.swift */; };
 		653CDEE62B909823000D4E8B /* windrider_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653CDEE52B909823000D4E8B /* windrider_iosApp.swift */; };
@@ -20,7 +19,9 @@
 		655D4EB12B90C250008B6B2B /* WindCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655D4EB02B90C250008B6B2B /* WindCondition.swift */; };
 		655D4EB32B90C4BD008B6B2B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655D4EB22B90C4BD008B6B2B /* ContentView.swift */; };
 		658E644C2B9368A60042DF24 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658E644B2B9368A60042DF24 /* SettingsView.swift */; };
-		658E64512B936D120042DF24 /* WeatherAPIDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658E64502B936D120042DF24 /* WeatherAPIDebugView.swift */; };
+		65D72FB82B95147A00FE5A35 /* OpenWeatherMapAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D72FB72B95147A00FE5A35 /* OpenWeatherMapAPI.swift */; };
+		65D72FBC2B9526C500FE5A35 /* OpenWeatherMapDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D72FBB2B9526C500FE5A35 /* OpenWeatherMapDebugView.swift */; };
+		65D72FBF2B9537B300FE5A35 /* RouteDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D72FBE2B9537B300FE5A35 /* RouteDebugView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6508973B2B937CF60035972B /* OpenWeatherMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMap.swift; sourceTree = "<group>"; };
 		652D84302B9200B100AE8CCD /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
 		652D84322B92019B00AE8CCD /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		653CDEE22B909823000D4E8B /* windrider-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "windrider-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,7 +57,9 @@
 		655D4EB02B90C250008B6B2B /* WindCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindCondition.swift; sourceTree = "<group>"; };
 		655D4EB22B90C4BD008B6B2B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		658E644B2B9368A60042DF24 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		658E64502B936D120042DF24 /* WeatherAPIDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIDebugView.swift; sourceTree = "<group>"; };
+		65D72FB72B95147A00FE5A35 /* OpenWeatherMapAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMapAPI.swift; sourceTree = "<group>"; };
+		65D72FBB2B9526C500FE5A35 /* OpenWeatherMapDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMapDebugView.swift; sourceTree = "<group>"; };
+		65D72FBE2B9537B300FE5A35 /* RouteDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDebugView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				652D84322B92019B00AE8CCD /* Route.swift */,
+				65D72FBE2B9537B300FE5A35 /* RouteDebugView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -117,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				653CDEE52B909823000D4E8B /* windrider_iosApp.swift */,
-				6508973B2B937CF60035972B /* OpenWeatherMap.swift */,
+				65D72FBD2B9526D000FE5A35 /* OpenWeatherMap */,
 				658E64482B93617C0042DF24 /* Views */,
 				652D84342B9251AD00AE8CCD /* Models */,
 				653CDEEB2B909825000D4E8B /* Assets.xcassets */,
@@ -159,9 +162,17 @@
 				652D84302B9200B100AE8CCD /* RouteMapView.swift */,
 				655D4EB22B90C4BD008B6B2B /* ContentView.swift */,
 				658E644B2B9368A60042DF24 /* SettingsView.swift */,
-				658E64502B936D120042DF24 /* WeatherAPIDebugView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		65D72FBD2B9526D000FE5A35 /* OpenWeatherMap */ = {
+			isa = PBXGroup;
+			children = (
+				65D72FB72B95147A00FE5A35 /* OpenWeatherMapAPI.swift */,
+				65D72FBB2B9526C500FE5A35 /* OpenWeatherMapDebugView.swift */,
+			);
+			path = OpenWeatherMap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,12 +307,13 @@
 			files = (
 				655D4EB32B90C4BD008B6B2B /* ContentView.swift in Sources */,
 				658E644C2B9368A60042DF24 /* SettingsView.swift in Sources */,
+				65D72FBC2B9526C500FE5A35 /* OpenWeatherMapDebugView.swift in Sources */,
 				653CDEE62B909823000D4E8B /* windrider_iosApp.swift in Sources */,
-				658E64512B936D120042DF24 /* WeatherAPIDebugView.swift in Sources */,
+				65D72FB82B95147A00FE5A35 /* OpenWeatherMapAPI.swift in Sources */,
 				652D84332B92019B00AE8CCD /* Route.swift in Sources */,
-				6508973C2B937CF60035972B /* OpenWeatherMap.swift in Sources */,
 				652D84312B9200B100AE8CCD /* RouteMapView.swift in Sources */,
 				655D4EAF2B90C072008B6B2B /* ConditionPreviewView.swift in Sources */,
+				65D72FBF2B9537B300FE5A35 /* RouteDebugView.swift in Sources */,
 				655D4EB12B90C250008B6B2B /* WindCondition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
