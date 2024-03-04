@@ -87,8 +87,8 @@ struct RouteDebugView: View {
                             Section(header: Text("Calculated \(datum.hashValue)")){
                                 Text("relative Wind Direction: \(datum.relativeWindDirection)")
                                 Text("headwind Percentage \(datum.headwindPercentage)%")
-                                Text("tailwaid Percentage \(datum.headwindPercentage)%")
-                                Text("crosswind Percentage \(datum.headwindPercentage)%")
+                                Text("tailwaid Percentage \(datum.tailwindPercentage)%")
+                                Text("crosswind Percentage \(datum.crosswindPercentage)%")
                             }
                         }
                     }
@@ -101,9 +101,10 @@ struct RouteDebugView: View {
                         ForEach(windData,  id: \.index) { datum in
                             LineMark(
                                 x: .value("Current coord", datum.index),
-                                y: .value("Total Count", datum.relativeWindDirection)
-                               )
+                                y: .value("Percentage", datum.headwindPercentage))
                         } .interpolationMethod(.catmullRom)
+                        
+                        
                     }.padding()
                 }
                 

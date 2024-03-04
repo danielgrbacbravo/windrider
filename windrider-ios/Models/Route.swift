@@ -147,7 +147,7 @@ struct CoordinateWindData: Hashable {
 
         // Calculate wind percentages directly in the initializer
         self.headwindPercentage = CoordinateWindData.calculateHeadwindPercentage(relativeDirection: relativeDirection)
-        self.tailwindPercentage = CoordinateWindData.calcluateTailwindPercentage(relativeDirection: relativeDirection)
+        self.tailwindPercentage = CoordinateWindData.calculateTailwindPercentage(relativeDirection: relativeDirection)
         self.crosswindPercentage = CoordinateWindData.calculateCrosswindPercentage(relativeDirection: relativeDirection)
     }
 
@@ -155,28 +155,35 @@ struct CoordinateWindData: Hashable {
     // TODO: rework all these functions (don't do what is needed)
     // Use static methods for calculations to avoid 'self' usage issues
     static private func calculateRelativeDirection(windDirection: Double, angle: Double) -> Double {
-        let relativeDirection = windDirection - angle
-        return relativeDirection < 0 ? 360 + relativeDirection : relativeDirection
+        return  angle - windDirection
     }
 
     static private func calculateHeadwindPercentage(relativeDirection: Double) -> Double {
-        return (relativeDirection > 315 || relativeDirection < 45) ? 100 : 0
+        
+        
+        if((relativeDirection > 270) || (relativeDirection > 0 &&  relativeDirection < 90)){
+            let thetaRad = relativeDirection * .pi / 180
+            return (1 + cos(thetaRad)) / 2 * 100
+        }
+        return 0
     }
 
-    static private func calcluateTailwindPercentage(relativeDirection: Double) -> Double {
-        return (relativeDirection > 135 && relativeDirection < 225) ? 100 : 0
+    static private func calculateTailwindPercentage(relativeDirection: Double) -> Double {
+        if(relativeDirection > 90 && relativeDirection < 270){
+            let thetaRad = relativeDirection * .pi / 180
+            return (1 - cos(thetaRad)) / 2 * 100
+        }
+        return 0
     }
 
     static private func calculateCrosswindPercentage(relativeDirection: Double) -> Double {
-        if (relativeDirection > 45 && relativeDirection < 135) || (relativeDirection > 225 && relativeDirection < 315) {
-            return 100
-        }
-        return 0
+        let thetaRad = relativeDirection * .pi / 180
+        return (1 - cos(2 * thetaRad)) / 2 * 100
     }
     
     mutating public func updatePercentages(){
         self.headwindPercentage = CoordinateWindData.calculateHeadwindPercentage(relativeDirection: self.relativeWindDirection)
-        self.tailwindPercentage = CoordinateWindData.calcluateTailwindPercentage(relativeDirection: self.relativeWindDirection)
+        self.tailwindPercentage = CoordinateWindData.calculateTailwindPercentage(relativeDirection: self.relativeWindDirection)
         self.crosswindPercentage = CoordinateWindData.calculateCrosswindPercentage(relativeDirection: self.relativeWindDirection)
     }
 }
