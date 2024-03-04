@@ -115,6 +115,7 @@ class Route: ObservableObject{
 }
         
 struct CoordinateWindData: Hashable {
+    var index : Int
     var windSpeed: Double
     var windDirection: Double
     var relativeWindDirection: Double
@@ -122,13 +123,14 @@ struct CoordinateWindData: Hashable {
     var tailwindPercentage: Double
     var crosswindPercentage: Double
 
-    init(windSpeed: Double, windDirection: Double, coordinateAngle: Double) {
+    init(index: Int,windSpeed: Double, windDirection: Double, coordinateAngle: Double) {
         // Directly initialize properties without calling instance methods
         self.windSpeed = windSpeed
         self.windDirection = windDirection
-
+        self.index = index
         // Calculate the relative direction directly in the initializer
         let relativeDirection = CoordinateWindData.calculateRelativeDirection(windDirection: windDirection, angle: coordinateAngle)
+
         self.relativeWindDirection = relativeDirection
 
         // Calculate wind percentages directly in the initializer
@@ -158,5 +160,11 @@ struct CoordinateWindData: Hashable {
             return 100
         }
         return 0
+    }
+    
+    mutating public func updatePercentages(){
+        self.headwindPercentage = CoordinateWindData.calculateHeadwindPercentage(relativeDirection: self.relativeWindDirection)
+        self.tailwindPercentage = CoordinateWindData.calcluateTailwindPercentage(relativeDirection: self.relativeWindDirection)
+        self.crosswindPercentage = CoordinateWindData.calculateCrosswindPercentage(relativeDirection: self.relativeWindDirection)
     }
 }

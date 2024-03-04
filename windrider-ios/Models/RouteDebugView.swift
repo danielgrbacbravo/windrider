@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import Charts
 
 struct RouteDebugView: View {
     @EnvironmentObject var route: Route // Assuming Route conforms to ObservableObject
@@ -65,14 +66,16 @@ struct RouteDebugView: View {
                             var windDataArray: [CoordinateWindData] = []
                             
                             if let coordinateAngles = route.coordinateAngles {
-                                for angle in coordinateAngles {
-                                    let windData = CoordinateWindData(windSpeed: windSpeed, windDirection: windDirection, coordinateAngle: angle)
+                                for (index, angle) in coordinateAngles.enumerated() {
+                                    var windData = CoordinateWindData(index: index, windSpeed: windSpeed, windDirection: windDirection, coordinateAngle: angle)
+                                    windData.updatePercentages()
                                     windDataArray.append(windData)
+                                    
                                 }
                             }
                             
                             route.setWindData(windData: windDataArray)
-                        }
+                                }
                         
                     }) {
                         Text("populate route.coordinateWindData")
@@ -89,6 +92,21 @@ struct RouteDebugView: View {
                             }
                         }
                     }
+                
+                
+                // test charts
+                
+                if let windData = route.coordinateWindData{
+                    Chart{
+                        ForEach(windData,  id: \.index) { datum in
+                            LineMark(
+                                x: .value("Current coord", datum.index),
+                                y: .value("Total Count", datum.relativeWindDirection)
+                               )
+                        } .interpolationMethod(.catmullRom)
+                    }.padding()
+                }
+                
                     
                 
                 
