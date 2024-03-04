@@ -49,32 +49,44 @@ class Route: ObservableObject{
         self.coordinateWindData = windData
     }
     
-
-    static private func calculateAngle(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D) -> Double {
-        let startLat = start.latitude.toRadians()
-        let startLon = start.longitude.toRadians()
-        let endLat = end.latitude.toRadians()
-        let endLon = end.longitude.toRadians()
+    
+    static private func calculateAngleRelativeToTrueNorthDegrees(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D) -> Double {
+        var theta: Double = 0
+        let startLatitude: Double = start.latitude
+        let startLongitude: Double = start.longitude
+        let endLatitiude: Double = end.latitude
+        let endLongitude: Double = end.longitude
         
-        let dLon = endLon - startLon
+        // Calculate deltas between two points
+        let deltaLatitude: Double = endLatitiude - startLatitude
+        let deltaLongitude: Double = endLongitude - startLongitude
         
-        let y = sin(dLon) * cos(endLat)
-        let x = cos(startLat) * sin(endLat) - sin(startLat) * cos(endLat) * cos(dLon)
+        // Calculate angle using atan2
+        theta = atan2(deltaLongitude, deltaLatitude)
         
-        let angle = atan2(y, x)
+        // Convert radians to degrees
+        theta = theta * (180 / Double.pi)
         
-        return angle.toDegrees()
+        // Normalize the angle to be within the range of 0 to 360 degrees
+        if theta < 0 {
+            theta += 360
+        }
+        
+        return theta
     }
+    
     
     static private func calulcateCoordinateAngles(coordinates: [CLLocationCoordinate2D]) -> [Double] {
         var angles: [Double] = []
-        
+        // all cases between 0 -> coordinates.count - 1
         for i in 0..<coordinates.count - 1 {
             let start = coordinates[i]
             let end = coordinates[i + 1]
-            let angle = Route.calculateAngle(start: start, end: end)
+            let angle = Route.calculateAngleRelativeToTrueNorthDegrees(start: start, end: end)
             angles.append(angle)
         }
+        
+        // for the final case coordinates.count
         
         return angles
     }
@@ -106,7 +118,7 @@ class Route: ObservableObject{
         for i in 0..<coordinates.count - 1 {
             let start = coordinates[i]
             let end = coordinates[i + 1]
-            let angle = Route.calculateAngle(start: start, end: end)
+            let angle = Route.calculateAngleRelativeToTrueNorthDegrees(start: start, end: end)
             angles.append(angle)
         }
         
