@@ -10,14 +10,18 @@ import MapKit
 
 struct RouteDebugView: View {
     @EnvironmentObject var route: Route // Assuming Route conforms to ObservableObject
-    
+
     // For input fields to add wind data
-    @State private var windSpeed: Double = 0
-    @State private var windDirection: Double = 0
+    @State private var windSpeed: Double? = 0
+    @State private var windDirection: Double? = 0
+    
     @State private var coordinateAngle: Double = 0
     
+     @State var tempWindSpeed: String = ""
+    @State var tempWindDirection: String = ""
+
+    
     var body: some View {
-        
         NavigationStack{
             List{
                 Section(header: Text("Route ID")) {
@@ -51,37 +55,41 @@ struct RouteDebugView: View {
                 Text("the route object contains coordinateWindData objects that are empty by default. by giving windSpeed and windDirection we populate those points with this data as well as other calculations it makes during init (relativeAngle, headwindProbablity, TailwindProbability and CrosswindProbablity ").font(.caption)
                 
                 Section(header: Text("Add Wind Data")) {
-                    HStack {
-                        TextField("Wind Speed", value: $windSpeed, format: .number)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        TextField("Wind Direction", value: $windDirection, format: .number)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
-                    Button(action: {
-                        
-                        
-                        let newWindData = CoordinateWindData(windSpeed: windSpeed, windDirection: windDirection, coordinateAngle: coordinateAngle)
-                        route.setWindData(windData: [newWindData]) // Assumes setWindData accepts an array
-                        
-                        
-                 
-                    }) {
-                        Text("Add Wind Data")
-                    }
                     
-                    if let windData = route.coordinateWindData {
-                        ForEach(windData, id: \.self) { data in
-                            VStack(alignment: .leading) {
-                                Text("Wind Speed: \(data.windSpeed)")
-                                Text("Wind Direction: \(data.windDirection)")
-                                Text("relativeDirection: \(data.relativeWindDirection)")
-                                Text("headwindProbablity: \(data.headwindPercentage)")
-                                Text("TailwindProbability: \(data.tailwindPercentage)")
-                                Text("CrosswindProbablity: \(data.crosswindPercentage)")
+                    TextField("wind Speed", text: $tempWindSpeed)
+                    TextField("wind Direction", text: $tempWindDirection)
+                    
+                    
+                    Button(action: {
+                        if let windSpeed = windSpeed, let windDirection = windDirection {
+                            var windDataArray: [CoordinateWindData] = []
+                            
+                            if let coordinateAngles = route.coordinateAngles {
+                                for angle in coordinateAngles {
+                                    let windData = CoordinateWindData(windSpeed: windSpeed, windDirection: windDirection, coordinateAngle: angle)
+                                    windDataArray.append(windData)
+                                }
+                            }
+                            
+                            route.setWindData(windData: windDataArray)
+                        }
+                        
+                    }) {
+                        Text("populate route.coordinateWindData")
+                    }
+                }
+                    if let windData = route.coordinateWindData{
+                        
+                        ForEach(windData,  id: \.self) { datum in
+                            Section(header: Text("Calculated \(datum.hashValue)")){
+                                Text("relative Wind Direction: \(datum.relativeWindDirection)")
+                                Text("headwind Percentage \(datum.headwindPercentage)%")
+                                Text("tailwaid Percentage \(datum.headwindPercentage)%")
+                                Text("crosswind Percentage \(datum.headwindPercentage)%")
                             }
                         }
                     }
-                }
+                    
                 
                 
             }.navigationTitle("Route Class Tester")

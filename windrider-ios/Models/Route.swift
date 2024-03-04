@@ -28,7 +28,7 @@ class Route: ObservableObject{
     var averageCoordinate: CLLocationCoordinate2D
     var coordinates: [CLLocationCoordinate2D]?
     var coordinateAngles: [Double]?
-    var coordinateWindData: [CoordinateWindData]?
+    @Published var coordinateWindData: [CoordinateWindData]?
     
     // init
     init(name: String, coordinates: [CLLocationCoordinate2D]){
@@ -137,6 +137,8 @@ struct CoordinateWindData: Hashable {
         self.crosswindPercentage = CoordinateWindData.calculateCrosswindPercentage(relativeDirection: relativeDirection)
     }
 
+    
+    // TODO: rework all these functions (don't do what is needed)
     // Use static methods for calculations to avoid 'self' usage issues
     static private func calculateRelativeDirection(windDirection: Double, angle: Double) -> Double {
         let relativeDirection = windDirection - angle

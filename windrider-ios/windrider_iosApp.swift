@@ -12,25 +12,24 @@ import CoreLocation
 
 @main
 struct WindRider_App: App {
-    
-    let randomRouteCoordinates = [CLLocationCoordinate2D(latitude: 53.22207, longitude: 6.53912),
-                                  CLLocationCoordinate2D(latitude: 53.22139, longitude: 6.53978),
-                                  CLLocationCoordinate2D(latitude: 53.22170, longitude: 6.54061),
-                                  CLLocationCoordinate2D(latitude: 53.22137, longitude: 6.54112),
-                                  CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54163),
-                                  CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54117)]
-    
-    @StateObject var openWeatherMapAPI = OpenWeatherMapAPI(openWeatherMapAPIKey: "")
-    
     var body: some Scene {
-       @StateObject var currentSelectedRoute = Route(name: "Test Route", coordinates: randomRouteCoordinates)
-        
-        return WindowGroup {
+        WindowGroup {
+            // Initialize ContentView with the necessary environment objects
             ContentView()
-                .environmentObject(openWeatherMapAPI)
-                .environmentObject(currentSelectedRoute)
+                .environmentObject(OpenWeatherMapAPI(openWeatherMapAPIKey: ""))
+                .environmentObject(Route(name: "Test Route", coordinates: randomRouteCoordinates()))
         }
     }
+
+    // Extract the coordinates to a function to keep the App struct clean
+    func randomRouteCoordinates() -> [CLLocationCoordinate2D] {
+        return [
+            CLLocationCoordinate2D(latitude: 53.22207, longitude: 6.53912),
+            CLLocationCoordinate2D(latitude: 53.22139, longitude: 6.53978),
+            CLLocationCoordinate2D(latitude: 53.22170, longitude: 6.54061),
+            CLLocationCoordinate2D(latitude: 53.22137, longitude: 6.54112),
+            CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54163),
+            CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54117)
+        ]
+    }
 }
-
-
