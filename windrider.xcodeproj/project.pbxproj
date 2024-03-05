@@ -15,6 +15,16 @@
 		650FEFE42B97C9290080AB71 /* windriderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFE32B97C9290080AB71 /* windriderTests.swift */; };
 		650FEFEE2B97C9290080AB71 /* windriderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFED2B97C9290080AB71 /* windriderUITests.swift */; };
 		650FEFF02B97C9290080AB71 /* windriderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFEF2B97C9290080AB71 /* windriderUITestsLaunchTests.swift */; };
+		650FF0032B97CD480080AB71 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650FF0022B97CD480080AB71 /* WidgetKit.framework */; };
+		650FF0052B97CD480080AB71 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650FF0042B97CD480080AB71 /* SwiftUI.framework */; };
+		650FF0082B97CD480080AB71 /* widgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FF0072B97CD480080AB71 /* widgetBundle.swift */; };
+		650FF00A2B97CD480080AB71 /* widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FF0092B97CD480080AB71 /* widget.swift */; };
+		650FF00C2B97CD490080AB71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 650FF00B2B97CD490080AB71 /* Assets.xcassets */; };
+		650FF0102B97CD490080AB71 /* widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 650FF0002B97CD480080AB71 /* widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		650FF0162B97CF470080AB71 /* BikeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FF0152B97CF470080AB71 /* BikeRoute.swift */; };
+		650FF0172B97CF470080AB71 /* BikeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FF0152B97CF470080AB71 /* BikeRoute.swift */; };
+		650FF01A2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FF0192B97D0BB0080AB71 /* OpenWeatherMap.swift */; };
+		650FF01B2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FF0192B97D0BB0080AB71 /* OpenWeatherMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +42,28 @@
 			remoteGlobalIDString = 650FEFCA2B97C9280080AB71;
 			remoteInfo = windrider;
 		};
+		650FF00E2B97CD490080AB71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 650FEFC32B97C9280080AB71 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 650FEFFF2B97CD480080AB71;
+			remoteInfo = widgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		650FF0142B97CD490080AB71 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				650FF0102B97CD490080AB71 /* widgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		650FEFCB2B97C9280080AB71 /* windrider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = windrider.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +79,15 @@
 		650FEFE92B97C9290080AB71 /* windriderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = windriderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		650FEFED2B97C9290080AB71 /* windriderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windriderUITests.swift; sourceTree = "<group>"; };
 		650FEFEF2B97C9290080AB71 /* windriderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windriderUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		650FF0002B97CD480080AB71 /* widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		650FF0022B97CD480080AB71 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		650FF0042B97CD480080AB71 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		650FF0072B97CD480080AB71 /* widgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = widgetBundle.swift; sourceTree = "<group>"; };
+		650FF0092B97CD480080AB71 /* widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = widget.swift; sourceTree = "<group>"; };
+		650FF00B2B97CD490080AB71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		650FF00D2B97CD490080AB71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		650FF0152B97CF470080AB71 /* BikeRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRoute.swift; sourceTree = "<group>"; };
+		650FF0192B97D0BB0080AB71 /* OpenWeatherMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +112,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		650FEFFD2B97CD480080AB71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				650FF0052B97CD480080AB71 /* SwiftUI.framework in Frameworks */,
+				650FF0032B97CD480080AB71 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -81,6 +130,8 @@
 				650FEFCD2B97C9280080AB71 /* windrider */,
 				650FEFE22B97C9290080AB71 /* windriderTests */,
 				650FEFEC2B97C9290080AB71 /* windriderUITests */,
+				650FF0062B97CD480080AB71 /* widget */,
+				650FF0012B97CD480080AB71 /* Frameworks */,
 				650FEFCC2B97C9280080AB71 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,6 +142,7 @@
 				650FEFCB2B97C9280080AB71 /* windrider.app */,
 				650FEFDF2B97C9290080AB71 /* windriderTests.xctest */,
 				650FEFE92B97C9290080AB71 /* windriderUITests.xctest */,
+				650FF0002B97CD480080AB71 /* widgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +150,7 @@
 		650FEFCD2B97C9280080AB71 /* windrider */ = {
 			isa = PBXGroup;
 			children = (
+				650FF0182B97D0820080AB71 /* Model */,
 				650FEFCE2B97C9280080AB71 /* windriderApp.swift */,
 				650FEFD02B97C9280080AB71 /* ContentView.swift */,
 				650FEFD22B97C9280080AB71 /* Item.swift */,
@@ -134,6 +187,35 @@
 			path = windriderUITests;
 			sourceTree = "<group>";
 		};
+		650FF0012B97CD480080AB71 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				650FF0022B97CD480080AB71 /* WidgetKit.framework */,
+				650FF0042B97CD480080AB71 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		650FF0062B97CD480080AB71 /* widget */ = {
+			isa = PBXGroup;
+			children = (
+				650FF0072B97CD480080AB71 /* widgetBundle.swift */,
+				650FF0092B97CD480080AB71 /* widget.swift */,
+				650FF00B2B97CD490080AB71 /* Assets.xcassets */,
+				650FF00D2B97CD490080AB71 /* Info.plist */,
+			);
+			path = widget;
+			sourceTree = "<group>";
+		};
+		650FF0182B97D0820080AB71 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				650FF0152B97CF470080AB71 /* BikeRoute.swift */,
+				650FF0192B97D0BB0080AB71 /* OpenWeatherMap.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,10 +226,12 @@
 				650FEFC72B97C9280080AB71 /* Sources */,
 				650FEFC82B97C9280080AB71 /* Frameworks */,
 				650FEFC92B97C9280080AB71 /* Resources */,
+				650FF0142B97CD490080AB71 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				650FF00F2B97CD490080AB71 /* PBXTargetDependency */,
 			);
 			name = windrider;
 			productName = windrider;
@@ -190,6 +274,23 @@
 			productReference = 650FEFE92B97C9290080AB71 /* windriderUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		650FEFFF2B97CD480080AB71 /* widgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 650FF0112B97CD490080AB71 /* Build configuration list for PBXNativeTarget "widgetExtension" */;
+			buildPhases = (
+				650FEFFC2B97CD480080AB71 /* Sources */,
+				650FEFFD2B97CD480080AB71 /* Frameworks */,
+				650FEFFE2B97CD480080AB71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = widgetExtension;
+			productName = widgetExtension;
+			productReference = 650FF0002B97CD480080AB71 /* widgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -211,6 +312,9 @@
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 650FEFCA2B97C9280080AB71;
 					};
+					650FEFFF2B97CD480080AB71 = {
+						CreatedOnToolsVersion = 15.2;
+					};
 				};
 			};
 			buildConfigurationList = 650FEFC62B97C9280080AB71 /* Build configuration list for PBXProject "windrider" */;
@@ -229,6 +333,7 @@
 				650FEFCA2B97C9280080AB71 /* windrider */,
 				650FEFDE2B97C9290080AB71 /* windriderTests */,
 				650FEFE82B97C9290080AB71 /* windriderUITests */,
+				650FEFFF2B97CD480080AB71 /* widgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -257,6 +362,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		650FEFFE2B97CD480080AB71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				650FF00C2B97CD490080AB71 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -264,6 +377,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650FF01A2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
+				650FF0162B97CF470080AB71 /* BikeRoute.swift in Sources */,
 				650FEFD12B97C9280080AB71 /* ContentView.swift in Sources */,
 				650FEFD32B97C9280080AB71 /* Item.swift in Sources */,
 				650FEFCF2B97C9280080AB71 /* windriderApp.swift in Sources */,
@@ -287,6 +402,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		650FEFFC2B97CD480080AB71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				650FF0172B97CF470080AB71 /* BikeRoute.swift in Sources */,
+				650FF0082B97CD480080AB71 /* widgetBundle.swift in Sources */,
+				650FF00A2B97CD480080AB71 /* widget.swift in Sources */,
+				650FF01B2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -299,6 +425,11 @@
 			isa = PBXTargetDependency;
 			target = 650FEFCA2B97C9280080AB71 /* windrider */;
 			targetProxy = 650FEFEA2B97C9290080AB71 /* PBXContainerItemProxy */;
+		};
+		650FF00F2B97CD490080AB71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 650FEFFF2B97CD480080AB71 /* widgetExtension */;
+			targetProxy = 650FF00E2B97CD490080AB71 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -425,6 +556,7 @@
 		650FEFF42B97C9290080AB71 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = windrider/windrider.entitlements;
@@ -456,6 +588,7 @@
 		650FEFF52B97C9290080AB71 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = windrider/windrider.entitlements;
@@ -560,6 +693,60 @@
 			};
 			name = Release;
 		};
+		650FF0122B97CD490080AB71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daiigr.windrider.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		650FF0132B97CD490080AB71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daiigr.windrider.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -595,6 +782,15 @@
 			buildConfigurations = (
 				650FEFFA2B97C9290080AB71 /* Debug */,
 				650FEFFB2B97C9290080AB71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		650FF0112B97CD490080AB71 /* Build configuration list for PBXNativeTarget "widgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				650FF0122B97CD490080AB71 /* Debug */,
+				650FF0132B97CD490080AB71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
