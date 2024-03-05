@@ -10,6 +10,7 @@ import CoreLocation
 import MapKit
 import SwiftUI
 
+
 extension CLLocationDegrees {
     func toRadians() -> Double {
         return self * Double.pi / 180
@@ -127,15 +128,15 @@ class Route: ObservableObject{
 }
         
 struct CoordinateWindData: Hashable {
-    var index : Int
+    var index : Int?
     var windSpeed: Double
-    var windDirection: Double
-    var relativeWindDirection: Double
-    var headwindPercentage: Double
-    var tailwindPercentage: Double
-    var crosswindPercentage: Double
+    var windDirection: Int
+    var relativeWindDirection: Int
+    var headwindPercentage: Int
+    var tailwindPercentage: Int
+    var crosswindPercentage: Int
 
-    init(index: Int,windSpeed: Double, windDirection: Double, coordinateAngle: Double) {
+    init(index: Int,windSpeed: Double, windDirection: Int, coordinateAngle: Int) {
         // Directly initialize properties without calling instance methods
         self.windSpeed = windSpeed
         self.windDirection = windDirection
@@ -152,33 +153,40 @@ struct CoordinateWindData: Hashable {
     }
 
     
-    // TODO: rework all these functions (don't do what is needed)
     // Use static methods for calculations to avoid 'self' usage issues
-    static private func calculateRelativeDirection(windDirection: Double, angle: Double) -> Double {
-        return  angle - windDirection
+    static private func calculateRelativeDirection(windDirection: Int, angle: Int) -> Int {
+        var relativeDirection = windDirection - angle
+        
+        // If the result is negative, add 360 to bring it within the 0 to 360 range
+        if relativeDirection < 0 {
+            relativeDirection += 360
+        }
+
+        // Ensure the result falls within the 0 to 360-degree range
+        relativeDirection %= 360
+        
+        return relativeDirection
     }
 
-    static private func calculateHeadwindPercentage(relativeDirection: Double) -> Double {
-        
-        
+    static private func calculateHeadwindPercentage(relativeDirection: Int) -> Int {
         if((relativeDirection > 270) || (relativeDirection > 0 &&  relativeDirection < 90)){
-            let thetaRad = relativeDirection * .pi / 180
-            return (1 + cos(thetaRad)) / 2 * 100
+            let thetaRad = Double(relativeDirection) * Double.pi / 180
+            return Int ((1 + cos(thetaRad)) / 2 * 100)
         }
         return 0
     }
 
-    static private func calculateTailwindPercentage(relativeDirection: Double) -> Double {
+    static private func calculateTailwindPercentage(relativeDirection: Int) -> Int {
         if(relativeDirection > 90 && relativeDirection < 270){
-            let thetaRad = relativeDirection * .pi / 180
-            return (1 - cos(thetaRad)) / 2 * 100
+            let thetaRad = Double(relativeDirection) * Double.pi / 180
+            return Int((1 - cos(thetaRad)) / 2 * 100)
         }
         return 0
     }
 
-    static private func calculateCrosswindPercentage(relativeDirection: Double) -> Double {
-        let thetaRad = relativeDirection * .pi / 180
-        return (1 - cos(2 * thetaRad)) / 2 * 100
+    static private func calculateCrosswindPercentage(relativeDirection: Int) -> Int {
+        let thetaRad = Double(relativeDirection) * Double.pi / 180
+        return Int((1 - cos(2 * thetaRad)) / 2 * 100)
     }
     
     mutating public func updatePercentages(){

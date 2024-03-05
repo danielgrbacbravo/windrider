@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6508D27E2B97A48F004B06DB /* OpenWeatherMapAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D72FB72B95147A00FE5A35 /* OpenWeatherMapAPI.swift */; };
+		651CBD152B976435007A34DE /* RouteMapPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CBD142B976435007A34DE /* RouteMapPolyline.swift */; };
+		651CBD1D2B976E28007A34DE /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651CBD1C2B976E28007A34DE /* WidgetKit.framework */; };
+		651CBD1F2B976E28007A34DE /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651CBD1E2B976E28007A34DE /* SwiftUI.framework */; };
+		651CBD222B976E28007A34DE /* WindRiderBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CBD212B976E28007A34DE /* WindRiderBundle.swift */; };
+		651CBD242B976E28007A34DE /* WindRiderLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CBD232B976E28007A34DE /* WindRiderLiveActivity.swift */; };
+		651CBD262B976E28007A34DE /* WindRider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CBD252B976E28007A34DE /* WindRider.swift */; };
+		651CBD282B976E28007A34DE /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CBD272B976E28007A34DE /* AppIntent.swift */; };
+		651CBD2A2B976E29007A34DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 651CBD292B976E29007A34DE /* Assets.xcassets */; };
+		651CBD2E2B976E29007A34DE /* WindRiderExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 651CBD1A2B976E28007A34DE /* WindRiderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		651CBD342B977F36007A34DE /* BikeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CBD332B977F36007A34DE /* BikeRoute.swift */; };
+		651CBD352B979948007A34DE /* BikeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CBD332B977F36007A34DE /* BikeRoute.swift */; };
 		652D84312B9200B100AE8CCD /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84302B9200B100AE8CCD /* RouteMapView.swift */; };
 		652D84332B92019B00AE8CCD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D84322B92019B00AE8CCD /* Route.swift */; };
 		653CDEE62B909823000D4E8B /* windrider_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653CDEE52B909823000D4E8B /* windrider_iosApp.swift */; };
@@ -25,6 +37,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		651CBD2C2B976E29007A34DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 653CDEDA2B909823000D4E8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 651CBD192B976E28007A34DE;
+			remoteInfo = WindRiderExtension;
+		};
 		653CDEF52B909825000D4E8B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 653CDEDA2B909823000D4E8B /* Project object */;
@@ -41,7 +60,32 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		651CBD322B976E29007A34DE /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				651CBD2E2B976E29007A34DE /* WindRiderExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		651CBD142B976435007A34DE /* RouteMapPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapPolyline.swift; sourceTree = "<group>"; };
+		651CBD1A2B976E28007A34DE /* WindRiderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WindRiderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		651CBD1C2B976E28007A34DE /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		651CBD1E2B976E28007A34DE /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		651CBD212B976E28007A34DE /* WindRiderBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindRiderBundle.swift; sourceTree = "<group>"; };
+		651CBD232B976E28007A34DE /* WindRiderLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindRiderLiveActivity.swift; sourceTree = "<group>"; };
+		651CBD252B976E28007A34DE /* WindRider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindRider.swift; sourceTree = "<group>"; };
+		651CBD272B976E28007A34DE /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		651CBD292B976E29007A34DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		651CBD2B2B976E29007A34DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		651CBD332B977F36007A34DE /* BikeRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRoute.swift; sourceTree = "<group>"; usesTabs = 1; };
 		652D84302B9200B100AE8CCD /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
 		652D84322B92019B00AE8CCD /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		653CDEE22B909823000D4E8B /* windrider-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "windrider-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +107,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		651CBD172B976E28007A34DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				651CBD1F2B976E28007A34DE /* SwiftUI.framework in Frameworks */,
+				651CBD1D2B976E28007A34DE /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		653CDEDF2B909823000D4E8B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -87,11 +140,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		651CBD1B2B976E28007A34DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				651CBD1C2B976E28007A34DE /* WidgetKit.framework */,
+				651CBD1E2B976E28007A34DE /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		651CBD202B976E28007A34DE /* WindRider */ = {
+			isa = PBXGroup;
+			children = (
+				651CBD212B976E28007A34DE /* WindRiderBundle.swift */,
+				651CBD232B976E28007A34DE /* WindRiderLiveActivity.swift */,
+				651CBD252B976E28007A34DE /* WindRider.swift */,
+				651CBD272B976E28007A34DE /* AppIntent.swift */,
+				651CBD292B976E29007A34DE /* Assets.xcassets */,
+				651CBD2B2B976E29007A34DE /* Info.plist */,
+			);
+			path = WindRider;
+			sourceTree = "<group>";
+		};
 		652D84342B9251AD00AE8CCD /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				652D84322B92019B00AE8CCD /* Route.swift */,
 				65D72FBE2B9537B300FE5A35 /* RouteDebugView.swift */,
+				651CBD142B976435007A34DE /* RouteMapPolyline.swift */,
+				651CBD332B977F36007A34DE /* BikeRoute.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -102,6 +179,8 @@
 				653CDEE42B909823000D4E8B /* windrider-ios */,
 				653CDEF72B909825000D4E8B /* windrider-iosTests */,
 				653CDF012B909825000D4E8B /* windrider-iosUITests */,
+				651CBD202B976E28007A34DE /* WindRider */,
+				651CBD1B2B976E28007A34DE /* Frameworks */,
 				653CDEE32B909823000D4E8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +191,7 @@
 				653CDEE22B909823000D4E8B /* windrider-ios.app */,
 				653CDEF42B909825000D4E8B /* windrider-iosTests.xctest */,
 				653CDEFE2B909825000D4E8B /* windrider-iosUITests.xctest */,
+				651CBD1A2B976E28007A34DE /* WindRiderExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -178,6 +258,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		651CBD192B976E28007A34DE /* WindRiderExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 651CBD2F2B976E29007A34DE /* Build configuration list for PBXNativeTarget "WindRiderExtension" */;
+			buildPhases = (
+				651CBD162B976E28007A34DE /* Sources */,
+				651CBD172B976E28007A34DE /* Frameworks */,
+				651CBD182B976E28007A34DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WindRiderExtension;
+			productName = WindRiderExtension;
+			productReference = 651CBD1A2B976E28007A34DE /* WindRiderExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		653CDEE12B909823000D4E8B /* windrider-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 653CDF082B909825000D4E8B /* Build configuration list for PBXNativeTarget "windrider-ios" */;
@@ -185,10 +282,12 @@
 				653CDEDE2B909823000D4E8B /* Sources */,
 				653CDEDF2B909823000D4E8B /* Frameworks */,
 				653CDEE02B909823000D4E8B /* Resources */,
+				651CBD322B976E29007A34DE /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				651CBD2D2B976E29007A34DE /* PBXTargetDependency */,
 			);
 			name = "windrider-ios";
 			productName = "windrider-ios";
@@ -241,6 +340,9 @@
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					651CBD192B976E28007A34DE = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					653CDEE12B909823000D4E8B = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -270,11 +372,20 @@
 				653CDEE12B909823000D4E8B /* windrider-ios */,
 				653CDEF32B909825000D4E8B /* windrider-iosTests */,
 				653CDEFD2B909825000D4E8B /* windrider-iosUITests */,
+				651CBD192B976E28007A34DE /* WindRiderExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		651CBD182B976E28007A34DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				651CBD2A2B976E29007A34DE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		653CDEE02B909823000D4E8B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -301,10 +412,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		651CBD162B976E28007A34DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				651CBD222B976E28007A34DE /* WindRiderBundle.swift in Sources */,
+				651CBD282B976E28007A34DE /* AppIntent.swift in Sources */,
+				6508D27E2B97A48F004B06DB /* OpenWeatherMapAPI.swift in Sources */,
+				651CBD352B979948007A34DE /* BikeRoute.swift in Sources */,
+				651CBD262B976E28007A34DE /* WindRider.swift in Sources */,
+				651CBD242B976E28007A34DE /* WindRiderLiveActivity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		653CDEDE2B909823000D4E8B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651CBD342B977F36007A34DE /* BikeRoute.swift in Sources */,
 				655D4EB32B90C4BD008B6B2B /* ContentView.swift in Sources */,
 				658E644C2B9368A60042DF24 /* SettingsView.swift in Sources */,
 				65D72FBC2B9526C500FE5A35 /* OpenWeatherMapDebugView.swift in Sources */,
@@ -313,6 +438,7 @@
 				652D84332B92019B00AE8CCD /* Route.swift in Sources */,
 				652D84312B9200B100AE8CCD /* RouteMapView.swift in Sources */,
 				655D4EAF2B90C072008B6B2B /* ConditionPreviewView.swift in Sources */,
+				651CBD152B976435007A34DE /* RouteMapPolyline.swift in Sources */,
 				65D72FBF2B9537B300FE5A35 /* RouteDebugView.swift in Sources */,
 				655D4EB12B90C250008B6B2B /* WindCondition.swift in Sources */,
 			);
@@ -338,6 +464,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		651CBD2D2B976E29007A34DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 651CBD192B976E28007A34DE /* WindRiderExtension */;
+			targetProxy = 651CBD2C2B976E29007A34DE /* PBXContainerItemProxy */;
+		};
 		653CDEF62B909825000D4E8B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 653CDEE12B909823000D4E8B /* windrider-ios */;
@@ -351,6 +482,60 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		651CBD302B976E29007A34DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WindRider/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WindRider;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Daiigr.windrider-ios.WindRider";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		651CBD312B976E29007A34DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WindRider/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WindRider;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Daiigr.windrider-ios.WindRider";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		653CDF062B909825000D4E8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -473,6 +658,7 @@
 		653CDF092B909825000D4E8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -505,6 +691,7 @@
 		653CDF0A2B909825000D4E8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -613,6 +800,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		651CBD2F2B976E29007A34DE /* Build configuration list for PBXNativeTarget "WindRiderExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				651CBD302B976E29007A34DE /* Debug */,
+				651CBD312B976E29007A34DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		653CDEDD2B909823000D4E8B /* Build configuration list for PBXProject "windrider-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

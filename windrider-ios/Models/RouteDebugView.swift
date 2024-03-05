@@ -11,16 +11,18 @@ import Charts
 
 struct RouteDebugView: View {
     @EnvironmentObject var route: Route // Assuming Route conforms to ObservableObject
-
+    @Binding var rawSelectedCoordinate: Int?
+    
+    
     // For input fields to add wind data
     @State private var windSpeed: Double? = 0
     @State private var windDirection: Double? = 0
     
     @State private var coordinateAngle: Double = 0
     
-     @State var tempWindSpeed: String = ""
+    @State var tempWindSpeed: String = ""
     @State var tempWindDirection: String = ""
-
+    
     
     var body: some View {
         NavigationStack{
@@ -67,7 +69,7 @@ struct RouteDebugView: View {
                             
                             if let coordinateAngles = route.coordinateAngles {
                                 for (index, angle) in coordinateAngles.enumerated() {
-                                    var windData = CoordinateWindData(index: index, windSpeed: windSpeed, windDirection: windDirection, coordinateAngle: angle)
+                                    var windData = CoordinateWindData(index: index, windSpeed: windSpeed, windDirection: Int(windDirection), coordinateAngle: Int(angle))
                                     windData.updatePercentages()
                                     windDataArray.append(windData)
                                     
@@ -75,12 +77,11 @@ struct RouteDebugView: View {
                             }
                             
                             route.setWindData(windData: windDataArray)
-                                }
+                        }
                         
                     }) {
                         Text("populate route.coordinateWindData")
                     }
-                }
                     if let windData = route.coordinateWindData{
                         
                         ForEach(windData,  id: \.self) { datum in
@@ -92,23 +93,54 @@ struct RouteDebugView: View {
                             }
                         }
                     }
+                }
+            
                 
                 
                 // test charts
-                
-                if let windData = route.coordinateWindData{
-                    Chart{
-                        ForEach(windData,  id: \.index) { datum in
-                            LineMark(
-                                x: .value("Current coord", datum.index),
-                                y: .value("Percentage", datum.headwindPercentage))
-                        } .interpolationMethod(.catmullRom)
-                        
-                        
-                    }.padding()
+                var selectedCoordinate: Int? {
+                    rawSelectedCoordinate
                 }
                 
-                    
+                
+                
+                
+                if let windData = route.coordinateWindData, !windData.isEmpty {
+                         Chart {
+                             ForEach(windData, id: \.index) { element in
+                                 LineMark(
+                                     x: .value("Coordinate", element.index ?? 0),
+                                     y: .value("Headwind", element.headwindPercentage)
+                                 )
+                             }
+                             .interpolationMethod(.catmullRom)
+                             
+                             if let selectedIndex = rawSelectedCoordinate, let selectedData = windData.first(where: { $0.index == selectedIndex }) {
+                                 RuleMark(
+                                     x: .value("Selected", selectedIndex)
+                                 )
+                                 .foregroundStyle(Color.gray.opacity(0.3))
+                                 .zIndex(-1)
+                                 .annotation(position: .top, spacing: 0) {
+                                     HStack {
+                                         Text("Headwind: \(selectedData.headwindPercentage)%")
+                                     }
+                                     .padding(4)
+                                     .background(.gray)
+                                     .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
+                                 }
+                             }
+                         }
+                 
+                         .chartXSelection(value: $rawSelectedCoordinate)
+                         
+                         .padding(.top, 50)
+                         
+                }
+                     
+                
+                
+                
                 
                 
             }.navigationTitle("Route Class Tester")
@@ -116,10 +148,8 @@ struct RouteDebugView: View {
     }
 }
 
-//preview
 
 struct RouteDebugView_Previews: PreviewProvider {
-   
     static var previews: some View {
         let randomRouteCoordinates = [CLLocationCoordinate2D(latitude: 53.22207, longitude: 6.53912),
                                       CLLocationCoordinate2D(latitude: 53.22139, longitude: 6.53978),
@@ -128,6 +158,7 @@ struct RouteDebugView_Previews: PreviewProvider {
                                       CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54163),
                                       CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54117)]
         let randomRoute = Route(name: "Test Route", coordinates: randomRouteCoordinates)
-        RouteDebugView().environmentObject(randomRoute)
+        @State var selectedCoordinate: Int?
+        RouteDebugView(rawSelectedCoordinate: $selectedCoordinate).environmentObject(randomRoute)
     }
 }

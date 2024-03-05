@@ -10,6 +10,7 @@ import CoreLocation
 
 struct OpenWeatherMapDebugView: View {
     @EnvironmentObject var openWeatherMapAPI: OpenWeatherMapAPI
+    @EnvironmentObject var route: Route
      @State var response: OpenWeatherMapResponse?
     var latitude: Double = 53.22207
     var longitude: Double = 6.53912
@@ -38,6 +39,24 @@ struct OpenWeatherMapDebugView: View {
                         Text("Cloudiness: \(response.clouds.all)%")
                         Text("Sunrise: \(Date(timeIntervalSince1970: TimeInterval(response.sys.sunrise)), formatter: dateFormatter)")
                         Text("Sunset: \(Date(timeIntervalSince1970: TimeInterval(response.sys.sunset)), formatter: dateFormatter)")
+                    }
+                    Section(header: Text("test Route")){
+                        Button(action: {
+                            
+                        }) {
+                            Text("fetch and populate data")
+                        }
+                        if let windData = route.coordinateWindData{
+                            
+                            ForEach(windData,  id: \.self) { datum in
+                                Section(header: Text("Calculated \(datum.hashValue)")){
+                                    Text("relative Wind Direction: \(datum.relativeWindDirection)")
+                                    Text("headwind Percentage \(datum.headwindPercentage)%")
+                                    Text("tailwaid Percentage \(datum.tailwindPercentage)%")
+                                    Text("crosswind Percentage \(datum.crosswindPercentage)%")
+                                }
+                            }
+                        }
                     }
                 }
             }.navigationTitle("OpenWeatherMap API")

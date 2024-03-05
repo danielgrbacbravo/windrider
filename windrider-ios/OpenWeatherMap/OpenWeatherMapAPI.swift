@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct OpenWeatherMapResponse: Codable {
+public struct OpenWeatherMapResponse: Codable {
     struct Coord: Codable {
         let lon: Double
         let lat: Double
@@ -113,7 +113,7 @@ struct OpenWeatherMapResponse: Codable {
         case cod
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         coord = try container.decode(Coord.self, forKey: .coord)
         weather = try container.decode([Weather].self, forKey: .weather)
@@ -129,7 +129,7 @@ struct OpenWeatherMapResponse: Codable {
         cod = try container.decode(Int.self, forKey: .cod)
     }
     
-    func encode(to encoder: Encoder) throws {
+   public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(coord, forKey: .coord)
         try container.encode(weather, forKey: .weather)
@@ -147,7 +147,7 @@ struct OpenWeatherMapResponse: Codable {
     
 }
 
-class OpenWeatherMapAPI: ObservableObject {
+public class OpenWeatherMapAPI: ObservableObject {
     var openWeatherMapAPIKey: String = "" // You should place your actual API key here
     
     init(openWeatherMapAPIKey: String) {

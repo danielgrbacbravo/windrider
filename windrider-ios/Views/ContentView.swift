@@ -10,12 +10,14 @@ import SwiftUI
 import CoreLocation
 
 struct ContentView: View {
+    
     @EnvironmentObject var openWeatherMapAPI: OpenWeatherMapAPI
     @EnvironmentObject var route: Route
     
     @State private var showingSettings = false
     @State private var showingDebugMenu = false
     @State private var showingRouteSettings = false
+    @State var selectedCoordinate: Int?
     
     
     var body: some View {
@@ -61,7 +63,7 @@ struct ContentView: View {
                         .clipShape(Circle())
                         .padding([.top, .trailing]) // Add padding to top and trailing to position the button
                 }.sheet(isPresented: $showingRouteSettings) {
-                    RouteDebugView().environmentObject(route)
+                    RouteDebugView(rawSelectedCoordinate: $selectedCoordinate).environmentObject(route)
                 }
                 
                 
