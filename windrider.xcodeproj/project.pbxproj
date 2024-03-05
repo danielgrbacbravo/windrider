@@ -1,0 +1,605 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		650FEFCF2B97C9280080AB71 /* windriderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFCE2B97C9280080AB71 /* windriderApp.swift */; };
+		650FEFD12B97C9280080AB71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFD02B97C9280080AB71 /* ContentView.swift */; };
+		650FEFD32B97C9280080AB71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFD22B97C9280080AB71 /* Item.swift */; };
+		650FEFD52B97C9290080AB71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 650FEFD42B97C9290080AB71 /* Assets.xcassets */; };
+		650FEFD82B97C9290080AB71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 650FEFD72B97C9290080AB71 /* Preview Assets.xcassets */; };
+		650FEFE42B97C9290080AB71 /* windriderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFE32B97C9290080AB71 /* windriderTests.swift */; };
+		650FEFEE2B97C9290080AB71 /* windriderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFED2B97C9290080AB71 /* windriderUITests.swift */; };
+		650FEFF02B97C9290080AB71 /* windriderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FEFEF2B97C9290080AB71 /* windriderUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		650FEFE02B97C9290080AB71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 650FEFC32B97C9280080AB71 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 650FEFCA2B97C9280080AB71;
+			remoteInfo = windrider;
+		};
+		650FEFEA2B97C9290080AB71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 650FEFC32B97C9280080AB71 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 650FEFCA2B97C9280080AB71;
+			remoteInfo = windrider;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		650FEFCB2B97C9280080AB71 /* windrider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = windrider.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		650FEFCE2B97C9280080AB71 /* windriderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windriderApp.swift; sourceTree = "<group>"; };
+		650FEFD02B97C9280080AB71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		650FEFD22B97C9280080AB71 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		650FEFD42B97C9290080AB71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		650FEFD72B97C9290080AB71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		650FEFD92B97C9290080AB71 /* windrider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = windrider.entitlements; sourceTree = "<group>"; };
+		650FEFDA2B97C9290080AB71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		650FEFDF2B97C9290080AB71 /* windriderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = windriderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		650FEFE32B97C9290080AB71 /* windriderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windriderTests.swift; sourceTree = "<group>"; };
+		650FEFE92B97C9290080AB71 /* windriderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = windriderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		650FEFED2B97C9290080AB71 /* windriderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windriderUITests.swift; sourceTree = "<group>"; };
+		650FEFEF2B97C9290080AB71 /* windriderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windriderUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		650FEFC82B97C9280080AB71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		650FEFDC2B97C9290080AB71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		650FEFE62B97C9290080AB71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		650FEFC22B97C9280080AB71 = {
+			isa = PBXGroup;
+			children = (
+				650FEFCD2B97C9280080AB71 /* windrider */,
+				650FEFE22B97C9290080AB71 /* windriderTests */,
+				650FEFEC2B97C9290080AB71 /* windriderUITests */,
+				650FEFCC2B97C9280080AB71 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		650FEFCC2B97C9280080AB71 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				650FEFCB2B97C9280080AB71 /* windrider.app */,
+				650FEFDF2B97C9290080AB71 /* windriderTests.xctest */,
+				650FEFE92B97C9290080AB71 /* windriderUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		650FEFCD2B97C9280080AB71 /* windrider */ = {
+			isa = PBXGroup;
+			children = (
+				650FEFCE2B97C9280080AB71 /* windriderApp.swift */,
+				650FEFD02B97C9280080AB71 /* ContentView.swift */,
+				650FEFD22B97C9280080AB71 /* Item.swift */,
+				650FEFD42B97C9290080AB71 /* Assets.xcassets */,
+				650FEFD92B97C9290080AB71 /* windrider.entitlements */,
+				650FEFDA2B97C9290080AB71 /* Info.plist */,
+				650FEFD62B97C9290080AB71 /* Preview Content */,
+			);
+			path = windrider;
+			sourceTree = "<group>";
+		};
+		650FEFD62B97C9290080AB71 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				650FEFD72B97C9290080AB71 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		650FEFE22B97C9290080AB71 /* windriderTests */ = {
+			isa = PBXGroup;
+			children = (
+				650FEFE32B97C9290080AB71 /* windriderTests.swift */,
+			);
+			path = windriderTests;
+			sourceTree = "<group>";
+		};
+		650FEFEC2B97C9290080AB71 /* windriderUITests */ = {
+			isa = PBXGroup;
+			children = (
+				650FEFED2B97C9290080AB71 /* windriderUITests.swift */,
+				650FEFEF2B97C9290080AB71 /* windriderUITestsLaunchTests.swift */,
+			);
+			path = windriderUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		650FEFCA2B97C9280080AB71 /* windrider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 650FEFF32B97C9290080AB71 /* Build configuration list for PBXNativeTarget "windrider" */;
+			buildPhases = (
+				650FEFC72B97C9280080AB71 /* Sources */,
+				650FEFC82B97C9280080AB71 /* Frameworks */,
+				650FEFC92B97C9280080AB71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = windrider;
+			productName = windrider;
+			productReference = 650FEFCB2B97C9280080AB71 /* windrider.app */;
+			productType = "com.apple.product-type.application";
+		};
+		650FEFDE2B97C9290080AB71 /* windriderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 650FEFF62B97C9290080AB71 /* Build configuration list for PBXNativeTarget "windriderTests" */;
+			buildPhases = (
+				650FEFDB2B97C9290080AB71 /* Sources */,
+				650FEFDC2B97C9290080AB71 /* Frameworks */,
+				650FEFDD2B97C9290080AB71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				650FEFE12B97C9290080AB71 /* PBXTargetDependency */,
+			);
+			name = windriderTests;
+			productName = windriderTests;
+			productReference = 650FEFDF2B97C9290080AB71 /* windriderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		650FEFE82B97C9290080AB71 /* windriderUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 650FEFF92B97C9290080AB71 /* Build configuration list for PBXNativeTarget "windriderUITests" */;
+			buildPhases = (
+				650FEFE52B97C9290080AB71 /* Sources */,
+				650FEFE62B97C9290080AB71 /* Frameworks */,
+				650FEFE72B97C9290080AB71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				650FEFEB2B97C9290080AB71 /* PBXTargetDependency */,
+			);
+			name = windriderUITests;
+			productName = windriderUITests;
+			productReference = 650FEFE92B97C9290080AB71 /* windriderUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		650FEFC32B97C9280080AB71 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					650FEFCA2B97C9280080AB71 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					650FEFDE2B97C9290080AB71 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 650FEFCA2B97C9280080AB71;
+					};
+					650FEFE82B97C9290080AB71 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 650FEFCA2B97C9280080AB71;
+					};
+				};
+			};
+			buildConfigurationList = 650FEFC62B97C9280080AB71 /* Build configuration list for PBXProject "windrider" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 650FEFC22B97C9280080AB71;
+			productRefGroup = 650FEFCC2B97C9280080AB71 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				650FEFCA2B97C9280080AB71 /* windrider */,
+				650FEFDE2B97C9290080AB71 /* windriderTests */,
+				650FEFE82B97C9290080AB71 /* windriderUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		650FEFC92B97C9280080AB71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				650FEFD82B97C9290080AB71 /* Preview Assets.xcassets in Resources */,
+				650FEFD52B97C9290080AB71 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		650FEFDD2B97C9290080AB71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		650FEFE72B97C9290080AB71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		650FEFC72B97C9280080AB71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				650FEFD12B97C9280080AB71 /* ContentView.swift in Sources */,
+				650FEFD32B97C9280080AB71 /* Item.swift in Sources */,
+				650FEFCF2B97C9280080AB71 /* windriderApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		650FEFDB2B97C9290080AB71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				650FEFE42B97C9290080AB71 /* windriderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		650FEFE52B97C9290080AB71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				650FEFEE2B97C9290080AB71 /* windriderUITests.swift in Sources */,
+				650FEFF02B97C9290080AB71 /* windriderUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		650FEFE12B97C9290080AB71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 650FEFCA2B97C9280080AB71 /* windrider */;
+			targetProxy = 650FEFE02B97C9290080AB71 /* PBXContainerItemProxy */;
+		};
+		650FEFEB2B97C9290080AB71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 650FEFCA2B97C9280080AB71 /* windrider */;
+			targetProxy = 650FEFEA2B97C9290080AB71 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		650FEFF12B97C9290080AB71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		650FEFF22B97C9290080AB71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		650FEFF42B97C9290080AB71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = windrider/windrider.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"windrider/Preview Content\"";
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = windrider/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daiigr.windrider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		650FEFF52B97C9290080AB71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = windrider/windrider.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"windrider/Preview Content\"";
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = windrider/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daiigr.windrider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		650FEFF72B97C9290080AB71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daiigr.windriderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/windrider.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/windrider";
+			};
+			name = Debug;
+		};
+		650FEFF82B97C9290080AB71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daiigr.windriderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/windrider.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/windrider";
+			};
+			name = Release;
+		};
+		650FEFFA2B97C9290080AB71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daiigr.windriderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = windrider;
+			};
+			name = Debug;
+		};
+		650FEFFB2B97C9290080AB71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9USJYK4Z54;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daiigr.windriderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = windrider;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		650FEFC62B97C9280080AB71 /* Build configuration list for PBXProject "windrider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				650FEFF12B97C9290080AB71 /* Debug */,
+				650FEFF22B97C9290080AB71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		650FEFF32B97C9290080AB71 /* Build configuration list for PBXNativeTarget "windrider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				650FEFF42B97C9290080AB71 /* Debug */,
+				650FEFF52B97C9290080AB71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		650FEFF62B97C9290080AB71 /* Build configuration list for PBXNativeTarget "windriderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				650FEFF72B97C9290080AB71 /* Debug */,
+				650FEFF82B97C9290080AB71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		650FEFF92B97C9290080AB71 /* Build configuration list for PBXNativeTarget "windriderUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				650FEFFA2B97C9290080AB71 /* Debug */,
+				650FEFFB2B97C9290080AB71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 650FEFC32B97C9280080AB71 /* Project object */;
+}
