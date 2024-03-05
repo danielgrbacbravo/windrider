@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreLocation
-
+import SwiftData
 
 public struct OpenWeatherMapResponse: Codable {
     struct Coord: Codable {
@@ -147,7 +147,7 @@ public struct OpenWeatherMapResponse: Codable {
     }
     
 }
-
+@Model
 public class OpenWeatherMapAPI: ObservableObject {
     var openWeatherMapAPIKey: String = "" // You should place your actual API key here
     

@@ -15,5 +15,7 @@ struct windriderApp: App {
             ContentView()
         }
         .modelContainer(for: Item.self)
+        .modelContainer(for: [BikeRoute.self])
+        .modelContainer(for: OpenWeatherMapAPI.self)
     }
 }

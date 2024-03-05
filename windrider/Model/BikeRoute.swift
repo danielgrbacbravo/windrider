@@ -21,8 +21,9 @@ class BikeRoute{
     var coordinates: [Coordinate]?
     var coordinateAngles: [Int]?
     // associated wind data
-    var bikeRouteCondition = BikeRouteCondition()
-    var bikeRouteCoordinateCondition = [BikeRouteCoordinateCondition]()
+    var bikeRouteCondition: BikeRouteCondition?
+    
+    var bikeRouteCoordinateCondition: [BikeRouteCoordinateCondition]?
  
     
     // init
@@ -166,14 +167,10 @@ class BikeRouteCondition{
         }
         return totalTailwindPercentage/bikeRouteCoordinateCondition.count
     }
-    
-    
-    
 }
 //precondition: windAngle is not empty
 @Model
 class BikeRouteCoordinateCondition{
-    
     // general wind data for a coordinatef
     var relativeWindAngle: Int
     var windSpeed: Double
