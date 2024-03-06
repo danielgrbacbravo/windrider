@@ -7,48 +7,157 @@
 
 import WidgetKit
 import SwiftUI
+import SwiftData
+
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+    
+    
+    @MainActor func placeholder(in context: Context)  -> BikeRouteConditionEntry {
+            let routes = getFavoriteRoute()
+            return BikeRouteConditionEntry(date: Date(), bikeRoute: routes)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
-        completion(entry)
+   @MainActor func getSnapshot(in context: Context, completion: @escaping (BikeRouteConditionEntry)   -> ())  {
+           let routes =  getFavoriteRoute()
+           let entry = BikeRouteConditionEntry(date: Date(), bikeRoute: routes )
+           completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
+    @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ())  {
+        var entries: [BikeRouteConditionEntry] = []
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
-            entries.append(entry)
-        }
+        
+            let routes =  getFavoriteRoute()
+            for hourOffset in 0 ..< 5 {
+                let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+                
+                    
+                    let entry = BikeRouteConditionEntry(date: entryDate, bikeRoute: routes)
+                    entries.append(entry)
+            
+            }
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+            let timeline = Timeline(entries: entries, policy: .atEnd)
+            completion(timeline)
+    }
+    
+    @MainActor private func getFavoriteRoute() -> [BikeRoute] {
+        guard let modelContainer = try? ModelContainer(for: BikeRoute.self) else {
+            return []
+        }
+        let descriptor = FetchDescriptor<BikeRoute>()
+        guard let bikeRoute = try? modelContainer.mainContext.fetch(descriptor) else {
+            return []
+        }
+        
+        
+        return bikeRoute
+    }
+    
+    
+    
+}
+
+struct accessoryCircularWidgetView: View{
+    var entry: Provider.Entry
+    var body: some View{
+        Gauge(value: Double(entry.bikeRoute[0].bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
+            Image(systemName: "arrow.left.to.line")
+        } currentValueLabel: {
+            HStack{
+                Text("\(entry.bikeRoute[0].bikeRouteCondition?.totalHeadwindPercentage ?? 0)%").bold()
+            }
+            
+        }
+        .gaugeStyle(.accessoryCircular)
     }
 }
 
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let emoji: String
+
+struct accessoryInlineWidgetView: View {
+    var entry: Provider.Entry
+    var body: some View {
+        Text("Headwinds of \(entry.bikeRoute[0].bikeRouteCondition?.totalHeadwindPercentage ?? 0)%").font(.title)
+    }
 }
+
+struct accessoryRectangularWidgetView: View {
+    var entry: Provider.Entry
+    var body: some View {
+        
+        HStack {
+            Image(systemName: "arrow.left.to.line")
+            Text("Headwinds: \((entry.bikeRoute.first?.bikeRouteCondition?.totalHeadwindPercentage ?? 0).formatted())%").bold()
+        }
+        
+        Gauge(value: Double(entry.bikeRoute[0].bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
+        }.gaugeStyle(.accessoryLinear)
+        
+        HStack{
+            Image(systemName: "gauge.with.dots.needle.bottom.50percent")
+            Text("Speeds of ") + Text("\(entry.bikeRoute[0].bikeRouteCondition?.windSpeed ?? 0)m/s").bold()
+        }
+    }
+}
+
+struct systemSmallWidgetView: View {
+    var entry: Provider.Entry
+    
+    var body: some View {
+        VStack{
+            HStack{
+                Text("Headwinds").font(.headline).bold().foregroundStyle(.foreground.opacity(0.9))
+                Image(systemName: "arrow.left.to.line").foregroundStyle(.foreground.opacity(0.9))
+
+    
+            }
+            Text("\(entry.bikeRoute[0].bikeRouteCondition?.totalHeadwindPercentage ?? 43)%").font(.custom("", size: 60)).bold().foregroundStyle(.orange.opacity(0.8))
+        }
+    }
+}
+
+struct systemMediumWidgetView: View{
+    var entry: Provider.Entry
+    
+    var body: some View{
+        VStack{
+            
+        }
+    }
+}
+
+struct systemLargeWidgetView: View{
+    var entry: Provider.Entry
+    
+    var body: some View{
+        VStack{
+            
+        }
+    }
+}
+
 
 struct widgetEntryView : View {
     var entry: Provider.Entry
-
+    @Environment(\.widgetFamily) var widgetFamily
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+        switch widgetFamily{
+        case .accessoryCircular:
+            accessoryCircularWidgetView(entry: entry)
+        case .accessoryInline:
+            accessoryInlineWidgetView(entry: entry)
+        case .accessoryRectangular:
+            accessoryRectangularWidgetView(entry: entry)
+        case .systemSmall:
+            systemSmallWidgetView(entry: entry)
+        case .systemMedium:
+            systemMediumWidgetView(entry: entry)
+        case .systemLarge:
+            systemLargeWidgetView(entry: entry)
+        default:
+            Text("not Implemented")
         }
     }
 }
@@ -69,12 +178,21 @@ struct widget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+        .supportedFamilies([.systemSmall, .systemMedium, .accessoryInline, .accessoryCircular, .accessoryRectangular])
     }
 }
 
 #Preview(as: .systemSmall) {
-    widget()
-} timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+     widget()
+ } timeline: {
+     BikeRouteConditionEntry(date: .now,bikeRoute: [generateSampleRoute()])
+     BikeRouteConditionEntry(date: .now, bikeRoute: [generateSampleRoute()])
+ }
+
+func generateSampleRoute() -> BikeRoute{
+   let points = [Coordinate(latitude: 53.22163,longitude: 6.54162),
+                 Coordinate(latitude: 53.22188,longitude: 6.54115),
+                 Coordinate(latitude: 53.22214,longitude: 6.54089)]
+   let route = BikeRoute(name: "University Route", coordinates:points)
+   return route
 }

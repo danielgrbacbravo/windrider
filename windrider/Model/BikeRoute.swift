@@ -15,7 +15,7 @@ import SwiftUI
 class BikeRoute{
     // general route information
     @Attribute(.unique) let bikeRouteId: UUID?
-    @Attribute(.unique) var name: String?
+    var name: String?
     // path information
     var averageCoordinate: Coordinate
     var coordinates: [Coordinate]?
@@ -24,17 +24,19 @@ class BikeRoute{
     var bikeRouteCondition: BikeRouteCondition?
     
     var bikeRouteCoordinateCondition: [BikeRouteCoordinateCondition]?
- 
+    var isFavourite: Bool?
     
     // init
-    init(name: String? = nil, averageCoordinate: Coordinate, coordinates: [Coordinate]? = nil, coordinateAngles: [Int]? = nil, bikeRouteCondition: BikeRouteCondition? = nil, bikeRouteCoordinateCondition: [BikeRouteCoordinateCondition]? = nil) {
+    init(name: String? = nil, coordinates: [Coordinate]? = nil, coordinateAngles: [Int]? = nil, bikeRouteCondition: BikeRouteCondition? = nil, bikeRouteCoordinateCondition: [BikeRouteCoordinateCondition]? = nil) {
         self.bikeRouteId = UUID()
         self.name = name
         self.averageCoordinate =  BikeRoute.calculateAverageCoordinate(coordinates: coordinates!)
         self.coordinates = coordinates
         // computed properties
         self.coordinateAngles = BikeRoute.findAllNorthRelativeAngles(from: coordinates!)
+        
     }
+    
     // functions to compute coordinateAngles
     static private func findNorthRelativeAngle(from start: Coordinate, to end: Coordinate) -> Int {
         var angleDegrees: Double = 0
@@ -85,7 +87,7 @@ class BikeRoute{
     
     public func fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI) async throws {
         do{
-            let response =  try await openWeatherMapAPI.fetchWeatherConditionAtCoordinate( coordinate: self.averageCoordinate)
+            let response =  try await openWeatherMapAPI.fetchAsyncWeatherConditionAtCoordinate( coordinate: self.averageCoordinate)
             let currentWindSpeed = response.wind.speed
             let currentWindAngle = response.wind.deg
             // create and append the array  of BikeRouteCoordinateCondition objects
@@ -102,22 +104,30 @@ class BikeRoute{
             
         }
     }
-  
+    
+    //TODO: implement Non-async version using completion handlers (required for widgets)
+    
+    public func getAndConvertCoordinates() -> [CLLocationCoordinate2D]{
+        var tempCoordinates: [CLLocationCoordinate2D] = []
+        for coordinate in coordinates! {
+            tempCoordinates.append(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        }
+        return tempCoordinates
+    }
 }
 
 struct BikeRouteConditionEntry: TimelineEntry {
     let date: Date
-    var bikeRoute: BikeRoute
+    var bikeRoute: [BikeRoute]
     var headwindColor: Color?
     var crosswindColor: Color?
     var tailwindColor: Color?
     var windSpeedColor: Color?
     
-    init(date: Date, bikeRoute: BikeRoute){
+    init(date: Date, bikeRoute: [BikeRoute]){
         self.date = date
         self.bikeRoute = bikeRoute
     }
-    
     
 }
 

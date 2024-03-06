@@ -7,55 +7,38 @@
 
 import SwiftUI
 import SwiftData
+import MapKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    @Query private var routes: [BikeRoute]
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        NavigationStack{
+            List(routes, id: \.bikeRouteId){ route in
+                Text(route.name!)
+                Map{
+                    MapPolyline(coordinates: route.getAndConvertCoordinates())
                 }
-                .onDelete(perform: deleteItems)
+                .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+        .navigationTitle("WindRider")
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                Button("populate Sample Data") {
+                    let sampleRoute = generateSampleRoute()
+                    modelContext.insert(sampleRoute)
+                }
             }
+            
         }
     }
 }
 
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+func generateSampleRoute() -> BikeRoute{
+   let points = [Coordinate(latitude: 53.22163,longitude: 6.54162),
+                 Coordinate(latitude: 53.22188,longitude: 6.54115),
+                 Coordinate(latitude: 53.22214,longitude: 6.54089)]
+   let route = BikeRoute(name: "To University", coordinates:points)
+   return route
 }

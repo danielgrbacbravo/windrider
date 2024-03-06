@@ -155,7 +155,7 @@ public class OpenWeatherMapAPI: ObservableObject {
         self.openWeatherMapAPIKey = openWeatherMapAPIKey
     }
     
-    func fetchWeatherConditionAtCoordinate(coordinate: Coordinate) async throws -> OpenWeatherMapResponse {
+    func fetchAsyncWeatherConditionAtCoordinate(coordinate: Coordinate) async throws -> OpenWeatherMapResponse {
         let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&appid=\(openWeatherMapAPIKey)"
         
         guard let url = URL(string: endpoint) else {
@@ -172,10 +172,45 @@ public class OpenWeatherMapAPI: ObservableObject {
         } catch {
             throw OpenWeatherMapAPIError.invalidData
         }
-        
-        
-        
     }
+    
+    // Non-async version using completion handlers (designed for widget use)
+        func fetchWeatherConditionAtCoordinate(coordinate: Coordinate, completion: @escaping (Result<OpenWeatherMapResponse, Error>) -> Void) {
+            let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&appid=\(openWeatherMapAPIKey)"
+            
+            guard let url = URL(string: endpoint) else {
+                completion(.failure(OpenWeatherMapAPIError.invalidURL))
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(OpenWeatherMapAPIError.invalidData))
+                    return
+                }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(OpenWeatherMapResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    completion(.failure(OpenWeatherMapAPIError.invalidData))
+                }
+            }
+            
+            task.resume()
+        }
+    
+    
+
+    
+    
+    
     
     
     enum OpenWeatherMapAPIError: Error {

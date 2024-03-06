@@ -88,6 +88,7 @@
 		650FF00D2B97CD490080AB71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		650FF0152B97CF470080AB71 /* BikeRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRoute.swift; sourceTree = "<group>"; };
 		650FF0192B97D0BB0080AB71 /* OpenWeatherMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMap.swift; sourceTree = "<group>"; };
+		650FF01C2B98DCA70080AB71 /* widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = widgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +128,7 @@
 		650FEFC22B97C9280080AB71 = {
 			isa = PBXGroup;
 			children = (
+				650FF01C2B98DCA70080AB71 /* widgetExtension.entitlements */,
 				650FEFCD2B97C9280080AB71 /* windrider */,
 				650FEFE22B97C9290080AB71 /* windriderTests */,
 				650FEFEC2B97C9290080AB71 /* windriderUITests */,
@@ -702,6 +704,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9USJYK4Z54;
@@ -729,6 +732,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9USJYK4Z54;
