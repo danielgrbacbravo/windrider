@@ -124,12 +124,14 @@ class BikeRoute{
                 let bikeRouteCondition = BikeRouteCondition(windSpeed: Int(weatherResponse.wind.speed), bikeRouteCoordinateCondition:  [self.bikeRouteCoordinateCondition] as! [BikeRouteCoordinateCondition])
                 self.bikeRouteCondition = bikeRouteCondition
             case .failure(_):
+                let bikeRouteCondition = BikeRouteCondition(totalHeadwindPercentage: 0)
+                    self.bikeRouteCondition = bikeRouteCondition
                 return
+                
             }
         }
         
     }
-    
     
     public func getAndConvertCoordinates() -> [CLLocationCoordinate2D]{
         var tempCoordinates: [CLLocationCoordinate2D] = []
@@ -142,13 +144,13 @@ class BikeRoute{
 
 struct BikeRouteConditionEntry: TimelineEntry {
     let date: Date
-    var bikeRoute: [BikeRoute]
+    var bikeRoute: BikeRoute
     var headwindColor: Color?
     var crosswindColor: Color?
     var tailwindColor: Color?
     var windSpeedColor: Color?
     
-    init(date: Date, bikeRoute: [BikeRoute]){
+    init(date: Date, bikeRoute: BikeRoute){
         self.date = date
         self.bikeRoute = bikeRoute
     }
