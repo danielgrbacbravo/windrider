@@ -52,6 +52,8 @@ struct Provider: TimelineProvider {
             return []
         }
         
+        bikeRoute.first?.fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
+        
         
         return bikeRoute
     }

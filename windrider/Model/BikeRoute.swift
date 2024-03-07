@@ -85,7 +85,7 @@ class BikeRoute{
     }
     
     
-    public func fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI) async throws {
+    public func fetchAsyncAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI) async throws {
         do{
             let response =  try await openWeatherMapAPI.fetchAsyncWeatherConditionAtCoordinate( coordinate: self.averageCoordinate)
             let currentWindSpeed = response.wind.speed
@@ -106,6 +106,32 @@ class BikeRoute{
     }
     
     //TODO: implement Non-async version using completion handlers (required for widgets)
+    
+    public func fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI) {
+        openWeatherMapAPI.fetchWeatherConditionAtCoordinate(coordinate: self.averageCoordinate){ response in
+            switch response{
+            case .success(let weatherResponse):
+                let currentWindAngle = weatherResponse.wind.speed
+                let currentWindSpeed = weatherResponse.wind.deg
+                var bikeRouteCoordinateConditionArray: [BikeRouteCoordinateCondition] = []
+                if let coordinateAngles = self.coordinateAngles{
+                    for(index, _) in coordinateAngles.enumerated() {
+                        let currentCoordinateCondition = BikeRouteCoordinateCondition(coordinateAngle: self.coordinateAngles![index], windSpeed: Double(currentWindSpeed), windAngle: Int(currentWindAngle) )
+                        bikeRouteCoordinateConditionArray.append(currentCoordinateCondition)
+
+                    }
+                    self.bikeRouteCoordinateCondition = bikeRouteCoordinateConditionArray
+                }
+                // TODO: construct and append bikeRouteCondition after contruction of bikeRouteCoordinateConditionArray
+                // that way we have average values be updated
+                
+            case .failure(_):
+                return
+            }
+        }
+        
+    }
+    
     
     public func getAndConvertCoordinates() -> [CLLocationCoordinate2D]{
         var tempCoordinates: [CLLocationCoordinate2D] = []
