@@ -105,8 +105,6 @@ class BikeRoute{
         }
     }
     
-    //TODO: implement Non-async version using completion handlers (required for widgets)
-    
     public func fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI) {
         openWeatherMapAPI.fetchWeatherConditionAtCoordinate(coordinate: self.averageCoordinate){ response in
             switch response{
@@ -122,9 +120,9 @@ class BikeRoute{
                     }
                     self.bikeRouteCoordinateCondition = bikeRouteCoordinateConditionArray
                 }
-                // TODO: construct and append bikeRouteCondition after contruction of bikeRouteCoordinateConditionArray
-                // that way we have average values be updated
                 
+                let bikeRouteCondition = BikeRouteCondition(windSpeed: Int(weatherResponse.wind.speed), bikeRouteCoordinateCondition:  [self.bikeRouteCoordinateCondition] as! [BikeRouteCoordinateCondition])
+                self.bikeRouteCondition = bikeRouteCondition
             case .failure(_):
                 return
             }
