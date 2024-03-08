@@ -13,6 +13,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var routes: [BikeRoute]
     @State private var selectedRoute: BikeRoute?
+    @State var isRouteSelectionViewPresented = false
 
     var body: some View {
         ZStack {
@@ -28,10 +29,11 @@ struct ContentView: View {
                 
                 VStack{
                     RouteConditionPreviewView()
-                        .padding()
-                        .background(.ultraThinMaterial)
+                        .padding(.vertical, 30)
+                        .background(.ultraThickMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 25.0))
                         .zIndex(1) // Ensure it stays on top
+                        .ignoresSafeArea()
                     Spacer()
                 }
     
@@ -41,21 +43,53 @@ struct ContentView: View {
             VStack {
                 Spacer() // Pushes the content to the bottom
                 HStack {
-                    Button("Add Route") {
+                    
+                    Button {
                         let route = generateSampleRoute()
                         modelContext.insert(route)
+                    } label: {
+                        Image(systemName: "plus")
+                                                .padding()
+                                                .foregroundColor(.primary)
+                                                .background(.ultraThickMaterial)
+                                                .clipShape(Circle())
+
                     }
-                    Button("Select Route") {
-                        selectedRoute = routes.first
-                    }
-                    Button("get weather conditions") {
-                        selectedRoute?.fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
-                    }
+
+                    Button {
+                        isRouteSelectionViewPresented = true
+                    } label: {
+                        Image(systemName: "list.bullet")
+                                                .padding()
+                                                .foregroundColor(.primary)
+                                                .background(.ultraThickMaterial)
+                                                .clipShape(Circle())
+                    }.sheet(isPresented: $isRouteSelectionViewPresented, content: {
+                        RouteSelectionView(selectedRoute: $selectedRoute, isRouteSelectionViewPresented: $isRouteSelectionViewPresented)
+                    })
                     
-                    Button("Clear routes"){
-                        if selectedRoute != nil {
-                            modelContext.delete(selectedRoute!)
+                    
+                    Button {
+                        selectedRoute?.fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
+                    } label: {
+                        Image(systemName: "cloud.sun")
+                                                .padding()
+                                                .foregroundColor(.primary)
+                                                .background(.ultraThickMaterial)
+                                                .clipShape(Circle())
+                    }
+
+                    
+                    Button {
+                        for route in routes {
+                            modelContext.delete(route)
                         }
+                    } label: {
+                        Image(systemName: "trash")
+                                                .padding()
+                                                .foregroundColor(.primary)
+                                                .background(.ultraThickMaterial)
+                                                .clipShape(Circle())
                     }
                 }
             }

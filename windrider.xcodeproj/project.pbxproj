@@ -27,6 +27,8 @@
 		65366F052B9A52E30005C72B /* RouteConditionPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F042B9A52E30005C72B /* RouteConditionPreviewView.swift */; };
 		65366F072B9A55140005C72B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F062B9A55140005C72B /* File.swift */; };
 		65366F082B9A55140005C72B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F062B9A55140005C72B /* File.swift */; };
+		65366F0B2B9B67550005C72B /* RouteSelectionPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F0A2B9B67550005C72B /* RouteSelectionPreviewView.swift */; };
+		65366F0D2B9B67DE0005C72B /* RouteSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F0C2B9B67DE0005C72B /* RouteSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,8 @@
 		650FF01C2B98DCA70080AB71 /* widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = widgetExtension.entitlements; sourceTree = "<group>"; };
 		65366F042B9A52E30005C72B /* RouteConditionPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteConditionPreviewView.swift; sourceTree = "<group>"; };
 		65366F062B9A55140005C72B /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		65366F0A2B9B67550005C72B /* RouteSelectionPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionPreviewView.swift; sourceTree = "<group>"; };
+		65366F0C2B9B67DE0005C72B /* RouteSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,7 @@
 		650FEFCD2B97C9280080AB71 /* windrider */ = {
 			isa = PBXGroup;
 			children = (
+				65366F092B9B672B0005C72B /* Views */,
 				650FF0182B97D0820080AB71 /* Model */,
 				650FEFCE2B97C9280080AB71 /* windriderApp.swift */,
 				650FEFD02B97C9280080AB71 /* ContentView.swift */,
@@ -162,7 +167,6 @@
 				650FEFD92B97C9290080AB71 /* windrider.entitlements */,
 				650FEFDA2B97C9290080AB71 /* Info.plist */,
 				650FEFD62B97C9290080AB71 /* Preview Content */,
-				65366F042B9A52E30005C72B /* RouteConditionPreviewView.swift */,
 			);
 			path = windrider;
 			sourceTree = "<group>";
@@ -220,6 +224,16 @@
 				65366F062B9A55140005C72B /* File.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		65366F092B9B672B0005C72B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				65366F042B9A52E30005C72B /* RouteConditionPreviewView.swift */,
+				65366F0A2B9B67550005C72B /* RouteSelectionPreviewView.swift */,
+				65366F0C2B9B67DE0005C72B /* RouteSelectionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,6 +400,8 @@
 				650FF01A2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
 				65366F072B9A55140005C72B /* File.swift in Sources */,
 				650FF0162B97CF470080AB71 /* BikeRoute.swift in Sources */,
+				65366F0D2B9B67DE0005C72B /* RouteSelectionView.swift in Sources */,
+				65366F0B2B9B67550005C72B /* RouteSelectionPreviewView.swift in Sources */,
 				650FEFD12B97C9280080AB71 /* ContentView.swift in Sources */,
 				650FEFCF2B97C9280080AB71 /* windriderApp.swift in Sources */,
 				65366F052B9A52E30005C72B /* RouteConditionPreviewView.swift in Sources */,

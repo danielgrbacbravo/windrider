@@ -11,16 +11,17 @@ import SwiftData
 struct RouteConditionPreviewView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var routes: [BikeRoute]
-    let gradient = Gradient(colors: [.green, .yellow, .orange, .red])
-    let headwindGradient = Gradient(colors: [.black, .red])
-    let crosswindGradient = Gradient(colors: [.black, .orange])
-    let tailwindGradient = Gradient(colors: [.black , .green])
-    let windSpeedGradient = Gradient(colors: [.green, .yellow, .orange, .red])
+    
+    let headwindGradient = Gradient(colors: [.yellow, .red,.purple])
+    let crosswindGradient = Gradient(colors: [.yellow, .orange,.purple])
+    let tailwindGradient = Gradient(colors: [.yellow , .green,.purple])
+    let windSpeedGradient = Gradient(colors: [.green, .yellow ,.orange, .red, .purple])
     
     var body: some View {
         VStack{
             HStack{
-                Text("Route Condition for \(routes.first?.name ?? "")")
+                Image(systemName: "bicycle")
+                Text("Route Conditions:  \(routes.first?.name ?? "")")
                     .font(.headline)
                     .bold()
                     .padding()
@@ -30,6 +31,9 @@ struct RouteConditionPreviewView: View {
             
             
             HStack{
+                
+                Text("Good Day to Cycle").bold()
+                Image(systemName: "bicycle.circle.fill").foregroundStyle(.green)
                 
                     Gauge(value: Double(routes.first?.bikeRouteCondition?.totalCrosswindPercentage ?? 0)/100){
                             Image(systemName: "arrow.down.right.and.arrow.up.left")
@@ -70,13 +74,13 @@ struct RouteConditionPreviewView: View {
                 Image(systemName: "arrow.left.to.line")
             } currentValueLabel: {
                 HStack{
-                    Text("\(routes.first?.bikeRouteCondition?.windSpeed ?? 0) m\\s").bold()
+                    Text("with winds of \(routes.first?.bikeRouteCondition?.windSpeed ?? 0) m\\s").bold()
                 }
                 
             }
             .gaugeStyle(.accessoryLinear)
             .tint(windSpeedGradient)
-        }
+        }.padding()
     }
 }
 
