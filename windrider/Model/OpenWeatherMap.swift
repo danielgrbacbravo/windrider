@@ -147,8 +147,8 @@ public struct OpenWeatherMapResponse: Codable {
     }
     
 }
-@Model
-public class OpenWeatherMapAPI: ObservableObject {
+
+public class OpenWeatherMapAPI {
     var openWeatherMapAPIKey: String = "" // You should place your actual API key here
     
     init(openWeatherMapAPIKey: String) {

@@ -8,7 +8,7 @@
 import WidgetKit
 import SwiftUI
 import SwiftData
-
+import MapKit
 
 struct Provider: TimelineProvider {
     
@@ -45,11 +45,12 @@ struct Provider: TimelineProvider {
     
     
     @MainActor private func getFavoriteRoute() -> BikeRoute {
-        guard let modelContainer = try? ModelContainer(for: BikeRoute.self) else {
+        guard let modelContainer = try? ModelContainer(for: BikeRoute.self,BikeRouteCondition.self, BikeRouteCoordinateCondition.self) else {
             return BikeRoute()
         }
-        let descriptor = FetchDescriptor<BikeRoute>()
-        guard let bikeRoute = try? modelContainer.mainContext.fetch(descriptor) else {
+        let bikeRouteDescriptor = FetchDescriptor<BikeRoute>()
+        
+        guard let bikeRoute = try? modelContainer.mainContext.fetch(bikeRouteDescriptor) else {
             return BikeRoute()
         }
         
@@ -89,15 +90,37 @@ struct accessoryInlineWidgetView: View {
 struct accessoryRectangularWidgetView: View {
     var entry: Provider.Entry
     var body: some View {
-        
-        HStack {
-            Image(systemName: "arrow.left.to.line")
-            Text("Headwinds: \((entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 0).formatted())%").bold()
+        HStack{
+            Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalCrosswindPercentage ?? 0)/100){
+                Image(systemName: "arrow.down.right.and.arrow.up.left")
+            } currentValueLabel: {
+                HStack{
+                    Text("\(entry.bikeRoute.bikeRouteCondition?.totalCrosswindPercentage ?? 0)%").bold()
+                }
+                
+            }
+            .gaugeStyle(.accessoryCircular)
+            
+            Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalTailwindPercentage ?? 0)/100){
+                Image(systemName: "arrow.right.to.line")
+            } currentValueLabel: {
+                HStack{
+                    Text("\(entry.bikeRoute.bikeRouteCondition?.totalTailwindPercentage ?? 0)%").bold()
+                }
+                
+            }
+            .gaugeStyle(.accessoryCircular)
+            Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
+                Image(systemName: "arrow.left.to.line")
+            } currentValueLabel: {
+                HStack{
+                    Text("\(entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 0)%").bold()
+                }
+                
+            }
+            .gaugeStyle(.accessoryCircular)
         }
-        
-        Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
-        }.gaugeStyle(.accessoryLinear)
-        
+       
         HStack{
             Image(systemName: "gauge.with.dots.needle.bottom.50percent")
             Text("Speeds of ") + Text("\(entry.bikeRoute.bikeRouteCondition?.windSpeed ?? 0)m/s").bold()
@@ -107,26 +130,124 @@ struct accessoryRectangularWidgetView: View {
 
 struct systemSmallWidgetView: View {
     var entry: Provider.Entry
+    let gradient = Gradient(colors: [.green, .yellow, .orange, .red])
+    let headwindGradient = Gradient(colors: [.black, .red])
+    let crosswindGradient = Gradient(colors: [.black, .orange])
+    let tailwindGradient = Gradient(colors: [.black , .green])
+    let windSpeedGradient = Gradient(colors: [.green, .yellow, .orange, .red])
     
     var body: some View {
         VStack{
+            
+                Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalCrosswindPercentage ?? 0)/100){
+                    Image(systemName: "arrow.down.right.and.arrow.up.left")
+                } currentValueLabel: {
+                    HStack{
+                        Text("\(entry.bikeRoute.bikeRouteCondition?.totalCrosswindPercentage ?? 0)%").bold()
+                    }
+                    
+                } 
+                .gaugeStyle(.accessoryCircular)
+                .tint(crosswindGradient)
+                
+            
             HStack{
-                Text("Headwinds").font(.headline).bold().foregroundStyle(.foreground.opacity(0.9))
-                Image(systemName: "arrow.left.to.line").foregroundStyle(.foreground.opacity(0.9))
-
-    
+                Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalTailwindPercentage ?? 0)/100){
+                    Image(systemName: "arrow.right.to.line")
+                } currentValueLabel: {
+                    HStack{
+                        Text("\(entry.bikeRoute.bikeRouteCondition?.totalTailwindPercentage ?? 0)%").bold()
+                    }
+                    
+                }
+                .gaugeStyle(.accessoryCircular)
+                .tint(tailwindGradient)
+                Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
+                    Image(systemName: "arrow.left.to.line")
+                } currentValueLabel: {
+                    HStack{
+                        Text("\(entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 0)%").bold()
+                    }
+                    
+                }
+                .gaugeStyle(.accessoryCircular)
+                .tint(headwindGradient)
             }
-            Text("\(entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 43)%").font(.custom("", size: 60)).bold().foregroundStyle(.orange.opacity(0.8))
+            Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.windSpeed ?? 0)/100){
+                Image(systemName: "arrow.left.to.line")
+            } currentValueLabel: {
+                HStack{
+                    Text("\(entry.bikeRoute.bikeRouteCondition?.windSpeed ?? 0) m\\s").bold()
+                }
+                
+            }
+            .gaugeStyle(.accessoryLinear)
+            .tint(windSpeedGradient)
+            
+           
+
         }
     }
 }
 
 struct systemMediumWidgetView: View{
     var entry: Provider.Entry
+    let gradient = Gradient(colors: [.green, .yellow, .orange, .red])
+    let headwindGradient = Gradient(colors: [.black, .red])
+    let crosswindGradient = Gradient(colors: [.black, .orange])
+    let tailwindGradient = Gradient(colors: [.black , .green])
+    let windSpeedGradient = Gradient(colors: [.green, .yellow, .orange, .red])
     
     var body: some View{
         VStack{
             
+                Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalCrosswindPercentage ?? 0)/100){
+                    Image(systemName: "arrow.down.right.and.arrow.up.left")
+                } currentValueLabel: {
+                    HStack{
+                        Text("\(entry.bikeRoute.bikeRouteCondition?.totalCrosswindPercentage ?? 0)%").bold()
+                    }
+                    
+                }
+                .gaugeStyle(.accessoryCircular)
+                .tint(crosswindGradient)
+                
+            
+            HStack{
+                Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalTailwindPercentage ?? 0)/100){
+                    Image(systemName: "arrow.right.to.line")
+                } currentValueLabel: {
+                    HStack{
+                        Text("\(entry.bikeRoute.bikeRouteCondition?.totalTailwindPercentage ?? 0)%").bold()
+                    }
+                    
+                }
+                .gaugeStyle(.accessoryCircular)
+                .tint(tailwindGradient)
+                Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
+                    Image(systemName: "arrow.left.to.line")
+                } currentValueLabel: {
+                    HStack{
+                        Text("\(entry.bikeRoute.bikeRouteCondition?.totalHeadwindPercentage ?? 0)%").bold()
+                    }
+                    
+                }
+                .gaugeStyle(.accessoryCircular)
+                .tint(headwindGradient)
+            }
+            Gauge(value: Double(entry.bikeRoute.bikeRouteCondition?.windSpeed ?? 0)/100){
+                Image(systemName: "arrow.left.to.line")
+            } currentValueLabel: {
+                HStack{
+                    Text("\(entry.bikeRoute.bikeRouteCondition?.windSpeed ?? 0) m\\s").bold()
+                }
+                
+            }
+            .gaugeStyle(.accessoryLinear)
+            .tint(windSpeedGradient)
+            
+           
+
         }
     }
 }
@@ -184,19 +305,4 @@ struct widget: Widget {
         .description("This is an example widget.")
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryInline, .accessoryCircular, .accessoryRectangular])
     }
-}
-
-#Preview(as: .systemSmall) {
-     widget()
- } timeline: {
-     BikeRouteConditionEntry(date: .now,bikeRoute: generateSampleRoute())
-     BikeRouteConditionEntry(date: .now, bikeRoute: generateSampleRoute())
- }
-
-func generateSampleRoute() -> BikeRoute{
-   let points = [Coordinate(latitude: 53.22163,longitude: 6.54162),
-                 Coordinate(latitude: 53.22188,longitude: 6.54115),
-                 Coordinate(latitude: 53.22214,longitude: 6.54089)]
-   let route = BikeRoute(name: "University Route", coordinates:points)
-   return route
 }

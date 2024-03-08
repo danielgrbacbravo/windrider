@@ -18,20 +18,21 @@ class BikeRoute{
     var name: String?
     // path information
     var averageCoordinate: Coordinate
-    var coordinates: [Coordinate]?
+    @Relationship(deleteRule: .cascade)
+    var coordinates: [Coordinate] = []
     var coordinateAngles: [Int]?
     // associated wind data
     var bikeRouteCondition: BikeRouteCondition?
-    
+    @Relationship(deleteRule: .cascade)
     var bikeRouteCoordinateCondition: [BikeRouteCoordinateCondition]?
-    var isFavourite: Bool?
+    
     
     // init
     init(name: String? = nil, coordinates: [Coordinate]? = nil, coordinateAngles: [Int]? = nil, bikeRouteCondition: BikeRouteCondition? = nil, bikeRouteCoordinateCondition: [BikeRouteCoordinateCondition]? = nil) {
         self.bikeRouteId = UUID()
         self.name = name
         self.averageCoordinate =  BikeRoute.calculateAverageCoordinate(coordinates: coordinates!)
-        self.coordinates = coordinates
+        self.coordinates = coordinates ?? []
         // computed properties
         self.coordinateAngles = BikeRoute.findAllNorthRelativeAngles(from: coordinates!)
         
@@ -109,8 +110,8 @@ class BikeRoute{
         openWeatherMapAPI.fetchWeatherConditionAtCoordinate(coordinate: self.averageCoordinate){ response in
             switch response{
             case .success(let weatherResponse):
-                let currentWindAngle = weatherResponse.wind.speed
-                let currentWindSpeed = weatherResponse.wind.deg
+                let currentWindAngle = weatherResponse.wind.deg
+                let currentWindSpeed = weatherResponse.wind.speed
                 var bikeRouteCoordinateConditionArray: [BikeRouteCoordinateCondition] = []
                 if let coordinateAngles = self.coordinateAngles{
                     for(index, _) in coordinateAngles.enumerated() {
@@ -120,8 +121,10 @@ class BikeRoute{
                     }
                     self.bikeRouteCoordinateCondition = bikeRouteCoordinateConditionArray
                 }
+                //BUG: this does not work
+                let bikeRouteCondition = BikeRouteCondition(windSpeed: Int(currentWindSpeed), bikeRouteCoordinateCondition: self.bikeRouteCoordinateCondition ?? [])
                 
-                let bikeRouteCondition = BikeRouteCondition(windSpeed: Int(weatherResponse.wind.speed), bikeRouteCoordinateCondition:  [self.bikeRouteCoordinateCondition] as! [BikeRouteCoordinateCondition])
+                
                 self.bikeRouteCondition = bikeRouteCondition
             case .failure(_):
                 let bikeRouteCondition = BikeRouteCondition(totalHeadwindPercentage: 0)
@@ -135,7 +138,7 @@ class BikeRoute{
     
     public func getAndConvertCoordinates() -> [CLLocationCoordinate2D]{
         var tempCoordinates: [CLLocationCoordinate2D] = []
-        for coordinate in coordinates! {
+        for coordinate in coordinates {
             tempCoordinates.append(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
         }
         return tempCoordinates
@@ -179,6 +182,9 @@ class BikeRouteCondition{
         self.totalCrosswindPercentage = BikeRouteCondition.findTotalCrosswindPercentage(bikeRouteCoordinateCondition: bikeRouteCoordinateCondition)
         self.totalTailwindPercentage = BikeRouteCondition.findTotalTailwindPercentage(bikeRouteCoordinateCondition: bikeRouteCoordinateCondition)
     }
+    
+    
+   
     
     static func findTotalHeadwindPercentage(bikeRouteCoordinateCondition: [BikeRouteCoordinateCondition]) -> Int {
         var totalHeadwindPercentage: Int = 0

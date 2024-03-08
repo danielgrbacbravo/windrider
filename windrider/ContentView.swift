@@ -12,33 +12,67 @@ import MapKit
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var routes: [BikeRoute]
+    @State private var selectedRoute: BikeRoute?
+
     var body: some View {
-        NavigationStack{
-            List(routes, id: \.bikeRouteId){ route in
-                Text(route.name!)
-                Map{
-                    MapPolyline(coordinates: route.getAndConvertCoordinates())
-                }
-                .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
-            }
-        }
-        .navigationTitle("WindRider")
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                Button("populate Sample Data") {
-                    let sampleRoute = generateSampleRoute()
-                    modelContext.insert(sampleRoute)
+        ZStack {
+            // Map view as the base layer
+            Map {
+                if let routeCoordinates = selectedRoute?.getAndConvertCoordinates() {
+                    MapPolyline(coordinates: routeCoordinates, contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.purple)
                 }
             }
-            
+
+            // Conditional rendering of RouteConditionPreviewView on top of the Map
+            if selectedRoute != nil {
+                
+                VStack{
+                    RouteConditionPreviewView()
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                        .zIndex(1) // Ensure it stays on top
+                    Spacer()
+                }
+    
+            }
+
+            // Buttons positioned at the bottom or another place
+            VStack {
+                Spacer() // Pushes the content to the bottom
+                HStack {
+                    Button("Add Route") {
+                        let route = generateSampleRoute()
+                        modelContext.insert(route)
+                    }
+                    Button("Select Route") {
+                        selectedRoute = routes.first
+                    }
+                    Button("get weather conditions") {
+                        selectedRoute?.fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
+                    }
+                    
+                    Button("Clear routes"){
+                        if selectedRoute != nil {
+                            modelContext.delete(selectedRoute!)
+                        }
+                    }
+                }
+            }
+            .padding() // Add some padding around the HStack for better spacing
         }
     }
 }
 
-func generateSampleRoute() -> BikeRoute{
-   let points = [Coordinate(latitude: 53.22163,longitude: 6.54162),
-                 Coordinate(latitude: 53.22188,longitude: 6.54115),
-                 Coordinate(latitude: 53.22214,longitude: 6.54089)]
-   let route = BikeRoute(name: "To University", coordinates:points)
-   return route
+private func generateSampleRoute() -> BikeRoute {
+    let points = [Coordinate(latitude: 53.22163, longitude: 6.54162),
+                  Coordinate(latitude: 53.22176, longitude: 6.54138),
+                  Coordinate(latitude: 53.22187, longitude: 6.54118),
+                  Coordinate(latitude: 53.22201, longitude: 6.54101),
+                  Coordinate(latitude: 53.22280, longitude: 6.54033)
+                ]
+    
+    
+    let route = BikeRoute(name: "To University", coordinates: points)
+    return route
 }
