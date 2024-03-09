@@ -14,6 +14,7 @@ struct ContentView: View {
     @Query private var routes: [BikeRoute]
     @State private var selectedRoute: BikeRoute?
     @State var isRouteSelectionViewPresented = false
+    @State var isFetching = false
 
     var body: some View {
         ZStack {
@@ -25,10 +26,10 @@ struct ContentView: View {
             }
 
             // Conditional rendering of RouteConditionPreviewView on top of the Map
-            if selectedRoute != nil {
+            
                 
                 VStack{
-                    RouteConditionPreviewView(route: $selectedRoute)
+                    RouteConditionPreviewView(selectedRoute: $selectedRoute, isFetching: $isFetching)
                         .padding(.vertical, 30)
                         .background(.ultraThickMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 25.0))
@@ -37,7 +38,7 @@ struct ContentView: View {
                     Spacer()
                 }
     
-            }
+            
 
             // Buttons positioned at the bottom or another place
             VStack {
@@ -70,14 +71,19 @@ struct ContentView: View {
                     
                     
                     Button {
-                        selectedRoute?.fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
+                        if selectedRoute != nil {
+                            selectedRoute?.fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
+                        }
                     } label: {
                         Image(systemName: "cloud.sun")
                                                 .padding()
                                                 .foregroundColor(.primary)
                                                 .background(.ultraThickMaterial)
                                                 .clipShape(Circle())
+                                                
                     }
+
+
 
                     
                     Button {

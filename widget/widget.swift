@@ -11,8 +11,6 @@ import SwiftData
 import MapKit
 
 struct Provider: TimelineProvider {
-    
-    
     @MainActor func placeholder(in context: Context)  -> BikeRouteConditionEntry {
             let route = getFavoriteRoute()
             return BikeRouteConditionEntry(date: Date(), bikeRoute: route)
@@ -45,7 +43,7 @@ struct Provider: TimelineProvider {
     
     
     @MainActor private func getFavoriteRoute() -> BikeRoute {
-        guard let modelContainer = try? ModelContainer(for: BikeRoute.self,BikeRouteCondition.self, BikeRouteCoordinateCondition.self) else {
+         guard let modelContainer = try? ModelContainer(for: BikeRoute.self,BikeRouteCondition.self, BikeRouteCoordinateCondition.self) else {
             return BikeRoute()
         }
         let bikeRouteDescriptor = FetchDescriptor<BikeRoute>()
@@ -130,11 +128,10 @@ struct accessoryRectangularWidgetView: View {
 
 struct systemSmallWidgetView: View {
     var entry: Provider.Entry
-    let gradient = Gradient(colors: [.green, .yellow, .orange, .red])
-    let headwindGradient = Gradient(colors: [.black, .red])
-    let crosswindGradient = Gradient(colors: [.black, .orange])
-    let tailwindGradient = Gradient(colors: [.black , .green])
-    let windSpeedGradient = Gradient(colors: [.green, .yellow, .orange, .red])
+    let headwindGradient = Gradient(colors: [.yellow, .red,.purple])
+    let crosswindGradient = Gradient(colors: [.yellow, .orange,.purple])
+    let tailwindGradient = Gradient(colors: [.yellow , .green,.purple])
+    let windSpeedGradient = Gradient(colors: [.green, .yellow ,.orange, .red, .purple])
     
     var body: some View {
         VStack{
@@ -193,10 +190,10 @@ struct systemSmallWidgetView: View {
 struct systemMediumWidgetView: View{
     var entry: Provider.Entry
     let gradient = Gradient(colors: [.green, .yellow, .orange, .red])
-    let headwindGradient = Gradient(colors: [.black, .red])
-    let crosswindGradient = Gradient(colors: [.black, .orange])
-    let tailwindGradient = Gradient(colors: [.black , .green])
-    let windSpeedGradient = Gradient(colors: [.green, .yellow, .orange, .red])
+    let headwindGradient = Gradient(colors: [.yellow, .red,.purple])
+    let crosswindGradient = Gradient(colors: [.yellow, .orange,.purple])
+    let tailwindGradient = Gradient(colors: [.yellow , .green,.purple])
+    let windSpeedGradient = Gradient(colors: [.green, .yellow ,.orange, .red, .purple])
     
     var body: some View{
         VStack{

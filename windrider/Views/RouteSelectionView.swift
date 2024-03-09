@@ -16,6 +16,7 @@ struct RouteSelectionView: View {
     
     var body: some View {
         NavigationStack{
+            
             List(selection: $selectedRoute) {
                 ForEach(routes, id: \.id) { route in
                     Button(action: {
@@ -30,7 +31,14 @@ struct RouteSelectionView: View {
                         }
                     }
                 }
+                .onDelete(perform: { indexSet in
+                    let index = indexSet.first!
+                    let route = routes[index]
+                    modelContext.delete(route)
+                  
+                })
             }
+            .navigationTitle("Select Route")
         }
     }
 }

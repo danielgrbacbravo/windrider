@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct RouteConditionPreviewView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var routes: [BikeRoute]
+    @Binding var selectedRoute: BikeRoute?
+    @Binding  var isFetching: Bool
+    @State private var fetchTimestamp: Date?
+    
     
     let headwindGradient = Gradient(colors: [.yellow, .red,.purple])
     let crosswindGradient = Gradient(colors: [.yellow, .orange,.purple])
@@ -18,69 +19,82 @@ struct RouteConditionPreviewView: View {
     let windSpeedGradient = Gradient(colors: [.green, .yellow ,.orange, .red, .purple])
     
     var body: some View {
-        VStack{
+        if selectedRoute == nil {
             HStack{
-                Image(systemName: "bicycle")
-                Text("Route Conditions:  \(routes.first?.name ?? "")")
+                Image(systemName: "point.bottomleft.forward.to.arrowtriangle.uturn.scurvepath.fill")
+                Text("No Route Selected")
                     .font(.headline)
                     .bold()
                     .padding()
                     .foregroundStyle(.primary)
-            }
+            }.padding()
+
             
-            
-            
-            HStack{
-                
-                Text("Good Day to Cycle").bold()
-                Image(systemName: "bicycle.circle.fill").foregroundStyle(.green)
-                
-                    Gauge(value: Double(routes.first?.bikeRouteCondition?.totalCrosswindPercentage ?? 0)/100){
-                            Image(systemName: "arrow.down.right.and.arrow.up.left")
-                        } currentValueLabel: {
-                            HStack{
-                                Text("\(routes.first?.bikeRouteCondition?.totalCrosswindPercentage ?? 0)%").bold()
-                            }
-                            
-                        }
-                        .gaugeStyle(.accessoryCircular)
-                        .tint(crosswindGradient)
-                
-               
-                
-                Gauge(value: Double(routes.first?.bikeRouteCondition?.totalTailwindPercentage ?? 0)/100){
-                    Image(systemName: "arrow.right.to.line")
-                } currentValueLabel: {
-                    HStack{
-                        Text("\(routes.first?.bikeRouteCondition?.totalTailwindPercentage ?? 0)%").bold()
-                    }
-                    
+        } else {
+            VStack{
+                HStack{
+                    Image(systemName: "bicycle")
+                    Text("Route Conditions:  \(selectedRoute?.name ?? "")")
+                        .font(.headline)
+                        .bold()
+                        .padding()
+                        .foregroundStyle(.primary)
                 }
-                .gaugeStyle(.accessoryCircular)
-                .tint(tailwindGradient)
                 
-                Gauge(value: Double(routes.first?.bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
+                
+                
+                HStack{
+                    
+                    Text("Good Day to Cycle").bold()
+                    Image(systemName: "bicycle.circle.fill").foregroundStyle(.green)
+                    
+                    Gauge(value: Double(selectedRoute?.bikeRouteCondition?.totalCrosswindPercentage ?? 0)/100){
+                                Image(systemName: "arrow.down.right.and.arrow.up.left")
+                            } currentValueLabel: {
+                                HStack{
+                                    Text("\(selectedRoute?.bikeRouteCondition?.totalCrosswindPercentage ?? 0)%").bold()
+                                }
+                                
+                            }
+                            .gaugeStyle(.accessoryCircular)
+                            .tint(crosswindGradient)
+                    
+                   
+                    
+                    Gauge(value: Double(selectedRoute?.bikeRouteCondition?.totalTailwindPercentage ?? 0)/100){
+                        Image(systemName: "arrow.right.to.line")
+                    } currentValueLabel: {
+                        HStack{
+                            Text("\(selectedRoute?.bikeRouteCondition?.totalTailwindPercentage ?? 0)%").bold()
+                        }
+                        
+                    }
+                    .gaugeStyle(.accessoryCircular)
+                    .tint(tailwindGradient)
+                    
+                    Gauge(value: Double(selectedRoute?.bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
+                        Image(systemName: "arrow.left.to.line")
+                    } currentValueLabel: {
+                        HStack{
+                            Text("\(selectedRoute?.bikeRouteCondition?.totalHeadwindPercentage ?? 0)%").bold()
+                        }
+                    }
+                    .gaugeStyle(.accessoryCircular)
+                    .tint(headwindGradient)
+                }
+                Gauge(value: Double(selectedRoute?.bikeRouteCondition?.windSpeed ?? 0)/100){
                     Image(systemName: "arrow.left.to.line")
                 } currentValueLabel: {
                     HStack{
-                        Text("\(routes.first?.bikeRouteCondition?.totalHeadwindPercentage ?? 0)%").bold()
+                        
+                            Text("with winds of \(selectedRoute?.bikeRouteCondition?.windSpeed ?? 0) m\\s").bold()
+                            
                     }
-                    
                 }
-                .gaugeStyle(.accessoryCircular)
-                .tint(headwindGradient)
-            }
-            Gauge(value: Double(routes.first?.bikeRouteCondition?.windSpeed ?? 0)/100){
-                Image(systemName: "arrow.left.to.line")
-            } currentValueLabel: {
-                HStack{
-                    Text("with winds of \(routes.first?.bikeRouteCondition?.windSpeed ?? 0) m\\s").bold()
-                }
-                
-            }
-            .gaugeStyle(.accessoryLinear)
-            .tint(windSpeedGradient)
-        }.padding()
+                .gaugeStyle(.accessoryLinear)
+                .tint(windSpeedGradient)
+            }.padding()
+        }
     }
 }
 
