@@ -28,7 +28,7 @@ struct ContentView: View {
             if selectedRoute != nil {
                 
                 VStack{
-                    RouteConditionPreviewView()
+                    RouteConditionPreviewView(route: $selectedRoute)
                         .padding(.vertical, 30)
                         .background(.ultraThickMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 25.0))
