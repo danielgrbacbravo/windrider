@@ -9,6 +9,38 @@ import Foundation
 import CoreLocation
 class WeatherImpactAnalysisEngine{
    
+    /// Fetches the current weather conditions for the average coordinate of the given cycling path and computes the weather impact for each coordinate.
+    /// - Parameters:
+    ///  - cyclingPath: The cycling path for which to compute the weather impact.
+    ///  - OpenWeatherMapAPI: The OpenWeatherMapAPI to use to fetch the weather conditions.
+    ///  - completion: The completion block to call when the weather impact has been computed.
+    private func fetchCoordinateWeatherImpact(for cyclingPath: CyclingPath, with openWeatherMapAPI: OpenWeatherMapAPI, completion: @escaping (Result<[CoordinateWeatherImpact], Error>) -> Void){
+        
+        //unwrapping the average coordinate
+        guard let averageCoordinate = cyclingPath.getAverageCoordinate() else {
+            completion(.failure(WeatherImpactAnalysisEngineError.invalidAverageCoordinate))
+            return
+        }
+        
+        // Fetch the weather conditions for the average coordinate of the cycling path
+        openWeatherMapAPI.fetchWeatherConditions(for:averageCoordinate) { result in
+            switch result {
+            case .success(let weatherCondition):
+                // TODO: Compute the weather impact for each coordinate of the cycling path
+                
+            case . failure(_):
+                // TODO: Handle the error to satisfy the completion block
+            }
+        }
+       
+    }
+    
+    
+    
+    
+    
+    
+    
     // check the completion block (not sure if its correct)
     private func fetchAndComputeCoordinateWeatherImpacts(for cyclingPath: CyclingPath, with OpenWeatherMapAPI: OpenWeatherMapAPI, completion: @escaping ([CoordinateWeatherImpact]?) -> Void) {
         
@@ -73,6 +105,10 @@ class WeatherImpactAnalysisEngine{
         // Ensure the result is within the 0 to 360 range
         relativeWindAngle %= 360
         return relativeWindAngle
+    }
+    
+    enum WeatherImpactAnalysisEngineError: Error {
+        case invalidAverageCoordinate
     }
     
 }
