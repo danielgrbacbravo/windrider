@@ -9,6 +9,8 @@ import Foundation
 import CoreLocation
 import SwiftData
 
+// MARK: - OpenWeatherMapResponse
+
 public struct OpenWeatherMapResponse: Codable {
     struct Coord: Codable {
         let lon: Double
@@ -148,13 +150,16 @@ public struct OpenWeatherMapResponse: Codable {
     
 }
 
-public class OpenWeatherMapAPI {
+public class OpenWeatherMapAPI{
     var openWeatherMapAPIKey: String = "" // You should place your actual API key here
     
     init(openWeatherMapAPIKey: String) {
         self.openWeatherMapAPIKey = openWeatherMapAPIKey
     }
     
+    //MARK: - Fetch Weather Condition
+    
+    // will be deprecated in the future
     func fetchAsyncWeatherConditionAtCoordinate(coordinate: Coordinate) async throws -> OpenWeatherMapResponse {
         let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&appid=\(openWeatherMapAPIKey)"
         
@@ -174,7 +179,7 @@ public class OpenWeatherMapAPI {
         }
     }
     
-    // Non-async version using completion handlers (designed for widget use)
+        // will be deprecated in the future
         func fetchWeatherConditionAtCoordinate(coordinate: Coordinate, completion: @escaping (Result<OpenWeatherMapResponse, Error>) -> Void) {
             let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&appid=\(openWeatherMapAPIKey)"
             
@@ -206,12 +211,75 @@ public class OpenWeatherMapAPI {
             task.resume()
         }
     
+    //MARK: - New Fetch Methods
     
+    /// Fetches the weather conditions for a given coordinate
+    /// - Parameters:
+    ///  - coordinate: The coordinate for which to fetch the weather conditions
+    ///  - completion: The completion handler to call when the request is complete
+    ///  - result: The result of the request
+        func fetchWeatherConditions(for coordinate: CLLocationCoordinate2D, completion: @escaping (Result<OpenWeatherMapResponse, Error>) -> Void) {
+            let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&appid=\(openWeatherMapAPIKey)"
+            
+            guard let url = URL(string: endpoint) else {
+                completion(.failure(OpenWeatherMapAPIError.invalidURL))
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(OpenWeatherMapAPIError.invalidData))
+                    return
+                }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(OpenWeatherMapResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    completion(.failure(OpenWeatherMapAPIError.invalidData))
+                }
+            }
+            
+            task.resume()
+        }
 
-    
-    
-    
-    
+    /// Fetches the weather conditions for a given coordinate
+    ///
+    /// - Parameters:
+    ///  - coordinate: The coordinate for which to fetch the weather conditions
+    ///  - returns: The result of the request
+    func fetchWeatherConditionsAsync(for coordinate: CLLocationCoordinate2D) async throws -> OpenWeatherMapResponse{
+        // Create the endpoint URL
+        let endpoint = endpointURL(for: coordinate)
+            
+        guard let url = endpoint else {
+            throw OpenWeatherMapAPIError.invalidURL
+        }
+        // Make the request and decode the response
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        let decoder = JSONDecoder()
+        
+        do {
+            let response = try decoder.decode(OpenWeatherMapResponse.self, from: data)
+            return response
+        } catch {
+            throw OpenWeatherMapAPIError.invalidData
+        }
+        
+    }
+
+    private func endpointURL(for coordinate: CLLocationCoordinate2D) -> URL? {
+        let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&appid=\(openWeatherMapAPIKey)"
+        return URL(string: endpoint)
+    }
+
     
     enum OpenWeatherMapAPIError: Error {
         case invalidURL

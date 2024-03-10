@@ -22,7 +22,8 @@ class CyclingPath{
     /// the coordinates are stored as an array of `Coordinate` objects
     /// because the `CLLocationCoordinate2D` struct is not .
     public var coordinates: [Coordinate] = []
-    public var coordinateAngles: [Double] = []
+    public var coordinateAngles: [Int] = []
+    
     //MARK: - Initializers
     init(name: String, coordinates: [Coordinate]? = nil){
         self.name = name
@@ -34,8 +35,7 @@ class CyclingPath{
         self.averageCoordinate = CyclingPath.calculateAverageCoordinate(coordinates: coordinates)
     }
     
-    //MARK: - initializer functions
-    
+    //MARK: Getters/Setters
     
     
     /// Sets the coordinates of the cycling path.
@@ -51,11 +51,12 @@ class CyclingPath{
         self.coordinates = tempCoordinates
     }
     
+    
+    
     /// Gets the coordinates of the cycling path.
     ///
     /// This function returns the coordinates of the cycling path as an array of `CLLocationCoordinate2D` objects.
     /// - Returns: An array of `CLLocationCoordinate2D` objects representing the coordinates of the cycling path.
-    
     public func getCoordinates() -> [CLLocationCoordinate2D]{
         var tempCoordinates: [CLLocationCoordinate2D] = []
         for coordinate in coordinates{
@@ -65,6 +66,17 @@ class CyclingPath{
     }
     
     
+    /// gets the average coordinate of the cycling path.
+    ///
+    /// This function returns the average coordinate of the cycling path as a `CLLocationCoordinate2D` object.
+    public func getAverageCoordinate() -> CLLocationCoordinate2D?{
+        guard let averageCoordinate = averageCoordinate else{
+            return nil
+        }
+        return CLLocationCoordinate2D(latitude: averageCoordinate.latitude, longitude: averageCoordinate.longitude)
+    }
+    
+    //MARK: - Initializer methods
     
     /// Calculates the average coordinate from an array of coordinates.
     ///
@@ -92,7 +104,7 @@ class CyclingPath{
     }
     
     
-    
+
     
     /// Calculates the angles between two coordinates in degrees. relative to north. (ie 0 degrees is north, 90 degrees is east, 180 degrees is south, 270 degrees is west)
     ///
@@ -131,7 +143,7 @@ class CyclingPath{
     public func findNorthRelativeAngles(){
         for i in 0..<coordinates.count-1{
             let angle = CyclingPath.findNorthRelativeAngle(from: coordinates[i], to: coordinates[i+1])
-            coordinateAngles.append(Double(angle))
+            coordinateAngles.append(angle)
         }
     }
 }
