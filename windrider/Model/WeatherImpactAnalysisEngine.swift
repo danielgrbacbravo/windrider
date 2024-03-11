@@ -26,10 +26,26 @@ class WeatherImpactAnalysisEngine{
         openWeatherMapAPI.fetchWeatherConditions(for:averageCoordinate) { result in
             switch result {
             case .success(let weatherCondition):
-                // TODO: Compute the weather impact for each coordinate of the cycling path
-                
+                var coordinateWeatherImpacts: [CoordinateWeatherImpact] = []
+                for  coordinateAngle in cyclingPath.coordinateAngles {
+                    let relativeWindAngle = self.findRelativeWindAngle(coordinateAngle: coordinateAngle, windAngle: weatherCondition.wind.deg)
+                    
+                    let headwindPercentage = self.computeHeadwindPercentage(for: relativeWindAngle)
+                    
+                    let tailwindPercentage = self.findTailwindPercentage(relativeWindAngle: relativeWindAngle)
+                    
+                    let crosswindPercentage = self.findCrosswindPercentage(relativeWindAngle: relativeWindAngle)
+                    
+                    let coordinateWeatherImpact = CoordinateWeatherImpact(relativeWindDirectionInDegrees: Double(relativeWindAngle), headwindPercentage: Double(headwindPercentage), tailwindPercentage: Double(tailwindPercentage), crosswindPercentage: Double(crosswindPercentage))
+                    
+                    coordinateWeatherImpacts.append(coordinateWeatherImpact)
+                    
+                }
+                completion(.success(coordinateWeatherImpacts))
             case . failure(_):
-                // TODO: Handle the error to satisfy the completion block
+                completion(.failure(WeatherImpactAnalysisEngineError.invalidAverageCoordinate))
+                
+                
             }
         }
        
