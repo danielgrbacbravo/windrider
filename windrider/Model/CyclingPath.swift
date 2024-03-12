@@ -33,6 +33,8 @@ class CyclingPath{
             self.averageCoordinate = CyclingPath.calculateAverageCoordinate(coordinates: coordinates)
         }
         self.averageCoordinate = CyclingPath.calculateAverageCoordinate(coordinates: coordinates)
+        
+        self.coordinateAngles = CyclingPath.findNorthRelativeAngles(coordinates: coordinates ?? [])
     }
     
     //MARK: Getters/Setters
@@ -140,10 +142,13 @@ class CyclingPath{
     /// This function calculates the angles between the coordinates of the cycling path and stores them in the `coordinateAngles` array. The angles are relative to north, with 0 degrees being north, 90 degrees being east, 180 degrees being south, and 270 degrees being west.
     /// - Returns: Void
     /// - Postcondition: The `coordinateAngles` array is populated with the north relative angles between the coordinates of the cycling path.
-    public func findNorthRelativeAngles(){
+    static public func findNorthRelativeAngles(coordinates: [Coordinate]) -> [Int] {
+        
+        var tempAngles: [Int] = []
         for i in 0..<coordinates.count-1{
             let angle = CyclingPath.findNorthRelativeAngle(from: coordinates[i], to: coordinates[i+1])
-            coordinateAngles.append(angle)
+            tempAngles.append(angle)
         }
+        return tempAngles
     }
 }
