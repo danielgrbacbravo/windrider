@@ -28,13 +28,13 @@ class WeatherImpactAnalysisEngine{
             case .success(let weatherCondition):
                 var coordinateWeatherImpacts: [CoordinateWeatherImpact] = []
                 for  coordinateAngle in cyclingPath.coordinateAngles {
-                    let relativeWindAngle = self.findRelativeWindAngle(coordinateAngle: coordinateAngle, windAngle: weatherCondition.wind.deg)
+                    let relativeWindAngle = WeatherImpactAnalysisEngine.findRelativeWindAngle(coordinateAngle: coordinateAngle, windAngle: weatherCondition.wind.deg)
                     
-                    let headwindPercentage = self.computeHeadwindPercentage(for: relativeWindAngle)
+                    let headwindPercentage = WeatherImpactAnalysisEngine.computeHeadwindPercentage(for: relativeWindAngle)
                     
-                    let tailwindPercentage = self.findTailwindPercentage(relativeWindAngle: relativeWindAngle)
+                    let tailwindPercentage = WeatherImpactAnalysisEngine.findTailwindPercentage(relativeWindAngle: relativeWindAngle)
                     
-                    let crosswindPercentage = self.findCrosswindPercentage(relativeWindAngle: relativeWindAngle)
+                    let crosswindPercentage = WeatherImpactAnalysisEngine.findCrosswindPercentage(relativeWindAngle: relativeWindAngle)
                     
                     let coordinateWeatherImpact = CoordinateWeatherImpact(relativeWindDirectionInDegrees: Double(relativeWindAngle), headwindPercentage: Double(headwindPercentage), tailwindPercentage: Double(tailwindPercentage), crosswindPercentage: Double(crosswindPercentage))
                     
@@ -51,6 +51,44 @@ class WeatherImpactAnalysisEngine{
     }
 
     /**
+     Fetches weather impact analysis for a cycling path.
+
+     - Parameters:
+        - cyclingPath: The cycling path for which weather impact analysis is to be fetched.
+        - openWeatherMapAPI: An instance of `OpenWeatherMapAPI` used to fetch weather conditions.
+        - completion: A closure called upon completion of the weather impact analysis, returning a `Result` containing either an array of `CoordinateWeatherImpact` objects representing the weather impacts on each coordinate and a `PathWeatherImpact` object representing the cumulative weather impact on the path, or an error if the operation fails.
+
+     */
+    public func fetchWeatherImpactAnalysis(for cyclingPath: CyclingPath, with openWeatherMapAPI: OpenWeatherMapAPI, completion: @escaping (Result<([CoordinateWeatherImpact], PathWeatherImpact), Error>) -> Void){
+        
+        /// checks if the average coordinate is valid
+        guard let averageCoordinate = cyclingPath.getAverageCoordinate() else {
+            completion(.failure(WeatherImpactAnalysisEngineError.invalidAverageCoordinate))
+            return
+        }
+        
+        /// fetch the weather conditions for the average coordinate of the cycling path
+        openWeatherMapAPI.fetchWeatherConditions(for:averageCoordinate) { result in
+            switch result{
+            case .success(let response):
+                /// state: the response is valid
+                var coordinateWeatherImpacts: [CoordinateWeatherImpact] = []
+                var pathWeatherImpact: PathWeatherImpact
+        
+                coordinateWeatherImpacts = WeatherImpactAnalysisEngine.computeCoordinateWeatherImpacts(for: cyclingPath.coordinateAngles, with: response)
+                
+                pathWeatherImpact = WeatherImpactAnalysisEngine.computePathWeatherImpact(for: coordinateWeatherImpacts, with: response)
+                
+                completion(.success((coordinateWeatherImpacts, pathWeatherImpact)))
+      
+            case .failure(let error):
+                /// state: the response is invalid
+                completion(.failure(error))
+            }
+        }
+    }
+
+    /**
      Computes the weather impacts on coordinates based on wind direction and speed.
 
      - Parameters:
@@ -59,17 +97,17 @@ class WeatherImpactAnalysisEngine{
 
      - Returns: An array of `CoordinateWeatherImpact` objects representing the weather impacts on each coordinate.
      */
-    public func computeCoordinateWeatherImpacts(for coordinateAngles: [Int], with openWeatherMapResponce: OpenWeatherMapResponse ) -> [CoordinateWeatherImpact] {
+    static public func computeCoordinateWeatherImpacts(for coordinateAngles: [Int], with openWeatherMapResponce: OpenWeatherMapResponse ) -> [CoordinateWeatherImpact] {
         var coordinateWeatherImpacts: [CoordinateWeatherImpact] = []
 
         for coordinateAngle in coordinateAngles {
             /// Find the relative wind angle
-            let relativeWindAngle = self.findRelativeWindAngle(coordinateAngle: coordinateAngle, windAngle: openWeatherMapResponce.wind.deg)
+            let relativeWindAngle = WeatherImpactAnalysisEngine.findRelativeWindAngle(coordinateAngle: coordinateAngle, windAngle: openWeatherMapResponce.wind.deg)
 
             /// Compute the headwind, tailwind, and crosswind percentages
-            let headwindPercentage = self.computeHeadwindPercentage(for: relativeWindAngle)
-            let tailwindPercentage = self.findTailwindPercentage(relativeWindAngle: relativeWindAngle)
-            let crosswindPercentage = self.findCrosswindPercentage(relativeWindAngle: relativeWindAngle)
+            let headwindPercentage = WeatherImpactAnalysisEngine.computeHeadwindPercentage(for: relativeWindAngle)
+            let tailwindPercentage = WeatherImpactAnalysisEngine.findTailwindPercentage(relativeWindAngle: relativeWindAngle)
+            let crosswindPercentage = WeatherImpactAnalysisEngine.findCrosswindPercentage(relativeWindAngle: relativeWindAngle)
 
             /// Construct the `CoordinateWeatherImpact` object
             let coordinateWeatherImpact = CoordinateWeatherImpact(relativeWindDirectionInDegrees: Double(relativeWindAngle), headwindPercentage: Double(headwindPercentage), tailwindPercentage: Double(tailwindPercentage), crosswindPercentage: Double(crosswindPercentage))
@@ -89,7 +127,7 @@ class WeatherImpactAnalysisEngine{
 
      - Returns: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
      */
-    public func computePathWeatherImpact(for coordinateWeatherImpacts: [CoordinateWeatherImpact], with openWeatherMapResponse: OpenWeatherMapResponse) -> PathWeatherImpact {
+    static public func computePathWeatherImpact(for coordinateWeatherImpacts: [CoordinateWeatherImpact], with openWeatherMapResponse: OpenWeatherMapResponse) -> PathWeatherImpact {
         var totalHeadwindPercentage = 0.0
         var totalCrosswindPercentage = 0.0
         var totalTailwindPercentage = 0.0
@@ -111,30 +149,19 @@ class WeatherImpactAnalysisEngine{
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    private func computeHeadwindPercentage(for relativeWindAngle: Int) -> Int{
+    static private func computeHeadwindPercentage(for relativeWindAngle: Int) -> Int{
         if((relativeWindAngle > 260) || (relativeWindAngle > 0 && relativeWindAngle < 90)){
             let thetaRad = Double(relativeWindAngle) * Double.pi / 180
             return Int ((1 + cos(thetaRad)) / 2 * 100)
         }
         return 0
     }
-    private func findCrosswindPercentage(relativeWindAngle: Int) -> Int{
+    static private func findCrosswindPercentage(relativeWindAngle: Int) -> Int{
         let thetaRad = Double(relativeWindAngle) * Double.pi / 180
         return Int((1 - cos(2 * thetaRad)) / 2 * 100)
     }
     
-    private func findTailwindPercentage(relativeWindAngle: Int) -> Int {
+    static private func findTailwindPercentage(relativeWindAngle: Int) -> Int {
         if((relativeWindAngle > 90) && (relativeWindAngle < 260)){
             let thetaRad = Double(relativeWindAngle) * Double.pi / 180
             return Int ((1 + cos(thetaRad)) / 2 * 100)
@@ -142,7 +169,7 @@ class WeatherImpactAnalysisEngine{
         return 0
     }
     
-    private func findRelativeWindAngle(coordinateAngle: Int, windAngle: Int) -> Int {
+   static private func findRelativeWindAngle(coordinateAngle: Int, windAngle: Int) -> Int {
         var relativeWindAngle: Int = windAngle - coordinateAngle
         // if the result is negative, add 360 to bring it within the 0 to 360 range
         if relativeWindAngle < 0 {
