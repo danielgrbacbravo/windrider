@@ -71,6 +71,7 @@ struct ContentView: View {
                     
                     
                     Button {
+                        
                         if selectedRoute != nil {
                             selectedRoute?.fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
                         }

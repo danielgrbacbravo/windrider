@@ -1,5 +1,5 @@
 //
-//  WeatherOverviewForPath.swift
+//  PathWeatherImpact.swift
 //  windrider
 //
 //  Created by Daniel Grbac Bravo on 09/03/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WeatherOverviewForPath{
+struct PathWeatherImpact{
     var temperature: Double
     var windSpeed: Double
     var headwindPercentage: Double?
