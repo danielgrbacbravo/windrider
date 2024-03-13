@@ -8,48 +8,6 @@
 import Foundation
 import CoreLocation
 class WeatherImpactAnalysisEngine{
-   
-    /// fetches and computes CoordinateWeatherImpact Objects for each coordinate in a cycling path
-    /// - Parameters:
-    ///  - cyclingPath: The cycling path for which to compute the weather impact.
-    ///  - OpenWeatherMapAPI: The OpenWeatherMapAPI to use to fetch the weather conditions.
-    ///  - completion: The completion block to call when the weather impact has been computed.
-    public func fetchCoordinateWeatherImpact(for cyclingPath: CyclingPath, with openWeatherMapAPI: OpenWeatherMapAPI, completion: @escaping (Result<[CoordinateWeatherImpact], Error>) -> Void){
-        
-        //unwrapping the average coordinate
-        guard let averageCoordinate = cyclingPath.getAverageCoordinate() else {
-            completion(.failure(WeatherImpactAnalysisEngineError.invalidAverageCoordinate))
-            return
-        }
-        
-        // Fetch the weather conditions for the average coordinate of the cycling path
-        openWeatherMapAPI.fetchWeatherConditions(for:averageCoordinate) { result in
-            switch result {
-            case .success(let weatherCondition):
-                var coordinateWeatherImpacts: [CoordinateWeatherImpact] = []
-                for  coordinateAngle in cyclingPath.coordinateAngles {
-                    let relativeWindAngle = WeatherImpactAnalysisEngine.findRelativeWindAngle(coordinateAngle: coordinateAngle, windAngle: weatherCondition.wind.deg)
-                    
-                    let headwindPercentage = WeatherImpactAnalysisEngine.computeHeadwindPercentage(for: relativeWindAngle)
-                    
-                    let tailwindPercentage = WeatherImpactAnalysisEngine.findTailwindPercentage(relativeWindAngle: relativeWindAngle)
-                    
-                    let crosswindPercentage = WeatherImpactAnalysisEngine.findCrosswindPercentage(relativeWindAngle: relativeWindAngle)
-                    
-                    let coordinateWeatherImpact = CoordinateWeatherImpact(relativeWindDirectionInDegrees: Double(relativeWindAngle), headwindPercentage: Double(headwindPercentage), tailwindPercentage: Double(tailwindPercentage), crosswindPercentage: Double(crosswindPercentage))
-                    
-                    coordinateWeatherImpacts.append(coordinateWeatherImpact)
-                    
-                }
-                completion(.success(coordinateWeatherImpacts))
-            case . failure(_):
-                completion(.failure(WeatherImpactAnalysisEngineError.invalidAverageCoordinate))
-                
-                
-            }
-        }
-    }
-
     /**
      Fetches weather impact analysis for a cycling path.
 
