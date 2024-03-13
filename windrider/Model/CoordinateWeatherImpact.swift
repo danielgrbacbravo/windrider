@@ -28,5 +28,7 @@ struct CoordinateWeatherImpact {
         self.tailwindPercentage = tailwindPercentage
         self.crosswindPercentage = crosswindPercentage
     }
+    
+   
 }
 
