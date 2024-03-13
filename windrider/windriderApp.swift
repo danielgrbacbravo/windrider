@@ -13,7 +13,7 @@ struct windriderApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.modelContainer(for:[BikeRoute.self, BikeRouteCondition.self, BikeRouteCoordinateCondition.self])
+        }.modelContainer(for:CyclingPath.self)
         
     }
 }

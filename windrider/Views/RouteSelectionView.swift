@@ -10,22 +10,22 @@ import SwiftData
 
 struct RouteSelectionView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var routes: [BikeRoute]
-    @Binding var selectedRoute: BikeRoute?
+    @Query private var paths: [CyclingPath]
+    @Binding var selectedPath: CyclingPath?
     @Binding var isRouteSelectionViewPresented: Bool
     
     var body: some View {
         NavigationStack{
             
-            List(selection: $selectedRoute) {
-                ForEach(routes, id: \.id) { route in
+            List(selection: $selectedPath) {
+                ForEach(paths, id: \.id) { route in
                     Button(action: {
-                        selectedRoute = route
+                        selectedPath = route
                         isRouteSelectionViewPresented = false
                         
                     }) {
                         HStack{
-                            Text(route.name ?? "")
+                            Text(route.name)
                             Spacer()
                             Image(systemName: "chevron.right")
                         }
@@ -33,7 +33,7 @@ struct RouteSelectionView: View {
                 }
                 .onDelete(perform: { indexSet in
                     let index = indexSet.first!
-                    let route = routes[index]
+                    let route = paths[index]
                     modelContext.delete(route)
                   
                 })

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RouteConditionPreviewView: View {
-    @Binding var selectedRoute: BikeRoute?
+    @Binding var selectedPath: CyclingPath?
+    @Binding var weatherImpact: PathWeatherImpact?
     @Binding  var isFetching: Bool
     @State private var fetchTimestamp: Date?
     
@@ -19,7 +20,7 @@ struct RouteConditionPreviewView: View {
     let windSpeedGradient = Gradient(colors: [.green, .yellow ,.orange, .red, .purple])
     
     var body: some View {
-        if selectedRoute == nil {
+        if selectedPath == nil{
             HStack{
                 Image(systemName: "point.bottomleft.forward.to.arrowtriangle.uturn.scurvepath.fill")
                 Text("No Route Selected")
@@ -30,11 +31,22 @@ struct RouteConditionPreviewView: View {
             }.padding()
 
             
-        } else {
+        } else if weatherImpact == nil{
+            HStack{
+                Image(systemName: "point.bottomleft.forward.to.arrowtriangle.uturn.scurvepath.fill")
+                Text("No Fetched Data")
+                    .font(.headline)
+                    .bold()
+                    .padding()
+                    .foregroundStyle(.primary)
+            }.padding()
+            
+            
+        }else {
             VStack{
                 HStack{
                     Image(systemName: "bicycle")
-                    Text("Route Conditions:  \(selectedRoute?.name ?? "")")
+                    Text("Route Conditions:  \(selectedPath?.name ?? "")")
                         .font(.headline)
                         .bold()
                         .padding()
@@ -48,11 +60,11 @@ struct RouteConditionPreviewView: View {
                     Text("Good Day to Cycle").bold()
                     Image(systemName: "bicycle.circle.fill").foregroundStyle(.green)
                     
-                    Gauge(value: Double(selectedRoute?.bikeRouteCondition?.totalCrosswindPercentage ?? 0)/100){
+                    Gauge(value: Double(weatherImpact?.crosswindPercentage ?? 0)/100){
                                 Image(systemName: "arrow.down.right.and.arrow.up.left")
                             } currentValueLabel: {
                                 HStack{
-                                    Text("\(selectedRoute?.bikeRouteCondition?.totalCrosswindPercentage ?? 0)%").bold()
+                                    Text("\(weatherImpact?.crosswindPercentage ?? 0)%").bold()
                                 }
                                 
                             }
@@ -61,33 +73,33 @@ struct RouteConditionPreviewView: View {
                     
                    
                     
-                    Gauge(value: Double(selectedRoute?.bikeRouteCondition?.totalTailwindPercentage ?? 0)/100){
+                    Gauge(value: Double(weatherImpact?.tailwindPercentage ?? 0)/100){
                         Image(systemName: "arrow.right.to.line")
                     } currentValueLabel: {
                         HStack{
-                            Text("\(selectedRoute?.bikeRouteCondition?.totalTailwindPercentage ?? 0)%").bold()
+                            Text("\(weatherImpact?.tailwindPercentage ?? 0)%").bold()
                         }
                         
                     }
                     .gaugeStyle(.accessoryCircular)
                     .tint(tailwindGradient)
                     
-                    Gauge(value: Double(selectedRoute?.bikeRouteCondition?.totalHeadwindPercentage ?? 0)/100){
+                    Gauge(value: Double(weatherImpact?.headwindPercentage ?? 0)/100){
                         Image(systemName: "arrow.left.to.line")
                     } currentValueLabel: {
                         HStack{
-                            Text("\(selectedRoute?.bikeRouteCondition?.totalHeadwindPercentage ?? 0)%").bold()
+                            Text("\(weatherImpact?.headwindPercentage ?? 0)%").bold()
                         }
                     }
                     .gaugeStyle(.accessoryCircular)
                     .tint(headwindGradient)
                 }
-                Gauge(value: Double(selectedRoute?.bikeRouteCondition?.windSpeed ?? 0)/100){
+                Gauge(value: Double(weatherImpact?.windSpeed ?? 0)/100){
                     Image(systemName: "arrow.left.to.line")
                 } currentValueLabel: {
                     HStack{
                         
-                            Text("with winds of \(selectedRoute?.bikeRouteCondition?.windSpeed ?? 0) m\\s").bold()
+                            Text("with winds of \(weatherImpact?.windSpeed ?? 0) m\\s").bold()
                             
                     }
                 }

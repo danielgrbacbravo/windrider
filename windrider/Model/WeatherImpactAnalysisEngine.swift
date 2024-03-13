@@ -14,10 +14,9 @@ class WeatherImpactAnalysisEngine{
      - Parameters:
         - cyclingPath: The cycling path for which weather impact analysis is to be fetched.
         - openWeatherMapAPI: An instance of `OpenWeatherMapAPI` used to fetch weather conditions.
-        - completion: A closure called upon completion of the weather impact analysis, returning a `Result` containing either an array of `CoordinateWeatherImpact` objects representing the weather impacts on each coordinate and a `PathWeatherImpact` object representing the cumulative weather impact on the path, or an error if the operation fails.
-
+        - completion: A closure called upon completion of the weather impact analysis, returning a `Result` containing either an array of `CoordinateWeatherImpact` objects representing the weather impacts on each coordinate and a `PathWeatherImpact` object representing the cumulative weather impact on the path, or an error if the operation fails.s
      */
-    public func fetchWeatherImpactAnalysis(for cyclingPath: CyclingPath, with openWeatherMapAPI: OpenWeatherMapAPI, completion: @escaping (Result<([CoordinateWeatherImpact], PathWeatherImpact), Error>) -> Void){
+    public func analyseImpact(for cyclingPath: CyclingPath, with openWeatherMapAPI: OpenWeatherMapAPI, completion: @escaping (Result<([CoordinateWeatherImpact], PathWeatherImpact), Error>) -> Void){
         
         /// checks if the average coordinate is valid
         guard let averageCoordinate = cyclingPath.getAverageCoordinate() else {

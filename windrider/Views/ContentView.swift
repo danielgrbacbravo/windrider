@@ -11,8 +11,14 @@ import MapKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var routes: [BikeRoute]
+    
+    @Query private var paths: [CyclingPath]
     @State private var selectedRoute: BikeRoute?
+    @State private var selectedPath: CyclingPath?
+    
+    // Weather impact analysis
+    @State private var weatherImpact: PathWeatherImpact?
+    @State private var coordinateWeatherImpact: [CoordinateWeatherImpact]?
     @State var isRouteSelectionViewPresented = false
     @State var isFetching = false
 
@@ -20,7 +26,7 @@ struct ContentView: View {
         ZStack {
             // Map view as the base layer
             Map {
-                if let routeCoordinates = selectedRoute?.getAndConvertCoordinates() {
+                if let routeCoordinates = selectedPath?.getCoordinates() {
                     MapPolyline(coordinates: routeCoordinates, contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.purple)
                 }
             }
@@ -29,7 +35,7 @@ struct ContentView: View {
             
                 
                 VStack{
-                    RouteConditionPreviewView(selectedRoute: $selectedRoute, isFetching: $isFetching)
+                    RouteConditionPreviewView(selectedPath: $selectedPath, weatherImpact: $weatherImpact, isFetching: $isFetching)
                         .padding(.vertical, 30)
                         .background(.ultraThickMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 25.0))
@@ -46,8 +52,8 @@ struct ContentView: View {
                 HStack {
                     
                     Button {
-                        let route = generateSampleRoute()
-                        modelContext.insert(route)
+                        let path = generateSamplePath()
+                        modelContext.insert(path)
                     } label: {
                         Image(systemName: "plus")
                                                 .padding()
@@ -66,15 +72,26 @@ struct ContentView: View {
                                                 .background(.ultraThickMaterial)
                                                 .clipShape(Circle())
                     }.sheet(isPresented: $isRouteSelectionViewPresented, content: {
-                        RouteSelectionView(selectedRoute: $selectedRoute, isRouteSelectionViewPresented: $isRouteSelectionViewPresented)
+                        RouteSelectionView(selectedPath: $selectedPath, isRouteSelectionViewPresented: $isRouteSelectionViewPresented)
                     })
                     
                     
                     Button {
                         
-                        if selectedRoute != nil {
-                            selectedRoute?.fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
+                        guard let selectedPath = selectedPath else { return}
+                        
+                        let engine = WeatherImpactAnalysisEngine()
+                        
+                        engine.analyseImpact(for: selectedPath, with: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449")) { result in
+                            switch result{
+                            case .success(let response):
+                                coordinateWeatherImpact = response.0
+                                weatherImpact = response.1
+                            case .failure(_):
+                                return
+                            }
                         }
+                        
                     } label: {
                         Image(systemName: "cloud.sun")
                                                 .padding()
@@ -88,8 +105,8 @@ struct ContentView: View {
 
                     
                     Button {
-                        for route in routes {
-                            modelContext.delete(route)
+                        for path in paths {
+                            modelContext.delete(path)
                         }
                     } label: {
                         Image(systemName: "trash")
@@ -105,7 +122,7 @@ struct ContentView: View {
     }
 }
 
-private func generateSampleRoute() -> BikeRoute {
+private func generateSamplePath() -> CyclingPath {
     let points = [Coordinate(latitude: 53.22163, longitude: 6.54162),
                   Coordinate(latitude: 53.22176, longitude: 6.54138),
                   Coordinate(latitude: 53.22187, longitude: 6.54118),
@@ -114,6 +131,6 @@ private func generateSampleRoute() -> BikeRoute {
                 ]
     
     
-    let route = BikeRoute(name: "To University", coordinates: points)
+    let route = CyclingPath(name: "To University", coordinates: points)
     return route
 }

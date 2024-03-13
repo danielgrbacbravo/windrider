@@ -9,6 +9,7 @@ import Foundation
 import SwiftData
 import CoreLocation
 
+@Model
 class CyclingPath{
     //MARK: - Properties
     //general Cycling Path Attributes
@@ -32,7 +33,6 @@ class CyclingPath{
             self.coordinates = coordinates
             self.averageCoordinate = CyclingPath.calculateAverageCoordinate(coordinates: coordinates)
         }
-        self.averageCoordinate = CyclingPath.calculateAverageCoordinate(coordinates: coordinates)
         
         self.coordinateAngles = CyclingPath.findNorthRelativeAngles(coordinates: coordinates ?? [])
     }
