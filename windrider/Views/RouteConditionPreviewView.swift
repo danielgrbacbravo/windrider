@@ -232,6 +232,14 @@ struct RouteConditionPreviewView: View {
                                                  
                         }.padding()
                         
+                        Text("Headwinds")
+                            .font(.headline)
+                            .bold()
+                            .shadow(radius: 20)
+                            .foregroundStyle(.primary)
+                            .matchedGeometryEffect(id: "headwindsText", in: animation)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
                         Chart{
                             ForEach(Array(coordinateWeatherImpact!.enumerated()), id: \.offset){ index, object in
                              
