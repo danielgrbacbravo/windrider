@@ -126,14 +126,12 @@ struct ContentView: View {
 }
 
 private func generateSamplePath() -> CyclingPath {
-    let points = [Coordinate(latitude: 53.22163, longitude: 6.54162),
-                  Coordinate(latitude: 53.22176, longitude: 6.54138),
-                  Coordinate(latitude: 53.22187, longitude: 6.54118),
-                  Coordinate(latitude: 53.22201, longitude: 6.54101),
-                  Coordinate(latitude: 53.22280, longitude: 6.54033)
+    let points = [CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54162),
+                  CLLocationCoordinate2D(latitude: 53.22176, longitude: 6.54138),
+                  CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54118),
+                  CLLocationCoordinate2D(latitude: 53.22201, longitude: 6.54101),
+                  CLLocationCoordinate2D(latitude: 53.22280, longitude: 6.54033)
                 ]
-    
-    
     let route = CyclingPath(name: "To University", coordinates: points)
     return route
 }
