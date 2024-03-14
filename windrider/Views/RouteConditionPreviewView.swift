@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct RouteConditionPreviewView: View {
+    //MARK: - Properties
     @Binding var selectedPath: CyclingPath?
     @Binding var weatherImpact: PathWeatherImpact?
+    @Binding var coordinateWeatherImpact: [CoordinateWeatherImpact]?
+    
     @Binding  var isFetching: Bool
     @State private var fetchTimestamp: Date?
     
@@ -22,10 +25,12 @@ struct RouteConditionPreviewView: View {
     let crosswindGradient = Gradient(colors: [.yellow, .orange,.purple])
     let tailwindGradient = Gradient(colors: [.yellow , .green,.purple])
     let windSpeedGradient = Gradient(colors: [.green, .yellow ,.orange, .red, .purple])
-    let temperatureGradient = Gradient(colors: [ .purple, .blue, .green,.red])
-        
+    let temperatureGradient = Gradient(colors: [ .purple, .blue ,.red])
+    
+    
         
         var body: some View {
+            //MARK: - No Route Selected
         if selectedPath == nil{
             HStack{
               
@@ -38,6 +43,7 @@ struct RouteConditionPreviewView: View {
 
             
         } else if weatherImpact == nil{
+            //MARK: - No Fetched Dataf
             HStack{
              
                 Text("No Fetched Data")
@@ -51,7 +57,7 @@ struct RouteConditionPreviewView: View {
         }else {
             ZStack{
                 if !isExpanded {
-                    /// preview view
+                    //MARK: - Collapsed View
                     VStack{
                         HStack{
                             Text("\(selectedPath?.name ?? "")")
@@ -129,7 +135,7 @@ struct RouteConditionPreviewView: View {
                     }.padding()
                     
                 } else {
-                    /// expanded view
+                    //MARK: Expanded View
                     VStack{
                         HStack{
                             Text("\(selectedPath?.name ?? "")")
@@ -141,11 +147,21 @@ struct RouteConditionPreviewView: View {
                         }
                         HStack{
                             
-                            Text("Good Day to Cycle").bold()
-                                .matchedGeometryEffect(id: "message", in: animation)
-
-                            Image(systemName: "bicycle.circle.fill").foregroundStyle(.green)
-                                .matchedGeometryEffect(id: "messageIcon", in: animation)
+                           
+                            
+                            Gauge(value: Double(kelvinToCelsius(weatherImpact?.temperature ?? 0)), in: -20...40){
+                                        Image(systemName: "thermometer.medium")
+                                    } currentValueLabel: {
+                                        HStack{
+                                            Text("\(truncateToOneDecmialPlace(kelvinToCelsius(weatherImpact?.temperature ?? 0)))°").bold()
+                                        }
+                                        
+                                    }
+                                    .gaugeStyle(.accessoryCircular)
+                                    .tint(temperatureGradient)
+                                    .matchedGeometryEffect(id: "temperatureGauge", in: animation)
+                            
+                            
                             
                             Gauge(value: Double(weatherImpact?.crosswindPercentage ?? 0)/100){
                                         Image(systemName: "arrow.down.right.and.arrow.up.left")
@@ -197,7 +213,14 @@ struct RouteConditionPreviewView: View {
                         .gaugeStyle(.accessoryLinear)
                         .tint(windSpeedGradient)
                         .matchedGeometryEffect(id: "windSpeedGauge", in: animation)
-                        Spacer()
+
+                        HStack{
+                            Text(WeatherImpactAnalysisEngine.shouldICycle(for: weatherImpact! )).bold()
+                                .matchedGeometryEffect(id: "message", in: animation)
+                            
+                            Image(systemName: "bicycle.circle.fill").foregroundStyle(.green)
+                                .matchedGeometryEffect(id: "messageIcon", in: animation)
+                        }.padding()
                     }.padding()
                 }
             }.onTapGesture {
@@ -209,15 +232,11 @@ struct RouteConditionPreviewView: View {
     }
 }
 
+//MARK: - Functions
 public func truncateToOneDecmialPlace(_ value: Double) -> String {
     return String(format: "%.1f", value)
 }
 /// given some
 public func kelvinToCelsius(_ kelvin: Double) -> Double {
     return kelvin - 273.15
-}
-/// given some value, upper and lower bounds, return the nomalized value (0-1)
-/// preconditions: upper > lower
-public func nomalize(upper : Double, lower: Double, value: Double) -> Double {
-    return ((value - lower) / (upper - lower))
 }

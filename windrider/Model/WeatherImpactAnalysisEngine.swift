@@ -8,6 +8,8 @@
 import Foundation
 import CoreLocation
 class WeatherImpactAnalysisEngine{
+    
+    //MARK: Data Processing
     /**
      Fetches weather impact analysis for a cycling path.
 
@@ -139,6 +141,54 @@ class WeatherImpactAnalysisEngine{
     
     enum WeatherImpactAnalysisEngineError: Error {
         case invalidAverageCoordinate
+    }
+    
+    
+    //MARK: Data Representation
+    
+    
+    /// a holistic score representing the weather impact on the path
+    ///
+    /// - Parameter pathWeatherImpact: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
+    /// - Returns: A double representing the weather impact on the path.
+    static public func cyclingScore(for pathWeatherImpact: PathWeatherImpact) -> Double{
+        
+        //TODO: Implement the method
+        return 0
+    }
+    
+    
+    /// Returns a string indicating whether it is a good day to cycle based on the weather impact on the path.
+    ///
+    /// - Parameter pathWeatherImpact: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
+    /// - Returns: A string indicating whether it is a good day to cycle.
+    static public func shouldICycle(for pathWeatherImpact: PathWeatherImpact) -> String {
+        guard let headwindPercentage = pathWeatherImpact.headwindPercentage,
+              let tailwindPercentage = pathWeatherImpact.tailwindPercentage,
+              let crosswindPercentage = pathWeatherImpact.crosswindPercentage
+           else {
+            return "Data is incomplete"
+        }
+        
+        let windSpeed = pathWeatherImpact.windSpeed
+        let temperature = pathWeatherImpact.temperature
+
+        if(windSpeed > 10){
+            return "It is too windy to cycle"
+        }
+        if(temperature < 0){
+            return "It is too cold to cycle"
+        }
+        if(headwindPercentage > 50){
+            return "It is too windy to cycle"
+        }
+        if(crosswindPercentage > 50){
+            return "It is too windy to cycle"
+        }
+        if(tailwindPercentage > 50){
+            return "It is a good day to cycle"
+        }
+        return "It is a good day to cycle"
     }
     
 }

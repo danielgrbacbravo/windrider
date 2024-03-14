@@ -35,7 +35,10 @@ struct ContentView: View {
             
                 
                 VStack{
-                    RouteConditionPreviewView(selectedPath: $selectedPath, weatherImpact: $weatherImpact, isFetching: $isFetching)
+                    RouteConditionPreviewView(selectedPath: $selectedPath,
+                                              weatherImpact: $weatherImpact,
+                                              coordinateWeatherImpact: $coordinateWeatherImpact,
+                                              isFetching: $isFetching)
                         .padding(.vertical, 30)
                         .background(.ultraThickMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 25.0))
