@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct RouteConditionPreviewView: View {
     //MARK: - Properties
@@ -64,6 +65,7 @@ struct RouteConditionPreviewView: View {
                                 .font(.title)
                                 .bold()
                                 .padding()
+                                .shadow(radius: 20)
                                 .foregroundStyle(.primary)
                                 .matchedGeometryEffect(id: "titleText", in: animation)
                         }
@@ -141,6 +143,7 @@ struct RouteConditionPreviewView: View {
                             Text("\(selectedPath?.name ?? "")")
                                 .font(.title)
                                 .bold()
+                                .shadow(radius: 20)
                                 .padding()
                                 .foregroundStyle(.primary)
                                 .matchedGeometryEffect(id: "titleText", in: animation)
@@ -201,8 +204,7 @@ struct RouteConditionPreviewView: View {
                             .matchedGeometryEffect(id: "headwindPercentageGauge", in: animation)
                         }
                         
-                        Gauge(value: Double(weatherImpact?.windSpeed ?? 0)/100){
-                            Image(systemName: "arrow.left.to.line")
+                        Gauge(value: Double(weatherImpact?.windSpeed ?? 0), in: 0...15){
                         } currentValueLabel: {
                             HStack{
                                 
@@ -213,14 +215,44 @@ struct RouteConditionPreviewView: View {
                         .gaugeStyle(.accessoryLinear)
                         .tint(windSpeedGradient)
                         .matchedGeometryEffect(id: "windSpeedGauge", in: animation)
-
                         HStack{
-                            Text(WeatherImpactAnalysisEngine.shouldICycle(for: weatherImpact! )).bold()
+                            Text(WeatherImpactAnalysisEngine.shouldICycle(for: weatherImpact! ))
+                                .font(.headline)
+                                .shadow(radius: 20)
+                                .foregroundStyle(.gray)
                                 .matchedGeometryEffect(id: "message", in: animation)
                             
-                            Image(systemName: "bicycle.circle.fill").foregroundStyle(.green)
-                                .matchedGeometryEffect(id: "messageIcon", in: animation)
+                      
+                            Text("\(Int(WeatherImpactAnalysisEngine.cyclingScore(for: weatherImpact!) * 100)) %")
+                                .font(.title)
+                                .bold()
+                                .shadow(radius: 20)
+                                .foregroundColor(Color(hue: Double(1/3 - WeatherImpactAnalysisEngine.cyclingScore(for: weatherImpact! )/3), saturation: 0.8, brightness: 0.6))
+                                .matchedGeometryEffect(id: "score", in: animation)
+                                                 
                         }.padding()
+                        
+                        Chart{
+                            ForEach(Array(coordinateWeatherImpact!.enumerated()), id: \.offset){ index, object in
+                             
+                                    LineMark(x: .value("Coordinate", index), y: .value("Percentage", object.headwindPercentage ?? 0))
+                                        .interpolationMethod(.catmullRom)
+                                        .lineStyle(StrokeStyle(lineWidth: 2))
+                                        .foregroundStyle(.gray)
+                            }
+                        }
+                        .chartYAxis {
+                            AxisMarks(
+                                format: Decimal.FormatStyle.Percent.percent.scale(1),
+                                values: [0, 50, 100]
+                            )
+                        }
+                            .padding()
+                            .frame(height: 200)
+                                               
+                                               
+                        
+                        
                     }.padding()
                 }
             }.onTapGesture {
@@ -239,4 +271,8 @@ public func truncateToOneDecmialPlace(_ value: Double) -> String {
 /// given some
 public func kelvinToCelsius(_ kelvin: Double) -> Double {
     return kelvin - 273.15
+}
+
+public func meterPerSecondToKilometerPerHour(_ mps: Double) -> Double {
+    return mps * 3.6
 }

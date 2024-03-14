@@ -151,10 +151,18 @@ class WeatherImpactAnalysisEngine{
     ///
     /// - Parameter pathWeatherImpact: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
     /// - Returns: A double representing the weather impact on the path.
-    static public func cyclingScore(for pathWeatherImpact: PathWeatherImpact) -> Double{
+    static public func cyclingScore(for pathWeatherImpact: PathWeatherImpact) -> Double {
+        let idealTemperature = 20.0
+        let temperatureImpact = 1 / (1 + exp(-(pathWeatherImpact.temperature - idealTemperature)))
         
-        //TODO: Implement the method
-        return 0
+        let idealWindSpeed = 0.0
+        let windSpeedImpact = 1 / (1 + exp(-(pathWeatherImpact.windSpeed - idealWindSpeed)))
+        
+        let windImpact = (pathWeatherImpact.tailwindPercentage ?? 0) - (pathWeatherImpact.headwindPercentage ?? 0) - (pathWeatherImpact.crosswindPercentage ?? 0)
+        let normalizedWindImpact = (windImpact + 100) / 200 // normalize to 0-1 range
+        
+        let score = (temperatureImpact + windSpeedImpact + normalizedWindImpact) / 3
+        return score
     }
     
     
@@ -166,29 +174,36 @@ class WeatherImpactAnalysisEngine{
         guard let headwindPercentage = pathWeatherImpact.headwindPercentage,
               let tailwindPercentage = pathWeatherImpact.tailwindPercentage,
               let crosswindPercentage = pathWeatherImpact.crosswindPercentage
-           else {
+        else {
             return "Data is incomplete"
         }
-        
+
         let windSpeed = pathWeatherImpact.windSpeed
         let temperature = pathWeatherImpact.temperature
 
-        if(windSpeed > 10){
-            return "It is too windy to cycle"
+        if windSpeed > 10 {
+            return "It's quite windy today. Cycling might be challenging."
         }
-        if(temperature < 0){
-            return "It is too cold to cycle"
+        if temperature < 0 {
+            return "It's freezing outside. Cycling might be uncomfortable."
         }
-        if(headwindPercentage > 50){
-            return "It is too windy to cycle"
+        if headwindPercentage > 50 {
+            return "There's a strong headwind today. Cycling could be difficult."
         }
-        if(crosswindPercentage > 50){
-            return "It is too windy to cycle"
+        if crosswindPercentage > 50 {
+            return "There's a strong crosswind today. It could make cycling unstable."
         }
-        if(tailwindPercentage > 50){
-            return "It is a good day to cycle"
+        if tailwindPercentage > 50 {
+            if temperature > 30 {
+                return "It's a warm day with a nice tailwind. Remember to stay hydrated while cycling."
+            } else {
+                return "It's a good day to cycle with a supportive tailwind."
+            }
         }
-        return "It is a good day to cycle"
+        if temperature > 30 {
+            return "It's quite hot today. If you decide to cycle, remember to stay hydrated."
+        }
+        return "The weather seems good for cycling. Enjoy your ride!"
     }
     
 }
