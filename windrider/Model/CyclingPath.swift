@@ -109,10 +109,6 @@ class CyclingPath{
         return Coordinate(latitude: averageLatitude, longitude: averageLongitude)
     }
     
-    
-    
-
-    
     /// Calculates the angles between two coordinates in degrees. relative to north. (ie 0 degrees is north, 90 degrees is east, 180 degrees is south, 270 degrees is west)
     ///
     /// This function computes the angle between two coordinates in degrees, relative to north. The angle is calculated using the `atan2` function, which returns the angle in radians. This value is then converted to degrees and normalized to the range 0 to 360 degrees.

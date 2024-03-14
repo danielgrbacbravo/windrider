@@ -14,6 +14,5 @@ struct windriderApp: App {
         WindowGroup {
             ContentView()
         }.modelContainer(for:CyclingPath.self)
-        
     }
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 import CoreLocation
+import SwiftUI
+
 class WeatherImpactAnalysisEngine{
     
     //MARK: Data Processing
@@ -206,5 +208,50 @@ class WeatherImpactAnalysisEngine{
         return "The weather seems good for cycling. Enjoy your ride!"
     }
     
+    //MARK: Polyline Segment Generator
+    
+    
+    /// Constructs a polyline segment for each pair of coordinates in the cycling path
+    ///
+    /// - Parameters:
+    ///  - coordinateWeatherImpacts: An array of `CoordinateWeatherImpact` objects representing the weather impact on each coordinate in the cycling path.
+    ///  - cyclingPath: A `CyclingPath` object representing the cycling path.
+    static public func constructWeatherImpactPolyline(coordinateWeatherImpacts: [CoordinateWeatherImpact], cyclingPath: CyclingPath) -> [PolylineSegement] {
+        var polylineSegments: [PolylineSegement] = []
+        let coordinates = cyclingPath.getCoordinates()
+        
+        // Iterate through the coordinateWeatherImpacts and create a polyline segment for each pair of coordinates
+        for i in 0..<coordinateWeatherImpacts.count {
+            var color: Color = .gray
+            if let headwindPercentage = coordinateWeatherImpacts[i].headwindPercentage {
+                color = colorForPercentage(headwindPercentage)
+            }
+            
+            if i < coordinates.count - 1 {
+                let segmentCoordinates = [coordinates[i], coordinates[i+1]]
+                let segment = PolylineSegement(CoordinateArray: segmentCoordinates, Color: color)
+                polylineSegments.append(segment)
+            }
+        }
+        
+        return polylineSegments
+    }
+
+    // Returns a color on a gradient from green to red based on the given percentage
+    static func colorForPercentage(_ percentage: Double) -> Color {
+        let redValue = percentage / 100
+        let greenValue = 1 - redValue
+        return Color(red: redValue, green: greenValue, blue: 0)
+    }
+    
 }
 
+struct PolylineSegement {
+    var coordinateArray: [CLLocationCoordinate2D]
+    var color: Color
+    
+    init(CoordinateArray: [CLLocationCoordinate2D], Color: Color) {
+        self.coordinateArray = CoordinateArray
+        self.color = Color
+    }
+}

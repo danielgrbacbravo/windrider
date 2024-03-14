@@ -21,14 +21,26 @@ struct ContentView: View {
     @State private var coordinateWeatherImpact: [CoordinateWeatherImpact]?
     @State var isRouteSelectionViewPresented = false
     @State var isFetching = false
+    
+    @State var polylineSegements: [PolylineSegement]?
 
     var body: some View {
         ZStack {
             // Map view as the base layer
             Map {
-                if let routeCoordinates = selectedPath?.getCoordinates() {
-                    MapPolyline(coordinates: routeCoordinates, contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.purple)
+                if let polylineSegements = polylineSegements {
+                    ForEach(Array(polylineSegements.enumerated()), id: \.offset) { index , object in
+                        MapPolyline(coordinates: object.coordinateArray, contourStyle:
+                                .geodesic).stroke(lineWidth: 3).stroke(object.color)
+                    }
                 }
+                
+                
+                
+                
+//                if let routeCoordinates = selectedPath?.getCoordinates() {
+//                    MapPolyline(coordinates: routeCoordinates, contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.purple)
+//                }
             }
 
             // Conditional rendering of RouteConditionPreviewView on top of the Map
@@ -90,6 +102,10 @@ struct ContentView: View {
                             case .success(let response):
                                 coordinateWeatherImpact = response.0
                                 weatherImpact = response.1
+                                
+                                // create polyline segments
+                                polylineSegements = WeatherImpactAnalysisEngine.constructWeatherImpactPolyline(coordinateWeatherImpacts: coordinateWeatherImpact!, cyclingPath: selectedPath)
+                                
                             case .failure(_):
                                 return
                             }
