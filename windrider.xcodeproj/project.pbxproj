@@ -36,7 +36,8 @@
 		65366F1D2B9C8FA20005C72B /* CoordinateWeatherImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F1C2B9C8FA20005C72B /* CoordinateWeatherImpact.swift */; };
 		65366F1E2B9C8FA20005C72B /* CoordinateWeatherImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F1C2B9C8FA20005C72B /* CoordinateWeatherImpact.swift */; };
 		65366F222B9C93DF0005C72B /* WeatherImpactAnalysisEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F212B9C93DF0005C72B /* WeatherImpactAnalysisEngineTests.swift */; };
-		65366F242B9C99C50005C72B /* CyclingPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65366F232B9C99C50005C72B /* CyclingPathTests.swift */; };
+		654241E12BA34ADF00AAF2D1 /* RecordCyclingPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241E02BA34ADF00AAF2D1 /* RecordCyclingPath.swift */; };
+		654241E52BA34EFF00AAF2D1 /* PathRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241E42BA34EFF00AAF2D1 /* PathRecorderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +109,8 @@
 		65366F192B9C8F980005C72B /* PathWeatherImpact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathWeatherImpact.swift; sourceTree = "<group>"; };
 		65366F1C2B9C8FA20005C72B /* CoordinateWeatherImpact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateWeatherImpact.swift; sourceTree = "<group>"; };
 		65366F212B9C93DF0005C72B /* WeatherImpactAnalysisEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherImpactAnalysisEngineTests.swift; sourceTree = "<group>"; };
-		65366F232B9C99C50005C72B /* CyclingPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingPathTests.swift; sourceTree = "<group>"; };
+		654241E02BA34ADF00AAF2D1 /* RecordCyclingPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCyclingPath.swift; sourceTree = "<group>"; };
+		654241E42BA34EFF00AAF2D1 /* PathRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathRecorderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +198,6 @@
 			children = (
 				650FEFE32B97C9290080AB71 /* windriderTests.swift */,
 				65366F212B9C93DF0005C72B /* WeatherImpactAnalysisEngineTests.swift */,
-				65366F232B9C99C50005C72B /* CyclingPathTests.swift */,
 			);
 			path = windriderTests;
 			sourceTree = "<group>";
@@ -239,6 +240,7 @@
 				65366F162B9C8F7A0005C72B /* WeatherImpactAnalysisEngine.swift */,
 				65366F1C2B9C8FA20005C72B /* CoordinateWeatherImpact.swift */,
 				65366F192B9C8F980005C72B /* PathWeatherImpact.swift */,
+				654241E02BA34ADF00AAF2D1 /* RecordCyclingPath.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,6 +252,7 @@
 				65366F0A2B9B67550005C72B /* RouteSelectionPreviewView.swift */,
 				65366F0C2B9B67DE0005C72B /* RouteSelectionView.swift */,
 				650FEFD02B97C9280080AB71 /* ContentView.swift */,
+				654241E42BA34EFF00AAF2D1 /* PathRecorderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -418,10 +421,12 @@
 				650FF01A2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
 				650FF0162B97CF470080AB71 /* BikeRoute.swift in Sources */,
 				65366F0D2B9B67DE0005C72B /* RouteSelectionView.swift in Sources */,
+				654241E52BA34EFF00AAF2D1 /* PathRecorderView.swift in Sources */,
 				65366F172B9C8F7A0005C72B /* WeatherImpactAnalysisEngine.swift in Sources */,
 				65366F0B2B9B67550005C72B /* RouteSelectionPreviewView.swift in Sources */,
 				65366F142B9C8E270005C72B /* CyclingPath.swift in Sources */,
 				65366F1D2B9C8FA20005C72B /* CoordinateWeatherImpact.swift in Sources */,
+				654241E12BA34ADF00AAF2D1 /* RecordCyclingPath.swift in Sources */,
 				650FEFD12B97C9280080AB71 /* ContentView.swift in Sources */,
 				650FEFCF2B97C9280080AB71 /* windriderApp.swift in Sources */,
 				65366F052B9A52E30005C72B /* RouteConditionPreviewView.swift in Sources */,
@@ -434,7 +439,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65366F222B9C93DF0005C72B /* WeatherImpactAnalysisEngineTests.swift in Sources */,
-				65366F242B9C99C50005C72B /* CyclingPathTests.swift in Sources */,
 				650FEFE42B97C9290080AB71 /* windriderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

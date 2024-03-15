@@ -154,19 +154,26 @@ class WeatherImpactAnalysisEngine{
     /// - Parameter pathWeatherImpact: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
     /// - Returns: A double representing the weather impact on the path.
     static public func cyclingScore(for pathWeatherImpact: PathWeatherImpact) -> Double {
-        let idealTemperature = 20.0
+        let idealTemperature = 23.0
+        
         let temperatureImpact = 1 / (1 + exp(-(pathWeatherImpact.temperature - idealTemperature)))
         
         let idealWindSpeed = 0.0
+        
         let windSpeedImpact = 1 / (1 + exp(-(pathWeatherImpact.windSpeed - idealWindSpeed)))
         
         let windImpact = (pathWeatherImpact.tailwindPercentage ?? 0) - (pathWeatherImpact.headwindPercentage ?? 0) - (pathWeatherImpact.crosswindPercentage ?? 0)
+        
+        
         let normalizedWindImpact = (windImpact + 100) / 200 // normalize to 0-1 range
         
-        let score = (temperatureImpact + windSpeedImpact + normalizedWindImpact) / 3
+        let temperatureWeight = 0.4 // increase weight for temperature
+        let windSpeedWeight = 0.4 // increase weight for wind speed
+        let windImpactWeight = 0.2  // reduce weight for wind impact
+        
+        let score = (temperatureWeight * temperatureImpact + windSpeedWeight * windSpeedImpact + windImpactWeight * normalizedWindImpact)
         return score
     }
-    
     
     /// Returns a string indicating whether it is a good day to cycle based on the weather impact on the path.
     ///

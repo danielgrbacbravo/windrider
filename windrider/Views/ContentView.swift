@@ -20,9 +20,12 @@ struct ContentView: View {
     @State private var weatherImpact: PathWeatherImpact?
     @State private var coordinateWeatherImpact: [CoordinateWeatherImpact]?
     @State var isRouteSelectionViewPresented = false
+    @State var isRouteRecorderViewPresented = false
     @State var isFetching = false
     
     @State var polylineSegements: [PolylineSegement]?
+    
+    @State var cyclingPathRecorder: CyclingPathRecorder = CyclingPathRecorder()
 
     var body: some View {
         ZStack {
@@ -134,6 +137,21 @@ struct ContentView: View {
                                                 .background(.ultraThickMaterial)
                                                 .clipShape(Circle())
                     }
+                    
+                    Button {
+                        isRouteRecorderViewPresented = true
+                    } label: {
+                        Image(systemName: "record.circle")
+                                                .padding()
+                                                .foregroundColor(.red)
+                                                .background(.ultraThickMaterial)
+                                                .clipShape(Circle())
+                    }.sheet(isPresented: $isRouteRecorderViewPresented, content: {
+						PathRecorderView(isPathRecorderViewPresented: $isRouteRecorderViewPresented, cyclingPathRecorder: $cyclingPathRecorder)
+                    })
+
+                    
+                    
                 }
             }
             .padding() // Add some padding around the HStack for better spacing
@@ -142,11 +160,11 @@ struct ContentView: View {
 }
 
 private func generateSamplePath() -> CyclingPath {
-    let points = [CLLocationCoordinate2D(latitude: 53.22163, longitude: 6.54162),
-                  CLLocationCoordinate2D(latitude: 53.22176, longitude: 6.54138),
-                  CLLocationCoordinate2D(latitude: 53.22187, longitude: 6.54118),
-                  CLLocationCoordinate2D(latitude: 53.22201, longitude: 6.54101),
-                  CLLocationCoordinate2D(latitude: 53.22280, longitude: 6.54033)
+    let points = [CLLocationCoordinate2D(latitude: 53.22210, longitude: 6.53897),
+                  CLLocationCoordinate2D(latitude: 53.22173, longitude: 6.53933),
+                  CLLocationCoordinate2D(latitude: 53.22135, longitude: 6.53977),
+                  CLLocationCoordinate2D(latitude: 53.22167, longitude: 6.54063)
+                 
                 ]
     let route = CyclingPath(name: "To University", coordinates: points)
     return route
