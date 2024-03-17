@@ -145,21 +145,6 @@ class BikeRoute{
     }
 }
 
-struct BikeRouteConditionEntry: TimelineEntry {
-    let date: Date
-    var bikeRoute: BikeRoute
-    var headwindColor: Color?
-    var crosswindColor: Color?
-    var tailwindColor: Color?
-    var windSpeedColor: Color?
-    
-    init(date: Date, bikeRoute: BikeRoute){
-        self.date = date
-        self.bikeRoute = bikeRoute
-    }
-    
-}
-
 
 // precondition: bikeRouteCoordinateCondition is not empty
 @Model

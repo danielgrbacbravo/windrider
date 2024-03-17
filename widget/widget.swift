@@ -11,51 +11,54 @@ import SwiftData
 import MapKit
 
 struct Provider: TimelineProvider {
-	@MainActor func placeholder(in context: Context)  -> BikeRouteConditionEntry {
-			let route = getFavoriteRoute()
-			return BikeRouteConditionEntry(date: Date(), bikeRoute: route)
+	@MainActor func placeholder(in context: Context) -> PathWeatherImpactEntry {
+		let dispatchGroup = DispatchGroup()
+		var result: PathWeatherImpactEntry?
+		
+		dispatchGroup.enter()
+		fetchPathWeatherImpactEntry() { entry in
+			result = entry
+			dispatchGroup.leave()
+		}
+		
+		dispatchGroup.wait()
+		return result!
 	}
 
-   @MainActor func getSnapshot(in context: Context, completion: @escaping (BikeRouteConditionEntry)   -> ())  {
-		   let route =  getFavoriteRoute()
-		   let entry = BikeRouteConditionEntry(date: Date(), bikeRoute: route )
+
+   @MainActor func getSnapshot(in context: Context, completion: @escaping (PathWeatherImpactEntry)   -> ()){
+	   fetchPathWeatherImpactEntry(){ entry in
 		   completion(entry)
+	   }
+	   
 	}
 
 	@MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ())  {
-		var entries: [BikeRouteConditionEntry] = []
+		var entries: [PathWeatherImpactEntry] = []
 		// Generate a timeline consisting of five entries an hour apart, starting from the current date.
 		let currentDate = Date()
 		
-			let route =  getFavoriteRoute()
 			for hourOffset in 0 ..< 5 {
 				let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
 				
-					
-					let entry = BikeRouteConditionEntry(date: entryDate, bikeRoute: route)
-					entries.append(entry)
+					let dispatchGroup = DispatchGroup()
+					var entry: PathWeatherImpactEntry?
+				
+					dispatchGroup.enter()
+					fetchPathWeatherImpactEntry() { entry in
+						dispatchGroup.leave()
+					}
+					dispatchGroup.wait()
+				
+					guard let unwrappedEntry = entry else {
+						return
+					}
+					entries.append(unwrappedEntry)
 			
 			}
 
 			let timeline = Timeline(entries: entries, policy: .atEnd)
 			completion(timeline)
-	}
-	
-	
-	@MainActor private func getFavoriteRoute() -> BikeRoute {
-		 guard let modelContainer = try? ModelContainer(for: BikeRoute.self,BikeRouteCondition.self, BikeRouteCoordinateCondition.self) else {
-			return BikeRoute()
-		}
-		let bikeRouteDescriptor = FetchDescriptor<BikeRoute>()
-		
-		guard let bikeRoute = try? modelContainer.mainContext.fetch(bikeRouteDescriptor) else {
-			return BikeRoute()
-		}
-		
-		bikeRoute[0].fetchAndPopulateBikeRouteConditions(openWeatherMapAPI: OpenWeatherMapAPI(openWeatherMapAPIKey: "22ab22ed87d7cc4edae06caa75c7f449"))
-		
-
-		return bikeRoute[0]
 	}
 	
 	
@@ -95,7 +98,7 @@ struct Provider: TimelineProvider {
 	
 	
 	
-	@MainActor private func fetchPathWeatherImpactEntry(completion: @escaping (PathWeatherImpactEntry?) -> Void) {
+	@MainActor private func fetchPathWeatherImpactEntry(completion: @escaping (PathWeatherImpactEntry) -> Void) {
 		let cyclingPaths = fetchCyclingRoutes()
 		
 		let date = Date()
@@ -126,7 +129,8 @@ struct Provider: TimelineProvider {
 				completion(pathWeatherImpactEntry)
 				
 			case .failure(_):
-				completion(nil)
+					let failurePathWeatherImpactEntry = PathWeatherImpactEntry(date: date, cyclingScore: 0, message: "Failed to fetch weather data", temperature: 0, windSpeed: 0, headwindPercentage: 0, tailwindPercentage: 0, crosswindPercentage: 0, cyclingScoreColor: .green, successfullyFetched: false)
+				completion(failurePathWeatherImpactEntry)
 			}
 		}
 	}
