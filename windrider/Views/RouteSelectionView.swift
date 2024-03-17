@@ -13,7 +13,8 @@ struct RouteSelectionView: View {
 	@Query private var paths: [CyclingPath]
 	@Binding var selectedPath: CyclingPath?
 	@Binding var isRouteSelectionViewPresented: Bool
-	
+	@State var selectedFileURL: URL?
+	@State var isPickerPresented = false
 	var body: some View {
 		NavigationStack{
 			List {
@@ -48,6 +49,20 @@ struct RouteSelectionView: View {
 				})
 			}
 			.navigationTitle("Select Route")
+			.toolbar {
+				ToolbarItem(placement: .navigationBarTrailing) {
+					Button {
+						// open up GPX file manager
+						isPickerPresented.toggle()
+											} label: {
+						
+						Image(systemName: "plus")
+						
+					}.sheet(isPresented: $isPickerPresented) {
+						DocumentPicker(filePath: $selectedFileURL)
+  }
+				}
+			}
 		}
 	}
 	
