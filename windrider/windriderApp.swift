@@ -13,6 +13,6 @@ struct windriderApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.modelContainer(for:CyclingPath.self)
+        }.modelContainer(for:[CyclingPath.self])
     }
 }

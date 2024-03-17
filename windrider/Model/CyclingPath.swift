@@ -13,8 +13,8 @@ import CoreLocation
 class CyclingPath{
 	//MARK: - Properties
 	//general Cycling Path Attributes
-	@Attribute(.unique) public var id: UUID?
-	@Attribute(.unique) public var name: String
+		@Attribute(.unique) public var id = UUID()
+		public var name: String
 	public let createdAt: Date = Date()
 	public var isFavorite: Bool = false
 	

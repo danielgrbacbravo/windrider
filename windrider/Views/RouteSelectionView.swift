@@ -22,7 +22,7 @@ struct RouteSelectionView: View {
 						Text(route.name).font(.headline).tint(.primary)
 						Spacer()
 						
-						if selectedPath == route {
+						if selectedPath != nil && selectedPath?.id.uuidString == route.id.uuidString{
 							Image(systemName:"checkmark").foregroundStyle(.green)
 						} else {
 							Image(systemName:"chevron.right").onTapGesture {
