@@ -44,6 +44,8 @@
 		654241F12BA72F8200AAF2D1 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241EF2BA72F8200AAF2D1 /* GPXParser.swift */; };
 		654241F32BA730EC00AAF2D1 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F22BA730EC00AAF2D1 /* GPXFileManager.swift */; };
 		654241F42BA730EC00AAF2D1 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F22BA730EC00AAF2D1 /* GPXFileManager.swift */; };
+		654241F62BA7540B00AAF2D1 /* EditPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F52BA7540B00AAF2D1 /* EditPathView.swift */; };
+		654241F72BA7540B00AAF2D1 /* EditPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F52BA7540B00AAF2D1 /* EditPathView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,7 @@
 		654241EC2BA7057300AAF2D1 /* PathWeatherImpactEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathWeatherImpactEntry.swift; sourceTree = "<group>"; };
 		654241EF2BA72F8200AAF2D1 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		654241F22BA730EC00AAF2D1 /* GPXFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileManager.swift; sourceTree = "<group>"; };
+		654241F52BA7540B00AAF2D1 /* EditPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPathView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +268,7 @@
 				65366F0C2B9B67DE0005C72B /* RouteSelectionView.swift */,
 				650FEFD02B97C9280080AB71 /* ContentView.swift */,
 				654241E42BA34EFF00AAF2D1 /* PathRecorderView.swift */,
+				654241F52BA7540B00AAF2D1 /* EditPathView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -430,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				654241F62BA7540B00AAF2D1 /* EditPathView.swift in Sources */,
 				650FF01A2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
 				650FF0162B97CF470080AB71 /* BikeRoute.swift in Sources */,
 				654241F02BA72F8200AAF2D1 /* GPXParser.swift in Sources */,
@@ -478,6 +483,7 @@
 				65366F152B9C8E270005C72B /* CyclingPath.swift in Sources */,
 				650FF00A2B97CD480080AB71 /* widget.swift in Sources */,
 				654241EE2BA7057300AAF2D1 /* PathWeatherImpactEntry.swift in Sources */,
+				654241F72BA7540B00AAF2D1 /* EditPathView.swift in Sources */,
 				650FF01B2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
 				65366F1E2B9C8FA20005C72B /* CoordinateWeatherImpact.swift in Sources */,
 				65366F182B9C8F7A0005C72B /* WeatherImpactAnalysisEngine.swift in Sources */,
