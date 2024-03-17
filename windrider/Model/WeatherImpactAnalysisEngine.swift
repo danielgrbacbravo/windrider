@@ -153,7 +153,7 @@ class WeatherImpactAnalysisEngine{
     ///
     /// - Parameter pathWeatherImpact: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
     /// - Returns: A double representing the weather impact on the path.
-    static public func cyclingScore(for pathWeatherImpact: PathWeatherImpact) -> Double {
+    static public func computeCyclingScore(for pathWeatherImpact: PathWeatherImpact) -> Double {
         let idealTemperature = 23.0
         
         let temperatureImpact = 1 / (1 + exp(-(pathWeatherImpact.temperature - idealTemperature)))

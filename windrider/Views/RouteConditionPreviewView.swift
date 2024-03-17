@@ -223,11 +223,11 @@ struct RouteConditionPreviewView: View {
                                 .matchedGeometryEffect(id: "message", in: animation)
                             
                       
-                            Text("\(Int(WeatherImpactAnalysisEngine.cyclingScore(for: weatherImpact!) * 100)) %")
+                            Text("\(Int(WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact!) * 100)) %")
                                 .font(.title)
                                 .bold()
                                 .shadow(radius: 20)
-                                .foregroundColor(Color(hue: Double(1/3 - WeatherImpactAnalysisEngine.cyclingScore(for: weatherImpact! )/3), saturation: 0.8, brightness: 0.6))
+                                .foregroundColor(Color(hue: Double(1/3 - WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact! )/3), saturation: 0.8, brightness: 0.6))
                                 .matchedGeometryEffect(id: "score", in: animation)
                                                  
                         }.padding()
