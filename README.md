@@ -39,8 +39,8 @@ Please refer to the comments in the code for more detailed explanations of each 
 
 ## Requirements
 
-- iOS 15.0 or later
-- Xcode 13.0 or later
+- iOS 17.0 or later
+- Xcode 15.0 or later
 
 ## License
 
