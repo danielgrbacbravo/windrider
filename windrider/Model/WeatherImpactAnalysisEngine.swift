@@ -203,7 +203,7 @@ class WeatherImpactAnalysisEngine{
 			//TODO: weather is in kelvin not C or F needs to be converted
 			//TODO: not very eloquent implementation
 			
-		let windSpeed = pathWeatherImpact.windSpeed
+		let windSpeed = pathWeatherImpact.windSpeed - 273.15
 		let temperature = pathWeatherImpact.temperature
 
 		if windSpeed > 10 {
