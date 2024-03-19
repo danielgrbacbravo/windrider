@@ -154,29 +154,39 @@ class WeatherImpactAnalysisEngine{
 	/// - Parameter pathWeatherImpact: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
 	/// - Returns: A double representing the weather impact on the path.
 	static public func computeCyclingScore(for pathWeatherImpact: PathWeatherImpact) -> Double {
-		let idealTemperature = 23.0
-		//TODO: fix dogshit implmentation of CyclingScore
-		// tempreture and windspeed not impactful
-		// windimpact too impactful
-		// smooth out the values
+		//constants used for normalization of the score
+		let upperTemprature: Double = 40.7
+		let idealTemprature: Double = 20.5
+		let lowerTemprature: Double = -27.3
+		let upperWindSpeed: Double = 40.5
+		// weights used
+		// TODO: make these values accessible in the config (to be implemented)
+		let headwindWeight: Double = 2
+		let tailwindWeight: Double = 1
+		let crosswindWeight: Double = 1
 		
-		let temperatureImpact = 1 / (1 + exp(-(pathWeatherImpact.temperature - idealTemperature)))
+		let temperatureImpact = pathWeatherImpact.temperature - idealTemprature
+		let windSpeedImpact = pathWeatherImpact.windSpeed
+		// extract the wind direction percentages
+		var headwindPercentage: Double = pathWeatherImpact.headwindPercentage ?? 0.0
+		var crosswindPercentage: Double = pathWeatherImpact.crosswindPercentage ?? 0.0
+		var tailwindPercentage: Double = pathWeatherImpact.tailwindPercentage ?? 0.0
+		// consider the wind direction percentages
+		headwindPercentage *= headwindWeight
+		crosswindPercentage *= crosswindWeight
+		tailwindPercentage *= tailwindWeight
+		let windDirectionImpact: Double = headwindPercentage - tailwindPercentage + crosswindWeight
+		let score = (temperatureImpact * windSpeedImpact) + (pow(windSpeedImpact,2)) + windDirectionImpact
 		
-		let idealWindSpeed = 0.0
+		//normalization of score
+		let maxTemperatureImpact:Double = abs(upperTemprature - idealTemprature)
+		let maxWindSpeedImpact: Double = upperWindSpeed
+		let maxWindDirectionImpact: Double = 1
+		let maxScore: Double = (maxTemperatureImpact * maxWindSpeedImpact) + (pow(maxWindSpeedImpact, 2)) + maxWindDirectionImpact
+		let minScore = 0.0
+		let normalizedScore = (score - minScore) / (maxScore - minScore)
 		
-		let windSpeedImpact = 1 / (1 + exp(-(pathWeatherImpact.windSpeed - idealWindSpeed)))
-		
-		let windImpact = (pathWeatherImpact.tailwindPercentage ?? 0) - (pathWeatherImpact.headwindPercentage ?? 0) - (pathWeatherImpact.crosswindPercentage ?? 0)
-		
-		
-		let normalizedWindImpact = (windImpact + 100) / 200 // normalize to 0-1 range
-		
-		let temperatureWeight = 0.4 // increase weight for temperature
-		let windSpeedWeight = 0.4 // increase weight for wind speed
-		let windImpactWeight = 0.2  // reduce weight for wind impact
-		
-		let score = (temperatureWeight * temperatureImpact + windSpeedWeight * windSpeedImpact + windImpactWeight * normalizedWindImpact)
-		return score
+		return normalizedScore
 	}
 	
 	/// Returns a string indicating whether it is a good day to cycle based on the weather impact on the path.
