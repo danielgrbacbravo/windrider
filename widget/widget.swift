@@ -164,7 +164,7 @@ struct accessoryRectangularWidgetView: View {
 				Image(systemName: "arrow.right.to.line")
 			} currentValueLabel: {
 				HStack{
-					Text("\(entry.tailwindPercentage)%").bold()
+					Text("\(Int(entry.tailwindPercentage))%").bold()
 				}
 				
 			}
@@ -173,7 +173,7 @@ struct accessoryRectangularWidgetView: View {
 				Image(systemName: "arrow.left.to.line")
 			} currentValueLabel: {
 				HStack{
-					Text("\(entry.headwindPercentage)%").bold()
+					Text("\(Int(entry.headwindPercentage))%").bold()
 				}
 				
 			}
@@ -182,7 +182,7 @@ struct accessoryRectangularWidgetView: View {
 	   
 		HStack{
 			Image(systemName: "gauge.with.dots.needle.bottom.50percent")
-			Text("Speeds of ") + Text("\(entry.windSpeed)m/s").bold()
+			Text("Speeds of ") + Text("\(Int(entry.windSpeed))m/s").bold()
 		}
 	}
 }
@@ -201,7 +201,7 @@ struct systemSmallWidgetView: View {
 					Image(systemName: "arrow.down.right.and.arrow.up.left")
 				} currentValueLabel: {
 					HStack{
-						Text("\(entry.crosswindPercentage)%").bold()
+						Text("\(Int(entry.crosswindPercentage))%").bold()
 					}
 					
 				}
@@ -214,7 +214,7 @@ struct systemSmallWidgetView: View {
 					Image(systemName: "arrow.right.to.line")
 				} currentValueLabel: {
 					HStack{
-						Text("\(entry.tailwindPercentage )%").bold()
+						Text("\(Int(entry.tailwindPercentage))%").bold()
 					}
 					
 				}
@@ -224,7 +224,7 @@ struct systemSmallWidgetView: View {
 					Image(systemName: "arrow.left.to.line")
 				} currentValueLabel: {
 					HStack{
-						Text("\(entry.headwindPercentage)%").bold()
+						Text("\(Int(entry.headwindPercentage))%").bold()
 					}
 					
 				}
@@ -235,7 +235,7 @@ struct systemSmallWidgetView: View {
 				Image(systemName: "arrow.left.to.line")
 			} currentValueLabel: {
 				HStack{
-					Text("\(entry.windSpeed) m\\s").bold()
+					Text("\(Int(entry.windSpeed)) m\\s").bold()
 				}
 				
 			}
@@ -263,7 +263,7 @@ struct systemMediumWidgetView: View{
 					Image(systemName: "arrow.down.right.and.arrow.up.left")
 				} currentValueLabel: {
 					HStack{
-						Text("\(entry.crosswindPercentage)%").bold()
+						Text("\(Int(entry.crosswindPercentage))%").bold()
 					}
 					
 				}
@@ -276,7 +276,7 @@ struct systemMediumWidgetView: View{
 					Image(systemName: "arrow.right.to.line")
 				} currentValueLabel: {
 					HStack{
-						Text("\(entry.tailwindPercentage)%").bold()
+						Text("\(Int(entry.tailwindPercentage))%").bold()
 					}
 					
 				}
@@ -286,7 +286,7 @@ struct systemMediumWidgetView: View{
 					Image(systemName: "arrow.left.to.line")
 				} currentValueLabel: {
 					HStack{
-						Text("\(entry.headwindPercentage)%").bold()
+						Text("\(Int(entry.headwindPercentage))%").bold()
 					}
 					
 				}
@@ -297,7 +297,7 @@ struct systemMediumWidgetView: View{
 				Image(systemName: "arrow.left.to.line")
 			} currentValueLabel: {
 				HStack{
-					Text("\(entry.windSpeed) m\\s").bold()
+					Text("\(Int(entry.windSpeed)) m\\s").bold()
 				}
 				
 			}
