@@ -48,6 +48,10 @@ struct RouteSelectionView: View {
 					let index = indexSet.first!
 					let route = paths[index]
 					modelContext.delete(route)
+					
+					if selectedPath?.id == route.id {
+						selectedPath = nil
+					}
 				})
 			}
 			.navigationTitle("Select Route")
