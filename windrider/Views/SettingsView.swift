@@ -10,7 +10,8 @@ import SwiftData
 
 struct ConfigurationView: View {
 	@Environment(\.modelContext) private var modelContext
-
+	@Binding var cyclingScore : Int
+	@Binding var weatherImpact: PathWeatherImpact?
 	
 	@State private var APIKey: String = ""
 	@State private var upperTemperature: Double = 0.0
@@ -172,6 +173,9 @@ struct ConfigurationView: View {
 				tailwindWeight = UserDefaults.standard.double(forKey: "tailwindWeight")
 			}
 			.onDisappear {
+				
+			
+				
 				UserDefaults.standard.set(APIKey , forKey: "APIKey")
 				UserDefaults.standard.set(upperTemperature, forKey: "upperTemperature")
 				UserDefaults.standard.set(idealTemperature, forKey: "idealTemperature")
@@ -179,6 +183,7 @@ struct ConfigurationView: View {
 				UserDefaults.standard.set(headwindWeight, forKey: "headwindWeight")
 				UserDefaults.standard.set(crosswindWeight, forKey: "crosswindWeight")
 				UserDefaults.standard.set(tailwindWeight, forKey: "tailwindWeight")
+				cyclingScore = Int(Double( WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact!) * 100))
 			}
 		}
 	}

@@ -5,11 +5,13 @@ import CoreLocation
 import SwiftData
 
 struct DocumentPicker: UIViewControllerRepresentable {
-	@Binding var filePath: URL?
-	@Environment(\.modelContext) private var modelContext
+	@Environment(\.modelContext) public var modelContext
+	public var filePath: URL?
+	@Binding public var selectedPath: CyclingPath?
+
 
 	func makeCoordinator() -> Coordinator {
-		Coordinator(self, modelContext: modelContext)
+		Coordinator(self, modelContext: modelContext, selectedPath: $selectedPath)
 	}
 
 	func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
@@ -27,10 +29,12 @@ struct DocumentPicker: UIViewControllerRepresentable {
 	class Coordinator: NSObject, UIDocumentPickerDelegate {
 		var parent: DocumentPicker
 		var modelContext: ModelContext
+		@Binding var selectedPath: CyclingPath?
 
-		init(_ parent: DocumentPicker, modelContext: ModelContext) {
+		init(_ parent: DocumentPicker, modelContext: ModelContext, selectedPath: Binding<CyclingPath?>) {
 			self.parent = parent
 			self.modelContext = modelContext
+			self._selectedPath = selectedPath
 		}
 
 		func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
@@ -46,6 +50,9 @@ struct DocumentPicker: UIViewControllerRepresentable {
 				
 				let path = parser.parseGPXtoCyclePath(data,url: selectedFileURL)
 				modelContext.insert(path)
+				selectedPath = path
+				
+				
 				
 			} catch {
 				print("Failed to read data from file: \(error)")

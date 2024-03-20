@@ -12,12 +12,15 @@ struct RouteSelectionView: View {
 	@Environment(\.modelContext) private var modelContext
 	@Query private var paths: [CyclingPath]
 	@Binding var selectedPath: CyclingPath?
+	@Binding var polylineSegements: [PolylineSegement]?
 	@Binding var isRouteSelectionViewPresented: Bool
 	@State var selectedFileURL: URL?
 	@State var isPickerPresented = false
 	@State var isEditViewPresented = false
 	
+	
 	var body: some View {
+		
 		NavigationStack{
 			List {
 				ForEach(paths, id: \.id) { route in
@@ -52,6 +55,11 @@ struct RouteSelectionView: View {
 					if selectedPath?.id == route.id {
 						selectedPath = nil
 					}
+					
+					selectedPath = ContentView.getDefaultPath(for: paths)
+					
+					polylineSegements?.removeAll()
+					
 				})
 			}
 			.navigationTitle("Select Route")
@@ -66,7 +74,7 @@ struct RouteSelectionView: View {
 						Image(systemName: "plus")
 						
 					}.sheet(isPresented: $isPickerPresented) {
-						DocumentPicker(filePath: $selectedFileURL)
+						DocumentPicker(selectedPath: $selectedPath)
 							.ignoresSafeArea()
 					}
 				}
@@ -87,5 +95,6 @@ struct RouteSelectionView: View {
 			}
 		}
 	}
+	
 	
 }
