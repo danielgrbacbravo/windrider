@@ -14,12 +14,15 @@ struct ContentView: View {
 	@Query private var paths: [CyclingPath]
 	@State private var selectedRoute: BikeRoute?
 	@State var selectedPath: CyclingPath?
+	@State var selectedFileURL: URL?
 	
 	// Weather impact analysis
 	@State private var weatherImpact: PathWeatherImpact?
 	@State private var coordinateWeatherImpact: [CoordinateWeatherImpact]?
+	
 	@State var isRouteSelectionViewPresented = false
 	@State var isRouteRecorderViewPresented = false
+	@State var isFilePickerPresented = false
 	@State var isSettingsViewPresented = false
 	@State var isFetching = false
 	
@@ -54,7 +57,21 @@ struct ContentView: View {
 					Spacer()
 				}
 			} else {
-				ContentUnavailableView("you don't have any routes",systemImage: "bicycle", description: Text("please import some GPX files to get started"))
+				VStack{
+					ContentUnavailableView{
+						Label("you don't have any routes",systemImage: "bicycle")
+					} description:{
+						Text("Select a route from the list below")
+					} actions:{
+						Button("Import Route"){
+							isFilePickerPresented = true
+						}.buttonStyle(.bordered)
+							.sheet(isPresented: $isFilePickerPresented, content: {
+								DocumentPicker(filePath: $selectedFileURL)
+									.ignoresSafeArea()
+							})
+					}
+				}
 			}
 		
 			
