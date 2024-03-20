@@ -14,7 +14,7 @@ struct ContentView: View {
 
     @Query private var paths: [CyclingPath]
     @State private var selectedRoute: BikeRoute?
-    @State private var selectedPath: CyclingPath?
+    @State var selectedPath: CyclingPath?
 
     // Weather impact analysis
     @State private var weatherImpact: PathWeatherImpact?

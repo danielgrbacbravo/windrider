@@ -7,9 +7,17 @@
 
 import Foundation
 import  SwiftUI
-import SwiftData
 
+struct EditPathView: View {
+	@Binding var selectedPath: CyclingPath?
+	@Binding var isPresented: Bool
+	var body: some View {
+		
+		NavigationStack{
+			List{
+				TextField("insert text", text: Binding($selectedPath)!.name)
+			}
+		}
+	}
+}
 
-
-//TODO: Add a way to edit the path name
-//this will be apart of the RouteSelectionView and will be a button that will present a modal to edit the name of the path

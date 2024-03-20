@@ -15,6 +15,8 @@ struct RouteSelectionView: View {
 	@Binding var isRouteSelectionViewPresented: Bool
 	@State var selectedFileURL: URL?
 	@State var isPickerPresented = false
+	@State var isEditViewPresented = false
+	
 	var body: some View {
 		NavigationStack{
 			List {
@@ -50,17 +52,33 @@ struct RouteSelectionView: View {
 			}
 			.navigationTitle("Select Route")
 			.toolbar {
-				ToolbarItem(placement: .navigationBarTrailing) {
+				
+				ToolbarItem(placement: .topBarTrailing) {
 					Button {
 						// open up GPX file manager
 						isPickerPresented.toggle()
-											} label: {
+					} label: {
 						
 						Image(systemName: "plus")
 						
 					}.sheet(isPresented: $isPickerPresented) {
 						DocumentPicker(filePath: $selectedFileURL)
-  }
+							.ignoresSafeArea()
+					}
+				}
+			}
+			.toolbar{
+				ToolbarItem(placement: .topBarTrailing) {
+					Button{
+						if Binding($selectedPath)?.wrappedValue != nil{
+							isEditViewPresented.toggle()
+						}
+
+					}label: {
+						Image(systemName:"slider.horizontal.3")
+					}.sheet(isPresented: $isEditViewPresented) {
+						EditPathView(selectedPath: $selectedPath, isPresented: $isEditViewPresented)
+					}
 				}
 			}
 		}
