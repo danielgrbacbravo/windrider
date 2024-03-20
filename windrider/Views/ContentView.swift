@@ -24,43 +24,40 @@ struct ContentView: View {
 	@State var isFetching = false
 	
 	@State var polylineSegements: [PolylineSegement]?
-	
 	@State var cyclingPathRecorder: CyclingPathRecorder = CyclingPathRecorder()
 	
 	var body: some View {
 		ZStack {
 			// Map view as the base layer
-			Map {
-				if let polylineSegements = polylineSegements {
-					ForEach(Array(polylineSegements.enumerated()), id: \.offset) { index , object in
-						MapPolyline(coordinates: object.coordinateArray, contourStyle:
-								.geodesic).stroke(lineWidth: 3).stroke(object.color)
+			if selectedPath != nil{
+				// there is a selected path
+				Map {
+					if let polylineSegements = polylineSegements {
+						ForEach(Array(polylineSegements.enumerated()), id: \.offset) { index , object in
+							MapPolyline(coordinates: object.coordinateArray, contourStyle:
+									.geodesic).stroke(lineWidth: 3).stroke(object.color)
+						}
+					} else if let selectedPath = selectedPath {
+						MapPolyline(coordinates: selectedPath.getCoordinates(), contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.gray)
 					}
 				}
-				
-				
-				
-				
-				//                if let routeCoordinates = selectedPath?.getCoordinates() {
-				//                    MapPolyline(coordinates: routeCoordinates, contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.purple)
-				//                }
+				VStack{
+					RouteConditionPreviewView(selectedPath: $selectedPath,
+											  weatherImpact: $weatherImpact,
+											  coordinateWeatherImpact: $coordinateWeatherImpact,
+											  isFetching: $isFetching)
+					.padding(.vertical, 30)
+					.background(.ultraThickMaterial)
+					.clipShape(RoundedRectangle(cornerRadius: 25.0))
+					.zIndex(1) // Ensure it stays on top
+					.ignoresSafeArea()
+					Spacer()
+				}
+			} else {
+				ContentUnavailableView("you don't have any routes",systemImage: "bicycle", description: Text("please import some GPX files to get started"))
 			}
+		
 			
-			// Conditional rendering of RouteConditionPreviewView on top of the Map
-			
-			
-			VStack{
-				RouteConditionPreviewView(selectedPath: $selectedPath,
-										  weatherImpact: $weatherImpact,
-										  coordinateWeatherImpact: $coordinateWeatherImpact,
-										  isFetching: $isFetching)
-				.padding(.vertical, 30)
-				.background(.ultraThickMaterial)
-				.clipShape(RoundedRectangle(cornerRadius: 25.0))
-				.zIndex(1) // Ensure it stays on top
-				.ignoresSafeArea()
-				Spacer()
-			}
 			
 			
 			
@@ -108,21 +105,6 @@ struct ContentView: View {
 						
 					}
 					
-					
-					
-					
-					Button {
-						for path in paths {
-							modelContext.delete(path)
-						}
-					} label: {
-						Image(systemName: "trash")
-							.padding()
-							.foregroundColor(.primary)
-							.background(.ultraThickMaterial)
-							.clipShape(Circle())
-					}
-					
 					Button {
 						isRouteRecorderViewPresented = true
 					} label: {
@@ -140,30 +122,38 @@ struct ContentView: View {
 					} label: {
 						Image(systemName: "gearshape")
 							.padding()
-							.foregroundColor(.red)
+							.foregroundColor(.primary)
 							.background(.ultraThickMaterial)
 							.clipShape(Circle())
 						
 					}.sheet(isPresented: $isSettingsViewPresented, content: {
 						ConfigurationView()
 					})
-					
-					
-					
 				}
 			}
 			.padding() // Add some padding around the HStack for better spacing
+		}.onAppear{
+			selectedPath = getDefaultPath(for: paths)
 		}
 	}
-}
-
-private func generateSamplePath() -> CyclingPath {
-	let points = [CLLocationCoordinate2D(latitude: 53.22210, longitude: 6.53897),
-				  CLLocationCoordinate2D(latitude: 53.22173, longitude: 6.53933),
-				  CLLocationCoordinate2D(latitude: 53.22135, longitude: 6.53977),
-				  CLLocationCoordinate2D(latitude: 53.22167, longitude: 6.54063)
-				  
-	]
-	let route = CyclingPath(name: "To University", coordinates: points)
-	return route
+	
+	func getDefaultPath(for paths: [CyclingPath]) -> CyclingPath? {
+		
+		guard !paths.isEmpty else {
+			return nil
+		}
+		
+		// first get the first favourite path
+		for path in paths {
+			if path.isFavorite {
+				return path
+			}
+		}
+		
+		// if no favourite path, get the first path
+		if let path = paths.first {
+			return path
+		}
+		return nil
+	}
 }
