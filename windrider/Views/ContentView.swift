@@ -11,9 +11,7 @@ import MapKit
 
 struct ContentView: View {
 	@Environment(\.modelContext) private var modelContext
-	
 	@Query private var paths: [CyclingPath]
-	
 	@State private var selectedRoute: BikeRoute?
 	@State var selectedPath: CyclingPath?
 	
@@ -70,19 +68,6 @@ struct ContentView: View {
 			VStack {
 				Spacer() // Pushes the content to the bottom
 				HStack {
-					
-					Button {
-						let path = generateSamplePath()
-						modelContext.insert(path)
-					} label: {
-						Image(systemName: "plus")
-							.padding()
-							.foregroundColor(.primary)
-							.background(.ultraThickMaterial)
-							.clipShape(Circle())
-						
-					}
-					
 					Button {
 						isRouteSelectionViewPresented = true
 					} label: {
@@ -153,7 +138,7 @@ struct ContentView: View {
 					Button{
 						isSettingsViewPresented.toggle()
 					} label: {
-						Image(systemName: "cog")
+						Image(systemName: "gearshape")
 							.padding()
 							.foregroundColor(.red)
 							.background(.ultraThickMaterial)
