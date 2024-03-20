@@ -46,6 +46,7 @@
 		654241F42BA730EC00AAF2D1 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F22BA730EC00AAF2D1 /* GPXFileManager.swift */; };
 		654241F62BA7540B00AAF2D1 /* EditPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F52BA7540B00AAF2D1 /* EditPathView.swift */; };
 		654241F72BA7540B00AAF2D1 /* EditPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F52BA7540B00AAF2D1 /* EditPathView.swift */; };
+		65F6D1172BAB91B5002A199B /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D1162BAB91B5002A199B /* ConfigurationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		654241EF2BA72F8200AAF2D1 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		654241F22BA730EC00AAF2D1 /* GPXFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileManager.swift; sourceTree = "<group>"; };
 		654241F52BA7540B00AAF2D1 /* EditPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPathView.swift; sourceTree = "<group>"; };
+		65F6D1162BAB91B5002A199B /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 				650FEFD02B97C9280080AB71 /* ContentView.swift */,
 				654241E42BA34EFF00AAF2D1 /* PathRecorderView.swift */,
 				654241F52BA7540B00AAF2D1 /* EditPathView.swift */,
+				65F6D1162BAB91B5002A199B /* ConfigurationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				654241F62BA7540B00AAF2D1 /* EditPathView.swift in Sources */,
+				65F6D1172BAB91B5002A199B /* ConfigurationView.swift in Sources */,
 				650FF01A2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
 				650FF0162B97CF470080AB71 /* BikeRoute.swift in Sources */,
 				654241F02BA72F8200AAF2D1 /* GPXParser.swift in Sources */,

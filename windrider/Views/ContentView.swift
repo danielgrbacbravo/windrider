@@ -28,7 +28,9 @@ struct ContentView: View {
 	@State var polylineSegements: [PolylineSegement]?
 	@State var cyclingPathRecorder: CyclingPathRecorder = CyclingPathRecorder()
 	@State var hasSettingStateChanged: Bool = false
+	
 	@State var cyclingScore: Int = 0
+	@State var cyclingMessage: String = ""
 	
 	var body: some View {
 		ZStack {
@@ -49,7 +51,9 @@ struct ContentView: View {
 					RouteConditionPreviewView(selectedPath: $selectedPath,
 											  weatherImpact: $weatherImpact,
 											  coordinateWeatherImpact: $coordinateWeatherImpact,
-											  cyclingScore: $cyclingScore, isFetching: $isFetching)
+											  cyclingScore: $cyclingScore,
+											  cyclingMessage: $cyclingMessage,
+											  isFetching: $isFetching)
 					
 					.padding(.vertical, 30)
 					.background(.ultraThickMaterial)
@@ -111,7 +115,7 @@ struct ContentView: View {
 									weatherImpact = response.1
 									
 									cyclingScore = Int(Double( WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact!) * 100))
-									
+									cyclingMessage = WeatherImpactAnalysisEngine.shouldICycle(for: weatherImpact!)
 									// create polyline segments
 									polylineSegements = WeatherImpactAnalysisEngine.constructWeatherImpactPolyline(coordinateWeatherImpacts: coordinateWeatherImpact!, cyclingPath: selectedPath)
 									
