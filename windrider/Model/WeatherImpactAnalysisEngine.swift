@@ -155,15 +155,14 @@ class WeatherImpactAnalysisEngine{
 	/// - Returns: A double representing the weather impact on the path.
 	static public func computeCyclingScore(for pathWeatherImpact: PathWeatherImpact) -> Double {
 		//constants used for normalization of the score
-		let upperTemprature: Double = 40.7
-		let idealTemprature: Double = 20.5
-		let lowerTemprature: Double = -27.3
-		let upperWindSpeed: Double = 40.5
+		let upperTemprature: Double = UserDefaults.standard.double(forKey: "upperTemprature")
+		let idealTemprature: Double = UserDefaults.standard.double(forKey: "idealTemprature")
+		let upperWindSpeed: Double = UserDefaults.standard.double(forKey: "upperWindSpeed")
 		// weights used
 		// TODO: make these values accessible in the config (to be implemented)
-		let headwindWeight: Double = 2
-		let tailwindWeight: Double = 1
-		let crosswindWeight: Double = 1
+		let headwindWeight: Double = UserDefaults.standard.double(forKey: "headwindWeight")
+		let tailwindWeight: Double = UserDefaults.standard.double(forKey: "tailwindWeight")
+		let crosswindWeight: Double = UserDefaults.standard.double(forKey: "crosswindWeight")
 		
 		let temperatureImpact = pathWeatherImpact.temperature - idealTemprature
 		let windSpeedImpact = pathWeatherImpact.windSpeed

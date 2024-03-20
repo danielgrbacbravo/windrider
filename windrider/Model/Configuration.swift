@@ -11,7 +11,8 @@ import SwiftData
 
 @Model
 class Configuration{
-	var openWeatherMapAPIKey: String?
+	@Attribute(.unique) let id: UUID = UUID()
+	var openWeatherMapAPIKey: String
 	var upperTemperature: Double
 	var idealTemperature: Double
 	var upperWindSpeed: Double
@@ -19,7 +20,7 @@ class Configuration{
 	var tailwindWeight: Double
 	var crosswindWeight: Double
 	
-	init(openWeatherMapAPIKey: String,
+	init(openWeatherMapAPIKey: String = "",
 		 upperTemperature: Double = 40.7,
 		 idealTemperature: Double = 23.0,
 		 upperWindSpeed: Double = 20,
