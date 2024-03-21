@@ -106,7 +106,10 @@ struct ContentView: View {
 					Button {
 						
 						guard let selectedPath = selectedPath else { return}
-						let apikey = UserDefaults.standard.string(forKey: "APIKey") ?? ""
+						guard let defaults = UserDefaults(suiteName: "group.com.daiigr.windrider") else {
+							return
+						}
+						let apikey = defaults.string(forKey: "APIKey") ?? ""
 						let engine = WeatherImpactAnalysisEngine()
 						engine.analyseImpact(for: selectedPath, with: OpenWeatherMapAPI(openWeatherMapAPIKey: apikey)) { result in
 							switch result{

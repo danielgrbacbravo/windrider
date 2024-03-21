@@ -11,6 +11,7 @@ import SwiftUI
 struct PathWeatherImpactEntry: TimelineEntry{
 	/// The date of the entry.
 	let date: Date
+	let name: String
 	/// The cycling data for the entry.
 	let cyclingScore: Double
 	let message: String
