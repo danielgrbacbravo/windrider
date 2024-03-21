@@ -205,36 +205,107 @@ class WeatherImpactAnalysisEngine{
 		else {
 			return "Data is incomplete"
 		}
-			//TODO: weather is in kelvin not C or F needs to be converted
-			//TODO: not very eloquent implementation
-			
-		let windSpeed = pathWeatherImpact.windSpeed - 273.15
-		let temperature = pathWeatherImpact.temperature
 
-		if windSpeed > 10 {
-			return "It's quite windy today. Cycling might be challenging."
-		}
-		if temperature < 0 {
-			return "It's freezing outside. Cycling might be uncomfortable."
-		}
-		if headwindPercentage > 50 {
-			return "There's a strong headwind today. Cycling could be difficult."
-		}
-		if crosswindPercentage > 50 {
-			return "There's a strong crosswind today. It could make cycling unstable."
-		}
-		if tailwindPercentage > 50 {
-			if temperature > 30 {
-				return "It's a warm day with a nice tailwind. Remember to stay hydrated while cycling."
+		let windSpeed = pathWeatherImpact.windSpeed
+		let temperatureKelvin = pathWeatherImpact.temperature
+		let temperatureCelsius = temperatureKelvin - 273.15
+
+		
+		// calm weather
+		if windSpeed < 2 {
+			let temperatureMessage: String
+			if temperatureCelsius > 20 {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, making it a great day to cycle."
+			} else if temperatureCelsius > 10 {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, making it a good day to cycle."
 			} else {
-				return "It's a good day to cycle with a supportive tailwind."
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, making it a cold day to cycle."
 			}
+			let windMessage = "The weather is calm with no wind."
+			return [temperatureMessage, windMessage].joined(separator: " ")
 		}
-		if temperature > 30 {
-			return "It's quite hot today. If you decide to cycle, remember to stay hydrated."
+
+		// mildly windy weather
+		if windSpeed < 5 {
+			let temperatureMessage: String
+			if temperatureCelsius > 20 {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, making it a great day to cycle."
+			} else if temperatureCelsius > 10 {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, making it a good day to cycle."
+			} else {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, making it a cold day to cycle."
+			}
+			let windMessage = "The wind speed is \(Int(windSpeed)) m/s, which is quite mild."
+			return [temperatureMessage, windMessage].joined(separator: " ")
 		}
-		return "The weather seems good for cycling. Enjoy your ride!"
+
+		// windy weather
+		if windSpeed < 10 {
+			let temperatureMessage: String
+			if temperatureCelsius > 20 {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, which is great for cycling. However,"
+			} else if temperatureCelsius > 10 {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, which is good for cycling. However,"
+			} else {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, and"
+			}
+			
+			var windDirectionMessage = ""
+			
+			if headwindPercentage > 50 {
+				windDirectionMessage.append("\(Int(headwindPercentage))% of your ride is against the wind.")
+			}
+			if tailwindPercentage > 50 {
+				windDirectionMessage.append("\(Int(tailwindPercentage))% of your ride is with the wind.")
+			}
+			if crosswindPercentage > 50 {
+				windDirectionMessage.append("\(Int(crosswindPercentage))% of your ride is across the wind.")
+			}
+			
+			let windMessage = "the wind speed is \(Int(windSpeed)) m/s, which is not ideal for cycling. "
+			
+			return [temperatureMessage, windMessage, windDirectionMessage].joined(separator: " ")
+		}
+
+		// very windy weather
+		if windSpeed > 15 {
+			let temperatureMessage: String
+			if temperatureCelsius > 20 {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, but"
+			} else if temperatureCelsius > 10 {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, but"
+			} else {
+				temperatureMessage = "The temperature is \(Int(temperatureCelsius))°C, and"
+			}
+			let windMessage = "the wind speed is \(Int(windSpeed)) m/s, making it a bad day to cycle. "
+			
+			var windDirectionMessage = ""
+			
+			if headwindPercentage > 50 {
+				windDirectionMessage.append("\(Int(headwindPercentage))% of your ride is against the wind.")
+			}
+			if tailwindPercentage > 50 {
+				windDirectionMessage.append("\(Int(tailwindPercentage))% of your ride is with the wind.")
+			}
+			if crosswindPercentage > 50 {
+				windDirectionMessage.append("\(Int(crosswindPercentage))% of your ride is across the wind.")
+			}
+			
+			return [temperatureMessage, windMessage, windDirectionMessage].joined(separator: " ")
+		}
+
+		// this should never be reached
+		return "It is not a good day to cycle."
+		
 	}
+
+	
+	
+	
+	
+	
+	
+
 	
 	//MARK: Polyline Segment Generator
 	
