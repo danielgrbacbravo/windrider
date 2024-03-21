@@ -65,9 +65,9 @@ struct RouteConditionPreviewView: View {
 						HStack{
 							withAnimation {
 								Text("\(selectedPath?.name ?? "")")
-									.font(.title)
-									.bold()
+									.font(.headline)
 									.padding()
+									.bold()
 									.shadow(radius: 20)
 									.foregroundStyle(.primary)
 									.matchedGeometryEffect(id: "titleText", in: animation)
@@ -81,6 +81,7 @@ struct RouteConditionPreviewView: View {
 							withAnimation {
 								Text(cyclingMessage)
 									.font(.headline)
+									.fixedSize(horizontal: false, vertical: true)
 									.shadow(radius: 20)
 									.foregroundStyle(.gray)
 									.matchedGeometryEffect(id: "cyclingMessage", in: animation)
@@ -89,20 +90,23 @@ struct RouteConditionPreviewView: View {
 							.animation(.spring(duration: 2), value: cyclingMessage)
 							
 							withAnimation {
-								Text("\(cyclingScore)%")
-									.font(.largeTitle)
-									.bold()
-									.shadow(radius: 20)
-									.contentTransition(.numericText(value:  Double(cyclingScore)))
-									.matchedGeometryEffect(id: "cyclingScore", in: animation)
+								HStack{
+									Text("\(cyclingScore)").font(.system(size: 50, weight: .heavy, design: .serif)).bold().foregroundStyle(.primary)
+									+ Text("%").font(.caption).bold().foregroundStyle(.gray)
+									
+								}
+								.matchedGeometryEffect(id: "cyclingScore", in: animation)
+								.shadow(radius: 20)
+								.contentTransition(.numericText(value:  Double(cyclingScore * 100)))
 								
 							}
+							.padding()
+							.transition(.push(from: .bottom))
+							.animation(.smooth(duration: 2), value: Double(cyclingScore))
+							.sensoryFeedback(.impact, trigger: Double(cyclingScore))
 							
 						}
-						.padding()
-						.transition(.push(from: .bottom))
-						.animation(.smooth(duration: 2), value: Double(cyclingScore))
-						.sensoryFeedback(.impact, trigger: Double(cyclingScore))
+
 						
 						
 						withAnimation {
@@ -130,7 +134,7 @@ struct RouteConditionPreviewView: View {
 						HStack{
 							withAnimation {
 								Text("\(selectedPath?.name ?? "")")
-									.font(.title)
+									.font(.headline)
 									.bold()
 									.padding()
 									.shadow(radius: 20)
@@ -146,6 +150,7 @@ struct RouteConditionPreviewView: View {
 							withAnimation {
 								Text(cyclingMessage)
 									.font(.headline)
+									.fixedSize(horizontal: false, vertical: true)
 									.shadow(radius: 20)
 									.foregroundStyle(.gray)
 									.matchedGeometryEffect(id: "cyclingMessage", in: animation)
@@ -154,20 +159,22 @@ struct RouteConditionPreviewView: View {
 							.animation(.spring(duration: 2), value: cyclingMessage)
 							
 							withAnimation {
-								Text("\(cyclingScore)%")
-									.font(.largeTitle)
-									.bold()
-									.shadow(radius: 20)
-									.contentTransition(.numericText(value:  Double(cyclingScore)))
-									.matchedGeometryEffect(id: "cyclingScore", in: animation)
+								HStack{
+									Text("\(cyclingScore)").font(.system(size: 50, weight: .heavy, design: .serif)).bold().foregroundStyle(.primary)
+									+ Text("%").font(.caption).bold().foregroundStyle(.gray)
+									
+								}
+								.matchedGeometryEffect(id: "cyclingScore", in: animation)
+								.shadow(radius: 20)
+								.contentTransition(.numericText(value:  Double(cyclingScore * 100)))
 								
 							}
+							.padding()
+							.transition(.push(from: .bottom))
+							.animation(.smooth(duration: 2), value: Double(cyclingScore))
+							.sensoryFeedback(.impact, trigger: Double(cyclingScore))
 							
 						}
-						.padding()
-						.transition(.push(from: .bottom))
-						.animation(.smooth(duration: 2), value: Double(cyclingScore))
-						.sensoryFeedback(.impact, trigger: Double(cyclingScore))
 						
 						
 						HStack{
@@ -212,8 +219,8 @@ struct RouteConditionPreviewView: View {
 									Image(systemName: "arrow.right.to.line")
 								} currentValueLabel: {
 									HStack{
-										Text("\(Int(weatherImpact?.crosswindPercentage ?? 0))%").bold()
-									}.contentTransition(.numericText(value: weatherImpact?.crosswindPercentage ?? 0))
+										Text("\(Int(weatherImpact?.tailwindPercentage ?? 0))%").bold()
+									}.contentTransition(.numericText(value: weatherImpact?.tailwindPercentage ?? 0))
 									
 								}
 								.gaugeStyle(.accessoryCircular)
@@ -221,7 +228,7 @@ struct RouteConditionPreviewView: View {
 								.matchedGeometryEffect(id: "tailwindPercentageGuage", in: animation)
 							}
 							.transition(.push(from: .bottom))
-							.animation(.snappy(duration: 2), value: Double(weatherImpact?.crosswindPercentage ?? 0))
+							.animation(.snappy(duration: 2), value: Double(weatherImpact?.tailwindPercentage ?? 0))
 							
 							//headwindPercentage gauge
 							withAnimation {

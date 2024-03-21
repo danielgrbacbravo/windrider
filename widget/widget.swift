@@ -318,6 +318,7 @@ struct systemMediumWidgetView: View{
 					// cycling message
 					withAnimation {
 						Text(entry.message).font(.caption)
+							.fixedSize(horizontal: false, vertical: true)
 							.foregroundStyle(.gray)
 							.bold()
 							.shadow(radius: 20)
