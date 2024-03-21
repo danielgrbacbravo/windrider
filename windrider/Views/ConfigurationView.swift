@@ -170,25 +170,29 @@ struct ConfigurationView: View {
 			}
 			
 			.onAppear {
-				APIKey = UserDefaults.standard.string(forKey : "APIKey") ?? ""
-				upperTemperature = UserDefaults.standard.double(forKey: "upperTemperature")
-				idealTemperature = UserDefaults.standard.double(forKey: "idealTemperature")
-				upperWindSpeed = UserDefaults.standard.double(forKey: "upperWindSpeed")
-				headwindWeight = UserDefaults.standard.double(forKey: "headwindWeight")
-				crosswindWeight = UserDefaults.standard.double(forKey: "crosswindWeight")
-				tailwindWeight = UserDefaults.standard.double(forKey: "tailwindWeight")
+				guard let defaults = UserDefaults(suiteName: "group.com.daiigr.windrider") else {
+					return
+				}	
+				
+					APIKey = defaults.string(forKey : "APIKey") ?? ""
+				 upperTemperature = defaults.double(forKey: "upperTemperature")
+				 idealTemperature = defaults.double(forKey: "idealTemperature")
+				 upperWindSpeed = defaults.double(forKey: "upperWindSpeed")
+				 headwindWeight = defaults.double(forKey: "headwindWeight")
+				 tailwindWeight = defaults.double(forKey: "tailwindWeight")
+				 crosswindWeight = defaults.double(forKey: "crosswindWeight")
 			}
 			.onDisappear {
-				
-			
-				
-				UserDefaults.standard.set(APIKey , forKey: "APIKey")
-				UserDefaults.standard.set(upperTemperature, forKey: "upperTemperature")
-				UserDefaults.standard.set(idealTemperature, forKey: "idealTemperature")
-				UserDefaults.standard.set(upperWindSpeed, forKey: "upperWindSpeed")
-				UserDefaults.standard.set(headwindWeight, forKey: "headwindWeight")
-				UserDefaults.standard.set(crosswindWeight, forKey: "crosswindWeight")
-				UserDefaults.standard.set(tailwindWeight, forKey: "tailwindWeight")
+				guard let defaults = UserDefaults(suiteName: "group.com.daiigr.windrider") else {
+					return
+				}
+				defaults.set(APIKey , forKey: "APIKey")
+				defaults.set(upperTemperature, forKey: "upperTemperature")
+				defaults.set(idealTemperature, forKey: "idealTemperature")
+				defaults.set(upperWindSpeed, forKey: "upperWindSpeed")
+				defaults.set(headwindWeight, forKey: "headwindWeight")
+				defaults.set(crosswindWeight, forKey: "crosswindWeight")
+				defaults.set(tailwindWeight, forKey: "tailwindWeight")
 				cyclingScore = Int(Double( WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact!) * 100))
 			}
 		}
