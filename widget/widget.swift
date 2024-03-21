@@ -229,6 +229,7 @@ struct systemSmallWidgetView: View {
 					+ Text("%").font(.caption).bold().foregroundStyle(.gray)
 					
 				}
+				.shadow(radius: 20)
 				.contentTransition(.numericText(value:  Double(entry.cyclingScore * 100)))
 				
 				
@@ -302,6 +303,7 @@ struct systemMediumWidgetView: View{
 							+ Text("%").font(.caption).bold().foregroundStyle(.gray)
 							
 						}
+						.shadow(radius: 20)
 						.padding(.horizontal,20)
 						.contentTransition(.numericText(value:  Double(entry.cyclingScore * 100)))
 						
@@ -332,6 +334,7 @@ struct systemMediumWidgetView: View{
 				} currentValueLabel: {
 					HStack{
 						Text("\(Int(entry.windSpeed) ) m\\s").bold()
+							.shadow(radius: 15)
 					}
 					.contentTransition(.numericText(value: entry.windSpeed))
 				}
