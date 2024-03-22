@@ -46,7 +46,21 @@
 		654241F42BA730EC00AAF2D1 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F22BA730EC00AAF2D1 /* GPXFileManager.swift */; };
 		654241F62BA7540B00AAF2D1 /* EditPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F52BA7540B00AAF2D1 /* EditPathView.swift */; };
 		654241F72BA7540B00AAF2D1 /* EditPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654241F52BA7540B00AAF2D1 /* EditPathView.swift */; };
+		6569DD332BADD0280007CC23 /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569DD322BADD0280007CC23 /* LineSegment.swift */; };
+		6569DD342BADD0280007CC23 /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569DD322BADD0280007CC23 /* LineSegment.swift */; };
+		6569DD362BADE08F0007CC23 /* CoordinateImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569DD352BADE08F0007CC23 /* CoordinateImpact.swift */; };
+		6569DD372BADE08F0007CC23 /* CoordinateImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569DD352BADE08F0007CC23 /* CoordinateImpact.swift */; };
+		6569DD392BADEB090007CC23 /* PathImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569DD382BADEB090007CC23 /* PathImpact.swift */; };
+		6569DD3A2BADEB090007CC23 /* PathImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569DD382BADEB090007CC23 /* PathImpact.swift */; };
 		65F6D1172BAB91B5002A199B /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D1162BAB91B5002A199B /* ConfigurationView.swift */; };
+		65F6D1242BADC86A002A199B /* ImpactCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D1232BADC86A002A199B /* ImpactCalculator.swift */; };
+		65F6D1252BADC86A002A199B /* ImpactCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D1232BADC86A002A199B /* ImpactCalculator.swift */; };
+		65F6D1272BADC881002A199B /* ImpactVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D1262BADC881002A199B /* ImpactVisualizer.swift */; };
+		65F6D1282BADC881002A199B /* ImpactVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D1262BADC881002A199B /* ImpactVisualizer.swift */; };
+		65F6D12B2BADC8B9002A199B /* AnalysisEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D12A2BADC8B9002A199B /* AnalysisEngine.swift */; };
+		65F6D12C2BADC8B9002A199B /* AnalysisEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D12A2BADC8B9002A199B /* AnalysisEngine.swift */; };
+		65F6D1342BADCA56002A199B /* windrider.docc in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D1332BADCA56002A199B /* windrider.docc */; };
+		65F6D1352BADCA56002A199B /* windrider.docc in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D1332BADCA56002A199B /* windrider.docc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +138,14 @@
 		654241EF2BA72F8200AAF2D1 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		654241F22BA730EC00AAF2D1 /* GPXFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileManager.swift; sourceTree = "<group>"; };
 		654241F52BA7540B00AAF2D1 /* EditPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPathView.swift; sourceTree = "<group>"; };
+		6569DD322BADD0280007CC23 /* LineSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineSegment.swift; sourceTree = "<group>"; };
+		6569DD352BADE08F0007CC23 /* CoordinateImpact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateImpact.swift; sourceTree = "<group>"; };
+		6569DD382BADEB090007CC23 /* PathImpact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathImpact.swift; sourceTree = "<group>"; };
 		65F6D1162BAB91B5002A199B /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
+		65F6D1232BADC86A002A199B /* ImpactCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpactCalculator.swift; sourceTree = "<group>"; };
+		65F6D1262BADC881002A199B /* ImpactVisualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpactVisualizer.swift; sourceTree = "<group>"; };
+		65F6D12A2BADC8B9002A199B /* AnalysisEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisEngine.swift; sourceTree = "<group>"; };
+		65F6D1332BADCA56002A199B /* windrider.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = windrider.docc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,12 +210,14 @@
 			isa = PBXGroup;
 			children = (
 				650FEFCE2B97C9280080AB71 /* windriderApp.swift */,
+				65F6D1222BADC821002A199B /* WeatherAnalysis */,
 				65366F092B9B672B0005C72B /* Views */,
 				650FF0182B97D0820080AB71 /* Model */,
 				650FEFD42B97C9290080AB71 /* Assets.xcassets */,
 				650FEFD92B97C9290080AB71 /* windrider.entitlements */,
 				650FEFDA2B97C9290080AB71 /* Info.plist */,
 				650FEFD62B97C9290080AB71 /* Preview Content */,
+				65F6D1332BADCA56002A199B /* windrider.docc */,
 			);
 			path = windrider;
 			sourceTree = "<group>";
@@ -248,16 +271,18 @@
 		650FF0182B97D0820080AB71 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6569DD322BADD0280007CC23 /* LineSegment.swift */,
 				650FF0152B97CF470080AB71 /* BikeRoute.swift */,
 				650FF0192B97D0BB0080AB71 /* OpenWeatherMap.swift */,
 				65366F132B9C8E270005C72B /* CyclingPath.swift */,
-				65366F162B9C8F7A0005C72B /* WeatherImpactAnalysisEngine.swift */,
 				65366F1C2B9C8FA20005C72B /* CoordinateWeatherImpact.swift */,
 				65366F192B9C8F980005C72B /* PathWeatherImpact.swift */,
 				654241E02BA34ADF00AAF2D1 /* RecordCyclingPath.swift */,
 				654241EC2BA7057300AAF2D1 /* PathWeatherImpactEntry.swift */,
 				654241EF2BA72F8200AAF2D1 /* GPXParser.swift */,
 				654241F22BA730EC00AAF2D1 /* GPXFileManager.swift */,
+				6569DD352BADE08F0007CC23 /* CoordinateImpact.swift */,
+				6569DD382BADEB090007CC23 /* PathImpact.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -274,6 +299,17 @@
 				65F6D1162BAB91B5002A199B /* ConfigurationView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		65F6D1222BADC821002A199B /* WeatherAnalysis */ = {
+			isa = PBXGroup;
+			children = (
+				65366F162B9C8F7A0005C72B /* WeatherImpactAnalysisEngine.swift */,
+				65F6D1232BADC86A002A199B /* ImpactCalculator.swift */,
+				65F6D1262BADC881002A199B /* ImpactVisualizer.swift */,
+				65F6D12A2BADC8B9002A199B /* AnalysisEngine.swift */,
+			);
+			path = WeatherAnalysis;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,22 +473,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65F6D1272BADC881002A199B /* ImpactVisualizer.swift in Sources */,
 				654241F62BA7540B00AAF2D1 /* EditPathView.swift in Sources */,
 				65F6D1172BAB91B5002A199B /* ConfigurationView.swift in Sources */,
 				650FF01A2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
 				650FF0162B97CF470080AB71 /* BikeRoute.swift in Sources */,
 				654241F02BA72F8200AAF2D1 /* GPXParser.swift in Sources */,
+				65F6D1342BADCA56002A199B /* windrider.docc in Sources */,
+				6569DD362BADE08F0007CC23 /* CoordinateImpact.swift in Sources */,
 				65366F0D2B9B67DE0005C72B /* RouteSelectionView.swift in Sources */,
 				654241E52BA34EFF00AAF2D1 /* PathRecorderView.swift in Sources */,
 				654241ED2BA7057300AAF2D1 /* PathWeatherImpactEntry.swift in Sources */,
+				65F6D1242BADC86A002A199B /* ImpactCalculator.swift in Sources */,
 				65366F172B9C8F7A0005C72B /* WeatherImpactAnalysisEngine.swift in Sources */,
 				65366F0B2B9B67550005C72B /* RouteSelectionPreviewView.swift in Sources */,
+				6569DD392BADEB090007CC23 /* PathImpact.swift in Sources */,
 				65366F142B9C8E270005C72B /* CyclingPath.swift in Sources */,
 				654241F32BA730EC00AAF2D1 /* GPXFileManager.swift in Sources */,
 				65366F1D2B9C8FA20005C72B /* CoordinateWeatherImpact.swift in Sources */,
 				654241E12BA34ADF00AAF2D1 /* RecordCyclingPath.swift in Sources */,
 				650FEFD12B97C9280080AB71 /* ContentView.swift in Sources */,
+				6569DD332BADD0280007CC23 /* LineSegment.swift in Sources */,
 				650FEFCF2B97C9280080AB71 /* windriderApp.swift in Sources */,
+				65F6D12B2BADC8B9002A199B /* AnalysisEngine.swift in Sources */,
 				65366F052B9A52E30005C72B /* RouteConditionPreviewView.swift in Sources */,
 				65366F1A2B9C8F980005C72B /* PathWeatherImpact.swift in Sources */,
 			);
@@ -481,17 +524,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				650FF0172B97CF470080AB71 /* BikeRoute.swift in Sources */,
+				6569DD372BADE08F0007CC23 /* CoordinateImpact.swift in Sources */,
 				65366F1B2B9C8F980005C72B /* PathWeatherImpact.swift in Sources */,
 				654241F12BA72F8200AAF2D1 /* GPXParser.swift in Sources */,
+				65F6D1282BADC881002A199B /* ImpactVisualizer.swift in Sources */,
 				650FF0082B97CD480080AB71 /* widgetBundle.swift in Sources */,
 				65366F152B9C8E270005C72B /* CyclingPath.swift in Sources */,
 				650FF00A2B97CD480080AB71 /* widget.swift in Sources */,
 				654241EE2BA7057300AAF2D1 /* PathWeatherImpactEntry.swift in Sources */,
+				65F6D1252BADC86A002A199B /* ImpactCalculator.swift in Sources */,
+				65F6D12C2BADC8B9002A199B /* AnalysisEngine.swift in Sources */,
 				654241F72BA7540B00AAF2D1 /* EditPathView.swift in Sources */,
+				65F6D1352BADCA56002A199B /* windrider.docc in Sources */,
 				650FF01B2B97D0BB0080AB71 /* OpenWeatherMap.swift in Sources */,
 				65366F1E2B9C8FA20005C72B /* CoordinateWeatherImpact.swift in Sources */,
 				65366F182B9C8F7A0005C72B /* WeatherImpactAnalysisEngine.swift in Sources */,
 				654241F42BA730EC00AAF2D1 /* GPXFileManager.swift in Sources */,
+				6569DD3A2BADEB090007CC23 /* PathImpact.swift in Sources */,
+				6569DD342BADD0280007CC23 /* LineSegment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

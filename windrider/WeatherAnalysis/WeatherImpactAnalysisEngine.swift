@@ -49,15 +49,14 @@ class WeatherImpactAnalysisEngine{
 		}
 	}
 
-	/**
-	 Computes the weather impacts on coordinates based on wind direction and speed.
-
-	 - Parameters:
-		- coordinateAngles: An array of integers representing the angles of coordinates.
-		- openWeatherMapResponce: An instance of `OpenWeatherMapResponse` containing wind information.
-
-	 - Returns: An array of `CoordinateWeatherImpact` objects representing the weather impacts on each coordinate.
-	 */
+	
+	/// Computes the weather impacts on coordinates based on wind direction and speed.
+	///
+	/// - Parameters:
+	///		- coordinateAngles: An array of integers representing the angles of coordinates.
+	///		- openWeatherMapResponce: An instance of `OpenWeatherMapResponse` containing wind information.
+	///
+	///	- Returns: An array of `CoordinateWeatherImpact` objects representing the weather impacts on each coordinate.
 	static public func computeCoordinateWeatherImpacts(for coordinateAngles: [Int], with openWeatherMapResponce: OpenWeatherMapResponse ) -> [CoordinateWeatherImpact] {
 		var coordinateWeatherImpacts: [CoordinateWeatherImpact] = []
 
@@ -104,7 +103,7 @@ class WeatherImpactAnalysisEngine{
 		totalTailwindPercentage /= Double(coordinateWeatherImpacts.count)
 		/// Construct the `PathWeatherImpact` object
 		let pathWeatherImpact = PathWeatherImpact(temperature: openWeatherMapResponse.main.temp, windSpeed: openWeatherMapResponse.wind.speed, headwindPercentage: totalHeadwindPercentage, tailwindPercentage: totalTailwindPercentage, crosswindPercentage: totalCrosswindPercentage)
-
+		
 		return pathWeatherImpact
 	}
 
@@ -195,7 +194,7 @@ class WeatherImpactAnalysisEngine{
 	}
 	
 	/// Returns a string indicating whether it is a good day to cycle based on the weather impact on the path.
-	///
+	/// 
 	/// - Parameter pathWeatherImpact: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
 	/// - Returns: A string indicating whether it is a good day to cycle.
 	static public func shouldICycle(for pathWeatherImpact: PathWeatherImpact) -> String {
