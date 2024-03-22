@@ -46,7 +46,7 @@ struct ContentView: View {
 					} else if let selectedPath = selectedPath{
 						MapPolyline(coordinates: selectedPath.getCoordinates(), contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.blue)
 					}
-				}
+        }.environment(\.colorScheme, .dark)
 				VStack{
 					RouteConditionPreviewView(selectedPath: $selectedPath,
 											  weatherImpact: $weatherImpact,
