@@ -157,6 +157,53 @@ enum ImpactCalculator {
 		return 0
 		
 	}
+	
+	/// cycling score is a custom holistic score that combines the weather impact on the path.
+	///
+	/// - Parameter pathWeatherImpact: A `PathWeatherImpact` object representing the cumulative weather impact on the path.
+	/// - Returns: A double representing the weather impact on the path.
+	static public func calculateCyclingScore(for pathWeatherImpact: PathImpact) -> Float {
+		//constants used for normalization of the score
+		
+		guard let defaults = UserDefaults(suiteName: "group.com.daiigr.windrider") else {
+			return 0
+		}
+		
+		let upperTemprature: Float = Float(defaults.double(forKey: "upperTemperature"))
+		let idealTemprature: Float = Float(defaults.double(forKey: "idealTemperature"))
+		let upperWindSpeed: Float = Float(defaults.double(forKey: "upperWindSpeed"))
+	
+		// weights used
+		// TODO: make these values accessible in the config (to be implemented)
+		let headwindWeight: Float = Float(defaults.double(forKey: "headwindWeight"))
+		let tailwindWeight: Float = Float(defaults.double(forKey: "tailwindWeight"))
+		let crosswindWeight: Float = Float(defaults.double(forKey: "crosswindWeight"))
+		
+		let temperatureImpact = Float(pathWeatherImpact.temperature) - idealTemprature
+		let windSpeedImpact = pathWeatherImpact.windSpeed
+		// extract the wind direction percentages
+		var headwindPercentage: Float = Float(pathWeatherImpact.headwindPercentage)
+		var crosswindPercentage: Float = Float(pathWeatherImpact.crosswindPercentage)
+		var tailwindPercentage: Float = Float(pathWeatherImpact.tailwindPercentage)
+		// consider the wind direction percentages
+		headwindPercentage *= headwindWeight
+		crosswindPercentage *= crosswindWeight
+		tailwindPercentage *= tailwindWeight
+		let windDirectionImpact: Float = headwindPercentage - tailwindPercentage + crosswindWeight
+		let score = (temperatureImpact * windSpeedImpact) + (pow(windSpeedImpact,2)) + windDirectionImpact
+		
+		//normalization of score
+		let maxTemperatureImpact:Float = abs(upperTemprature - idealTemprature)
+		let maxWindSpeedImpact: Float = upperWindSpeed
+		let maxWindDirectionImpact: Float = 1
+		let maxScore: Float = (maxTemperatureImpact * maxWindSpeedImpact) + (pow(maxWindSpeedImpact, 2)) + maxWindDirectionImpact
+		let minScore:Float = 0.0
+		let normalizedScore = (score - minScore) / (maxScore - minScore)
+		
+		return normalizedScore
+	}
+	
+
 
 
 }
