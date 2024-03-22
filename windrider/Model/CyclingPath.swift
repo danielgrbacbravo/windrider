@@ -39,7 +39,7 @@ class CyclingPath{
     }
     
     self.coordinateAngles = CyclingPath.findNorthRelativeAngles(coordinates: coordinates ?? [])
-    
+    self.coordinateVectors = CyclingPath.calculateVectors(coordinates: coordinates ?? [])
   }
   
   //MARK: Getters/Setters
