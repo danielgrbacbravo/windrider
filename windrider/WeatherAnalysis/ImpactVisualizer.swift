@@ -12,8 +12,7 @@ import SwiftUI
 /// ImpactVisualizer is a class that provides functions to help visualize the impact of weather on a cycling path, such as constructing a polyline segment for each pair of coordinates in the cycling path.
 enum ImpactVisualizer{
   
-  //MARK: Map Related Functions
-  
+  //MARK: Map Related Functions 
   /// Constructs a polyline segment for each pair of coordinates in the cycling path
   /// - Parameters:
   ///   - coordinateImpacts: Array of CoordinateImpact objects
@@ -28,9 +27,10 @@ enum ImpactVisualizer{
     // Iterate through the coordinateWeatherImpacts and create a polyline segment for each pair of coordinates
     for i in 0..<coordinateImpacts.count {
       var color: Color = .gray
-      color = headwindPercentageToColor(coordinateImpacts[i].headwind)
       
       if i < coordinates.count - 1 {
+        var currentLength = ImpactCalculator.calculatePathLength([cyclingPath.coordinateVectors[i], cyclingPath.coordinateVectors[i+1]])
+        color = headwindPercentageToColor(coordinateImpacts[i].headwind/currentLength)
         let segmentCoordinates = [coordinates[i], coordinates[i+1]]
         let segment = PolylineSegement(CoordinateArray: segmentCoordinates, Color: color)
         polylineSegments.append(segment)
