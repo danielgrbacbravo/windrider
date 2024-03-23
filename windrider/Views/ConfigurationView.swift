@@ -193,7 +193,10 @@ struct ConfigurationView: View {
 				defaults.set(headwindWeight, forKey: "headwindWeight")
 				defaults.set(crosswindWeight, forKey: "crosswindWeight")
 				defaults.set(tailwindWeight, forKey: "tailwindWeight")
-				cyclingScore = Int(Double( WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact!) * 100))
+        guard let weatherImpact = weatherImpact else {
+          return
+        }
+        cyclingScore = Int(Double( WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact) * 100))
 			}
 		}
 	}

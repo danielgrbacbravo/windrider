@@ -29,7 +29,7 @@ enum ImpactVisualizer{
       var color: Color = .gray
       
       if i < coordinates.count - 1 {
-        var currentLength = ImpactCalculator.calculatePathLength([cyclingPath.coordinateVectors[i], cyclingPath.coordinateVectors[i+1]])
+        let currentLength = ImpactCalculator.calculatePathLength([cyclingPath.coordinateVectors[i], cyclingPath.coordinateVectors[i+1]])
         color = headwindPercentageToColor(coordinateImpacts[i].headwind/currentLength)
         let segmentCoordinates = [coordinates[i], coordinates[i+1]]
         let segment = PolylineSegement(CoordinateArray: segmentCoordinates, Color: color)
