@@ -20,23 +20,29 @@ enum ImpactVisualizer{
   /// - Returns: Array of PolylineSegement objects
   ///
   /// The polyline segments are colored based on the headwind percentage of the CoordinateImpact objects. The color is calculated using the headwindPercentageToColor function.
-  static public func constructWeatherImpactPolyline( _ coordinateImpacts: [CoordinateImpact], cyclingPath: CyclingPath) -> [PolylineSegement] {
-    var polylineSegments: [PolylineSegement] = []
-    let coordinates = cyclingPath.getCoordinates()
-    
-    // Iterate through the coordinateWeatherImpacts and create a polyline segment for each pair of coordinates
-    for i in 0..<coordinateImpacts.count {
-      var color: Color = .gray
-      
-      if i < coordinates.count - 1 {
-        let currentLength = ImpactCalculator.calculatePathLength([cyclingPath.coordinateVectors[i], cyclingPath.coordinateVectors[i+1]])
-        color = headwindPercentageToColor(coordinateImpacts[i].headwind/currentLength)
-        let segmentCoordinates = [coordinates[i], coordinates[i+1]]
-        let segment = PolylineSegement(CoordinateArray: segmentCoordinates, Color: color)
-        polylineSegments.append(segment)
+  static public func constructWeatherImpactPolyline(_ coordinateImpacts: [CoordinateImpact], cyclingPath: CyclingPath) -> [PolylineSegement] {
+      var polylineSegments: [PolylineSegement] = []
+      let coordinates = cyclingPath.getCoordinates()
+
+      // Check if the lengths of coordinateImpacts and coordinateVectors are the same
+      guard coordinateImpacts.count == cyclingPath.coordinateVectors.count else {
+          // Handle the error: the two arrays should have the same count
+          print("Error: coordinateImpacts and coordinateVectors should have the same count.")
+          return []
       }
+      
+      // Iterate through the coordinateWeatherImpacts and create a polyline segment for each pair of coordinates
+    if coordinateImpacts.count != 0 {
+      for i in 0..<coordinateImpacts.count - 1 {
+          let currentLength = ImpactCalculator.calculatePathLength([cyclingPath.coordinateVectors[i], cyclingPath.coordinateVectors[i+1]])
+          let color = headwindPercentageToColor(coordinateImpacts[i].headwind/currentLength)
+          let segmentCoordinates = [coordinates[i], coordinates[i+1]]
+          let segment = PolylineSegement(CoordinateArray: segmentCoordinates, Color: color)
+          polylineSegments.append(segment)
+      }
+      return polylineSegments
     }
-    return polylineSegments
+      return []
   }
   
   static public func headwindPercentageToColor(_ percentage: Float) -> Color {

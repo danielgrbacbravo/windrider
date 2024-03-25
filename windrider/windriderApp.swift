@@ -16,3 +16,4 @@ struct windriderApp: App {
 		}.modelContainer(for:[CyclingPath.self])
     }
 }
+

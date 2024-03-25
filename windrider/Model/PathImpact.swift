@@ -27,5 +27,15 @@ struct PathImpact{
 		self.cyclingScore = 0
 		self.cyclingMessage = ""
 	}
+  
+  init(){
+    self.headwindPercentage = 0
+    self.crosswindPercentage = 0
+    self.tailwindPercentage = 0
+    self.windSpeed = 0
+    self.temperature = 0
+    self.cyclingScore = 0
+    self.cyclingMessage = ""
+  }
 	
 }

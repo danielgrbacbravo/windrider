@@ -86,6 +86,14 @@ class CyclingPath{
     return CLLocationCoordinate2D(latitude: averageCoordinate.latitude, longitude: averageCoordinate.longitude)
   }
   
+  
+  public func getVectors() -> [SIMD2<Float>]{
+    if coordinateVectors.isEmpty{
+      coordinateVectors = CyclingPath.calculateVectors(coordinates: getCoordinates())
+    }
+    return coordinateVectors
+  }
+  
   //MARK: - Initializer methods
   
   /// Calculates the average coordinate from an array of coordinates.

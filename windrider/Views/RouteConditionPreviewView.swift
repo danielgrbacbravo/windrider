@@ -11,8 +11,9 @@ import Charts
 struct RouteConditionPreviewView: View {
   //MARK: - Properties
   @Binding var selectedPath: CyclingPath?
-  @Binding var weatherImpact: PathWeatherImpact?
-  @Binding var coordinateWeatherImpact: [CoordinateWeatherImpact]?
+  @Binding var pathImpact: PathImpact
+  @Binding var coordinateImpacts: [CoordinateImpact]
+  
   
   @Binding var cyclingScore: Int
   @Binding var cyclingMessage: String
@@ -44,25 +45,7 @@ struct RouteConditionPreviewView: View {
       }.padding()
       
       
-    } else if weatherImpact == nil{
-      //MARK: - No Fetched Dataf
-      HStack{
-        
-        Text("No Fetched Data for \(selectedPath!.name)")
-          .font(.headline)
-          .bold()
-          .padding()
-          .foregroundStyle(.primary)
-          .matchedGeometryEffect(id: "titleText", in: animation)
-        
-        Image(systemName: "arrow.clockwise")
-          .font(.headline)
-          .padding()
-          .foregroundStyle(.primary)
-      }.padding()
-        .frame(maxWidth: .infinity)
-      
-    }else {
+    } else {
       ZStack{
         if !isExpanded {
           //MARK: - Collapsed View
@@ -112,22 +95,22 @@ struct RouteConditionPreviewView: View {
               .sensoryFeedback(.impact, trigger: Double(cyclingScore))
               
             }
-
+            
             
             
             withAnimation {
-              Gauge(value: Double(weatherImpact?.windSpeed ?? 0), in: 0...15){
+              Gauge(value: Double(pathImpact.windSpeed), in: 0...15){
               } currentValueLabel: {
                 HStack{
-                  Text("\(truncateToOneDecmialPlace(weatherImpact?.windSpeed ?? 0)) m\\s").bold()
+                  Text("\(truncateToOneDecmialPlace(pathImpact.windSpeed)) m\\s").bold()
                 }
-                .contentTransition(.numericText(value: weatherImpact?.windSpeed ?? 0))
+                .contentTransition(.numericText(value: Double(pathImpact.windSpeed)))
               }
               .gaugeStyle(.accessoryLinear)
               .tint(windSpeedGradient)
             }
             .transition(.push(from: .bottom))
-            .animation(.snappy(duration: 2), value: windSpeedGradient)
+            .animation(.snappy(duration: 2), value: Double(pathImpact.windSpeed))
             .matchedGeometryEffect(id: "windSpeedGauge", in: animation)
             
           }.padding()
@@ -186,30 +169,30 @@ struct RouteConditionPreviewView: View {
             HStack{
               //temperature gauge
               withAnimation {
-                Gauge(value: Double(kelvinToCelsius(weatherImpact?.temperature ?? 0)), in: -20...40){
+                Gauge(value: Double(kelvinToCelsius(pathImpact.temperature)), in: -20...40){
                   Image(systemName: "thermometer.medium")
                 } currentValueLabel: {
                   HStack{
-                    Text("\(Int(kelvinToCelsius(weatherImpact?.temperature ?? 0)))°").bold()
-                  }.contentTransition(.numericText(value: kelvinToCelsius(weatherImpact?.temperature ?? 0)))
+                    Text("\(Int(kelvinToCelsius(pathImpact.temperature)))°").bold()
+                  }.contentTransition(.numericText(value: Double(kelvinToCelsius(pathImpact.temperature))))
                   
                 }
                 .gaugeStyle(.accessoryCircular)
                 .tint(temperatureGradient)
-                .animation(.spring(duration: 2), value: kelvinToCelsius(weatherImpact?.temperature ?? 0))
+                .animation(.spring(duration: 2), value: kelvinToCelsius(pathImpact.temperature))
                 .matchedGeometryEffect(id: "temperatureGauge", in: animation)
               }
               .transition(.push(from: .bottom))
-              .animation(.snappy(duration: 2), value: kelvinToCelsius(weatherImpact?.temperature ?? 0))
+              .animation(.snappy(duration: 2), value: kelvinToCelsius(pathImpact.temperature))
               
               //crosswindPercentage gauge
               withAnimation {
-                Gauge(value: Double(weatherImpact?.crosswindPercentage ?? 0)/100){
+                Gauge(value: Double(pathImpact.crosswindPercentage)/100){
                   Image(systemName: "arrow.down.right.and.arrow.up.left")
                 } currentValueLabel: {
                   HStack{
-                    Text("\(Int(weatherImpact?.crosswindPercentage ?? 0))%").bold()
-                  }.contentTransition(.numericText(value: weatherImpact?.crosswindPercentage ?? 0))
+                    Text("\(Int(pathImpact.crosswindPercentage))%").bold()
+                  }.contentTransition(.numericText(value: Double(pathImpact.crosswindPercentage)))
                   
                 }
                 .gaugeStyle(.accessoryCircular)
@@ -217,16 +200,16 @@ struct RouteConditionPreviewView: View {
                 .matchedGeometryEffect(id: "crosswindPercentageGauge", in: animation)
               }
               .transition(.push(from: .bottom))
-              .animation(.snappy(duration: 2), value: Double(weatherImpact?.crosswindPercentage ?? 0))
+              .animation(.snappy(duration: 2), value: Double(pathImpact.crosswindPercentage))
               
               //tailwindPercentage gauge
               withAnimation {
-                Gauge(value: Double(weatherImpact?.tailwindPercentage ?? 0)/100){
+                Gauge(value: Double(pathImpact.tailwindPercentage)/100){
                   Image(systemName: "arrow.right.to.line")
                 } currentValueLabel: {
                   HStack{
-                    Text("\(Int(weatherImpact?.tailwindPercentage ?? 0))%").bold()
-                  }.contentTransition(.numericText(value: weatherImpact?.tailwindPercentage ?? 0))
+                    Text("\(Int(pathImpact.tailwindPercentage))%").bold()
+                  }.contentTransition(.numericText(value: Double(pathImpact.tailwindPercentage)))
                   
                 }
                 .gaugeStyle(.accessoryCircular)
@@ -234,16 +217,16 @@ struct RouteConditionPreviewView: View {
                 .matchedGeometryEffect(id: "tailwindPercentageGuage", in: animation)
               }
               .transition(.push(from: .bottom))
-              .animation(.snappy(duration: 2), value: Double(weatherImpact?.tailwindPercentage ?? 0))
+              .animation(.snappy(duration: 2), value: Double(pathImpact.tailwindPercentage))
               
               //headwindPercentage gauge
               withAnimation {
-                Gauge(value: Double(weatherImpact?.headwindPercentage ?? 0)/100){
+                Gauge(value: Double(pathImpact.headwindPercentage)/100){
                   Image(systemName: "arrow.left.to.line")
                 } currentValueLabel: {
                   HStack{
-                    Text("\(Int(weatherImpact?.headwindPercentage ?? 0))%").bold()
-                  }.contentTransition(.numericText(value: weatherImpact?.headwindPercentage ?? 0))
+                    Text("\(Int(pathImpact.headwindPercentage))%").bold()
+                  }.contentTransition(.numericText(value: Double(pathImpact.headwindPercentage)))
                   
                 }
                 .gaugeStyle(.accessoryCircular)
@@ -251,17 +234,17 @@ struct RouteConditionPreviewView: View {
                 .matchedGeometryEffect(id: "headwindPercentageGuage", in: animation)
               }
               .transition(.push(from: .bottom))
-              .animation(.snappy(duration: 2), value: Double(weatherImpact?.headwindPercentage ?? 0))
+              .animation(.snappy(duration: 2), value: Double(pathImpact.headwindPercentage))
               
             }
             
             withAnimation {
-              Gauge(value: Double(weatherImpact?.windSpeed ?? 0), in: 0...15){
+              Gauge(value: Double(pathImpact.windSpeed), in: 0...15){
               } currentValueLabel: {
                 HStack{
-                  Text("\(truncateToOneDecmialPlace(weatherImpact?.windSpeed ?? 0)) m\\s").bold()
+                  Text("\(truncateToOneDecmialPlace(pathImpact.windSpeed)) m\\s").bold()
                 }
-                .contentTransition(.numericText(value: weatherImpact?.windSpeed ?? 0))
+                .contentTransition(.numericText(value: Double(pathImpact.windSpeed)))
               }
               .gaugeStyle(.accessoryLinear)
               .tint(windSpeedGradient)
@@ -269,58 +252,25 @@ struct RouteConditionPreviewView: View {
             .matchedGeometryEffect(id: "windSpeedGauge", in: animation)
             .transition(.push(from: .bottom))
             .animation(.snappy(duration: 2), value: windSpeedGradient)
-  
-          
-          
-        Text("Headwinds")
-          .font(.headline)
-          .bold()
-          .padding()
-          .shadow(radius: 20)
-          .foregroundStyle(.primary)
-          .matchedGeometryEffect(id: "headwindsText", in: animation)
-          .frame(maxWidth: .infinity, alignment: .leading)
-        
-        Chart{
-          ForEach(Array(coordinateWeatherImpact!.enumerated()), id: \.offset){ index, object in
-            
-            LineMark(x: .value("Coordinate", index), y: .value("Percentage", object.headwindPercentage ?? 0))
-              .interpolationMethod(.catmullRom)
-              .lineStyle(StrokeStyle(lineWidth: 2))
-              .foregroundStyle(.gray)
-          }
+          }.padding()
         }
-        .chartYAxis {
-          AxisMarks(
-            format: Decimal.FormatStyle.Percent.percent.scale(1),
-            values: [0, 50, 100]
-          )
+      }.onTapGesture {
+        withAnimation {
+          cyclingScore = Int(ImpactCalculator.calculateCyclingScore(for: pathImpact))
+          isExpanded.toggle()
+          
         }
-        .padding()
-        .frame(height: 200)
-        
-        
-        
-        
-      }.padding()
-    }
-  }.onTapGesture {
-    withAnimation {
-      cyclingScore = Int(Double( WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact!) * 100))
-      isExpanded.toggle()
-      
+      }
     }
   }
 }
-}
-}
 
 //MARK: - Functions
-public func truncateToOneDecmialPlace(_ value: Double) -> String {
+public func truncateToOneDecmialPlace(_ value: Float) -> String {
   return String(format: "%.1f", value)
 }
 /// given some
-public func kelvinToCelsius(_ kelvin: Double) -> Double {
+public func kelvinToCelsius(_ kelvin: Float) -> Float{
   return kelvin - 273.15
 }
 

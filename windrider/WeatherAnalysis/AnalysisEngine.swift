@@ -34,7 +34,7 @@ enum AnalysisEngine {
   ///  }
   ///  ```
   /// The function will return an array of CoordinateWeatherImpact objects and a PathWeatherImpact object.
-  public func analyseImpact(for cyclingPath: CyclingPath, with openWeatherMapAPI: OpenWeatherMapAPI, completion: @escaping (Result<([CoordinateImpact], PathImpact), Error>) -> Void){
+  static public func analyseImpact(for cyclingPath: CyclingPath, with openWeatherMapAPI: OpenWeatherMapAPI, completion: @escaping (Result<([CoordinateImpact], PathImpact), Error>) -> Void){
     /// checks if the average coordinate is valid
     guard let averageCoordinate = cyclingPath.getAverageCoordinate() else {
       completion(.failure(AnalysisEngineError.invalidAverageCoordinate))
@@ -45,7 +45,9 @@ enum AnalysisEngine {
       switch result{
         case .success(let response):
           let coordinateImpacts = ImpactCalculator.calculateWeatherImpactOnCoordinates(cyclingPath.coordinateVectors, with: response)
-          var pathImpact = ImpactCalculator.calculateWeatherImpactOnPath(coordinateImpacts, coordinateVectors: cyclingPath.coordinateVectors)
+          var pathImpact = ImpactCalculator.calculateWeatherImpactOnPath(coordinateImpacts, coordinateVectors: cyclingPath.getVectors())
+          pathImpact.temperature = Float(response.main.temp)
+          pathImpact.windSpeed = Float(response.wind.speed)
           pathImpact.cyclingScore = ImpactCalculator.calculateCyclingScore(for: pathImpact)
           pathImpact.cyclingMessage = ImpactVisualizer.constructCyclingMessage(for: pathImpact)
           completion(.success((coordinateImpacts, pathImpact)))

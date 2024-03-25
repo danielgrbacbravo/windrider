@@ -31,6 +31,9 @@ struct ContentView: View {
   
   @State var cyclingScore: Int = 0
   @State var cyclingMessage: String = ""
+ 
+  @State var pathImpact: PathImpact = PathImpact()
+  @State var coordinateImpacts: [CoordinateImpact] = []
   
   var body: some View {
     ZStack {
@@ -49,8 +52,8 @@ struct ContentView: View {
         }.environment(\.colorScheme, .dark)
         VStack{
           RouteConditionPreviewView(selectedPath: $selectedPath,
-                                    weatherImpact: $weatherImpact,
-                                    coordinateWeatherImpact: $coordinateWeatherImpact,
+                                    pathImpact: $pathImpact,
+                                    coordinateImpacts: $coordinateImpacts,
                                     cyclingScore: $cyclingScore,
                                     cyclingMessage: $cyclingMessage,
                                     isFetching: $isFetching)
@@ -118,26 +121,22 @@ struct ContentView: View {
                 return
               }
               let apikey = defaults.string(forKey: "APIKey") ?? ""
-              let engine = WeatherImpactAnalysisEngine()
-              engine.analyseImpact(for: selectedPath, with: OpenWeatherMapAPI(openWeatherMapAPIKey: apikey)) { result in
+              AnalysisEngine.analyseImpact(for: selectedPath, with: OpenWeatherMapAPI(openWeatherMapAPIKey: apikey)){ result  in
                 switch result{
                   case .success(let response):
-                    coordinateWeatherImpact = response.0
-                    weatherImpact = response.1
+                    coordinateImpacts = response.0
+                    pathImpact = response.1
                     
-                    cyclingScore = Int(Double( WeatherImpactAnalysisEngine.computeCyclingScore(for: weatherImpact!) * 100))
-                    cyclingMessage = WeatherImpactAnalysisEngine.shouldICycle(for: weatherImpact!)
-                    // create polyline segments
-                    polylineSegements = WeatherImpactAnalysisEngine.constructWeatherImpactPolyline(coordinateWeatherImpacts: coordinateWeatherImpact!, cyclingPath: selectedPath)
+                    cyclingScore = ImpactCalculator.calculateCyclingScore(for: pathImpact)
+                    cyclingMessage = ImpactVisualizer.constructCyclingMessage(for: pathImpact)
                     
-                    isFetching = false
-                  case .failure(_):
-                    isFetching = false
+                    polylineSegements = ImpactVisualizer.constructWeatherImpactPolyline(coordinateImpacts, cyclingPath: selectedPath)
+                   // create polyline segments
+                  case .failure(let error):
                     return
-                    
-                    
                 }
               }
+
             }
           
           Image(systemName: "gearshape")
@@ -147,7 +146,7 @@ struct ContentView: View {
             .onTapGesture {
               isSettingsViewPresented.toggle()
             }.sheet(isPresented: $isSettingsViewPresented, content: {
-              ConfigurationView(cyclingScore: $cyclingScore, weatherImpact: $weatherImpact)
+              ConfigurationView(cyclingScore: $cyclingScore, pathImpact: $pathImpact)
             })
         }
         .background(.ultraThickMaterial)

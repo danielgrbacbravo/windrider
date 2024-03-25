@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import OSLog
 ///  this enum provides a set of functions to calculate the impact of weather conditions on a set of coordinates. The function uses the wind direction from an ``OpenWeatherMapResponse`` to calculate the headwind, crosswind, and tailwind for each coordinate in a given array of 2D vectors (coordinates). The impacts are returned as an array of ``CoordinateImpact`` objects.
 enum ImpactCalculator {
   
@@ -62,25 +62,33 @@ enum ImpactCalculator {
   /// ```
   /// In this example, the function calculates the impact of weather conditions on two coordinates (1, 0) and (0, 1) with a wind direction of 90 degrees. The headwind, crosswind, and tailwind values are calculated based on the wind direction and returned as an array of ``CoordinateImpact`` objects. The function then calculates the overall impact of weather conditions on the path and returns a ``PathImpact`` object.
   static public func calculateWeatherImpactOnPath(_ coordinateImpacts: [CoordinateImpact],  coordinateVectors: [SIMD2<Float>]) -> PathImpact {
-    
-    var headwindSum: Float = 0
-    var crosswindSum: Float = 0
-    var tailwindSum: Float = 0
-    
-    for coordinateImpact in coordinateImpacts {
-      headwindSum += coordinateImpact.headwind
-      crosswindSum += coordinateImpact.crosswind
-      tailwindSum += coordinateImpact.tailwind
-    }
-    
-    let totalPathLength = calculatePathLength(coordinateVectors)
-    
-    let headwindPercentage = Int(headwindSum/totalPathLength)
-    let crosswindPercentage = Int(crosswindSum/totalPathLength)
-    let tailwindPercentage = Int(tailwindSum/totalPathLength)
-    
-    return PathImpact(headwindPercentage: headwindPercentage, crosswindPercentage: crosswindPercentage, tailwindPercentage: tailwindPercentage)
-    
+      let logger = Logger(subsystem: "com.daiigr.windrider", category: "calculateWeatherImpactOnPath")
+      var headwindSum: Float = 0
+      var crosswindSum: Float = 0
+      var tailwindSum: Float = 0
+      
+      for coordinateImpact in coordinateImpacts {
+          headwindSum += coordinateImpact.headwind
+          crosswindSum += coordinateImpact.crosswind
+          tailwindSum += coordinateImpact.tailwind
+      }
+      logger.info("headwindSum: \(headwindSum) | crosswindSum: \(crosswindSum) | tailwindSum: \(tailwindSum)")
+      
+      let totalWindSum = headwindSum + crosswindSum + tailwindSum
+      logger.info("total wind sum: \(totalWindSum)")
+      
+      guard totalWindSum.isNormal && totalWindSum != 0 else {
+          logger.error("total wind sum is not normal or is zero")
+          return PathImpact(headwindPercentage: 0, crosswindPercentage: 0, tailwindPercentage: 0)
+      }
+      
+      let headwindPercentage = headwindSum.isNormal ? Int((headwindSum/totalWindSum) * 100) : 0
+      let crosswindPercentage = crosswindSum.isNormal ? Int((crosswindSum/totalWindSum) * 100) : 0
+      let tailwindPercentage = tailwindSum.isNormal ? Int((tailwindSum/totalWindSum) * 100) : 0
+
+      logger.info("headwindPercentage: \(headwindPercentage) | crosswindPercentage: \(crosswindPercentage) | tailwindPercentage: \(tailwindPercentage)")
+      
+      return PathImpact(headwindPercentage: headwindPercentage, crosswindPercentage: crosswindPercentage, tailwindPercentage: tailwindPercentage)
   }
   
   
