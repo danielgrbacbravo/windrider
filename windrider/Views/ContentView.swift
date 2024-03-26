@@ -31,7 +31,7 @@ struct ContentView: View {
   
   @State var cyclingScore: Int = 0
   @State var cyclingMessage: String = ""
- 
+  
   @State var pathImpact: PathImpact = PathImpact()
   @State var coordinateImpacts: [CoordinateImpact] = []
   
@@ -40,32 +40,72 @@ struct ContentView: View {
       // Map view as the base layer
       if !paths.isEmpty{
         // there is a selected path
-        Map {
-          if let polylineSegements = polylineSegements {
-            ForEach(Array(polylineSegements.enumerated()), id: \.offset) { index , object in
-              MapPolyline(coordinates: object.coordinateArray, contourStyle:
-                  .geodesic).stroke(lineWidth: 3).stroke(object.color)
+        if polylineSegements != nil{
+          Map {
+            if let polylineSegements = polylineSegements {
+              ForEach(Array(polylineSegements.enumerated()), id: \.offset) { index , object in
+                MapPolyline(coordinates: object.coordinateArray, contourStyle:
+                    .geodesic).stroke(lineWidth: 3).stroke(object.color)
+              }
             }
-          } else if let selectedPath = selectedPath{
-            MapPolyline(coordinates: selectedPath.getCoordinates(), contourStyle: .geodesic).stroke(lineWidth: 3).stroke(Color.blue)
-          }
-        }.environment(\.colorScheme, .dark)
-        VStack{
-          RouteConditionPreviewView(selectedPath: $selectedPath,
-                                    pathImpact: $pathImpact,
-                                    coordinateImpacts: $coordinateImpacts,
-                                    cyclingScore: $cyclingScore,
-                                    cyclingMessage: $cyclingMessage,
-                                    isFetching: $isFetching)
+          }.environment(\.colorScheme, .dark)
           
-          .padding(.vertical, 30)
-          .background(.ultraThickMaterial)
-          .clipShape(RoundedRectangle(cornerRadius: 25.0))
-          .zIndex(1) // Ensure it stays on top
-          .ignoresSafeArea()
-          Spacer()
+          VStack{
+            RouteConditionPreviewView(selectedPath: $selectedPath,
+                                      pathImpact: $pathImpact,
+                                      coordinateImpacts: $coordinateImpacts,
+                                      cyclingScore: $cyclingScore,
+                                      cyclingMessage: $cyclingMessage,
+                                      isFetching: $isFetching)
+            
+            .padding(.vertical, 30)
+            .background(.ultraThickMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 25.0))
+            .zIndex(1) // Ensure it stays on top
+            .ignoresSafeArea()
+            Spacer()
+          }
+          
+        } else  {
+          VStack{
+            ContentUnavailableView{
+              Label("No Weather Data Pulled",systemImage: "icloud.and.arrow.down")
+            } description:{
+              Text("Pull the Latest Weather Data")
+            } actions:{
+              Button("Pull Data"){
+                guard let selectedPath = selectedPath else {
+                  isFetching = false
+                  return
+                }
+                guard let defaults = UserDefaults(suiteName: "group.com.daiigr.windrider") else {
+                  isFetching = false
+                  return
+                }
+                let apikey = defaults.string(forKey: "APIKey") ?? ""
+                AnalysisEngine.analyseImpact(for: selectedPath, with: OpenWeatherMapAPI(openWeatherMapAPIKey: apikey)){ result  in
+                  switch result{
+                    case .success(let response):
+                      coordinateImpacts = response.0
+                      pathImpact = response.1
+                      
+                      cyclingScore = ImpactCalculator.calculateCyclingScore(for: pathImpact)
+                      cyclingMessage = ImpactVisualizer.constructCyclingMessage(for: pathImpact)
+                      
+                      polylineSegements = ImpactVisualizer.constructWeatherImpactPolyline(coordinateImpacts, cyclingPath: selectedPath)
+                      // create polyline segments
+                    case .failure(let error):
+                      return
+                  }
+                }
+              }.buttonStyle(.bordered)
+            }
+          }
         }
-      } else {
+        
+        
+
+      }   else {
         VStack{
           ContentUnavailableView{
             Label("you don't have any routes",systemImage: "bicycle")
@@ -131,12 +171,12 @@ struct ContentView: View {
                     cyclingMessage = ImpactVisualizer.constructCyclingMessage(for: pathImpact)
                     
                     polylineSegements = ImpactVisualizer.constructWeatherImpactPolyline(coordinateImpacts, cyclingPath: selectedPath)
-                   // create polyline segments
+                    // create polyline segments
                   case .failure(let error):
                     return
                 }
               }
-
+              
             }
           
           Image(systemName: "gearshape")
