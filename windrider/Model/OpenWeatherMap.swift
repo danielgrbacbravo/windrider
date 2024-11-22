@@ -1,5 +1,3 @@
-//
-//  OpenWeatherMap.swift
 //  windrider
 //
 //  Created by Daniel Grbac Bravo on 05/03/2024.
